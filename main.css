@@ -38,365 +38,371 @@ table {
 
 
 :root {
-    --orange: rgb(243,143,101);
-    --red: rgb(243,104,92);
-    --yellow: rgb(247,203,133);
-    --beige: rgb(234,215,194);
-    --tan: rgb(236,189,138);
-    --brown: rgb(84,45,43);
-    --navy: rgb(0,44,45);
-    --blue: rgb(21,89,96);
-    --lightblue: rgb(63,115,112);
+  --orange: rgb(243,143,101);
+  --red: rgb(243,104,92);
+  --yellow: rgb(247,203,133);
+  --beige: rgb(234,215,194);
+  --tan: rgb(236,189,138);
+  --brown: rgb(84,45,43);
+  --navy: rgb(0,44,45);
+  --blue: rgb(21,89,96);
+  --lightblue: rgb(63,115,112);
 
-    --mini-text-shadow: 
-        1px 1px 0 rgb(75,35,35),
-        -0px -2px 1px rgba(235,125,125,0.7),
-        -1px -1px 0 rgb(195,85,85),
-        -2px -2px 0 rgb(185,75,75),
-        -1px 0 0 rgb(145,60,60),
-        -2px -1px 0 rgb(145,60,60),
-        -3px -2px 0 rgb(145,60,60),
-        2px 3px 7px rgb(35,35,35);
+  --mini-text-shadow: 
+    1px 1px 0 rgb(75,35,35),
+    -0px -2px 1px rgba(235,125,125,0.7),
+    -1px -1px 0 rgb(195,85,85),
+    -2px -2px 0 rgb(185,75,75),
+    -1px 0 0 rgb(145,60,60),
+    -2px -1px 0 rgb(145,60,60),
+    -3px -2px 0 rgb(145,60,60),
+    2px 3px 7px rgb(35,35,35);
 }
 
 html {
-    background-color: var(--red);
-    background-attachment: fixed;
-    background-size: cover;
-    background-image: linear-gradient(to top right, var(--red), var(--yellow));
-    display: block;
-    height: 100%;
-    overflow: auto;
+  background-color: var(--red);
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: linear-gradient(to top right, var(--red), var(--yellow));
+  display: block;
+  height: 100%;
+  overflow: auto;
 }
 
 body {
-    background-color: transparent;
-    font: normal normal normal 1.0rem/1.2rem 'Tahoma';
-    display: block;
-    min-height: 100vh;
+  background-color: transparent;
+  font: normal normal normal 1.0rem/1.2rem 'Tahoma';
+  display: block;
+  min-height: 100vh;
 }
 
 button {
-    font: normal normal bold 1.0rem/1.2rem 'Tahoma';
-    background-color: rgb(255,255,255);
-    background-image: linear-gradient(to top right, rgb(214,214,214), rgb(255,255,255));
-    border: 1px solid rgb(244,244,244);
-    color: var(--navy);
-    box-shadow: -2px 2px 5px -3px rgb(30,30,30);
-    margin-bottom: 2px;
-    margin-top: 0px;
+  font: normal normal bold 1.0rem/1.2rem 'Tahoma';
+  background-color: rgb(255,255,255);
+  background-image: linear-gradient(to top right, rgb(214,214,214), rgb(255,255,255));
+  border: 1px solid rgb(244,244,244);
+  color: var(--navy);
+  box-shadow: -2px 2px 5px -3px rgb(30,30,30);
+  margin-bottom: 2px;
+  margin-top: 0px;
 }
 
 button:active {
-    background-color: rgb(214,214,214);
-    box-shadow: 0px 1px 5px -3px rgb(30,30,30);
-    margin-top: 2px;
-    margin-bottom: 0;
+  background-color: rgb(214,214,214);
+  box-shadow: 0px 1px 5px -3px rgb(30,30,30);
+  margin-top: 2px;
+  margin-bottom: 0;
 }
 
 button:focus {outline: 0;}
 
 a {
-    text-decoration: none;
-    transition: all 0.2s;
-    font: inherit;
-    font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s;
+  font: inherit;
+  font-weight: bold;
 }
 
 a:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-/*______navbar begin______*/
+/**********************************/
+/**********navbar begin************/
+/**********************************/
 
 nav.navbar {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: minmax(55px, 55px) minmax(auto, auto) minmax(110px, 110px);
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    padding: 0 5px;
-    background: var(--orange);
-    background-image: linear-gradient(to top right, var(--orange), var(--yellow));
-    box-shadow: 0 0 4px -1px rgb(0,0,0)/* ,
-    0 0 150px 150px var(--orange)*/; 
-    z-index: 2;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: minmax(55px, 55px) minmax(auto, auto) minmax(110px, 110px);
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  padding: 0 5px;
+  background: var(--orange);
+  background-image: linear-gradient(to top right, var(--orange), var(--yellow));
+  box-shadow: 0 0 4px -1px rgb(0,0,0)/* ,
+  0 0 150px 150px var(--orange)*/; 
+  z-index: 2;
 }
 
 @media (min-width: 750px) {
-    nav.navbar {
-        top: 0;
-    }
+  nav.navbar {
+    top: 0;
+  }
 }
 
 nav.navbar a,
 #navList a {
-    color: var(--navy);
-    text-shadow: 0 1px 0 var(--navy);
+  color: var(--navy);
+  text-shadow: 0 1px 0 var(--navy);
 }
 
 nav.navbar a:hover,
 #navList a:hover {
-    color: var(--lightblue);
+  color: var(--lightblue);
 }
 
 #navbarSupportedContent{
-    display: grid;
-    grid-auto-flow: column;
+  display: grid;
+  grid-auto-flow: column;
 }
 
 #searchForm {
-    display: grid;
-    grid-auto-flow: column;
-    align-items: stretch;
-    justify-content: stretch;
-    box-shadow: 0 0 5px 2px var(--orange),
-                inset -1px 1px 8px -2px rgb(30,30,30);
-    border-radius: 10px;
-    transition: box-shadow 0.3s, width 0.7s ease-out;
-    background-color: rgb(234,234,234);
-    background-image: radial-gradient(rgb(255,255,255), rgb(234,234,234));
+  display: grid;
+  grid-auto-flow: column;
+  align-items: stretch;
+  justify-content: stretch;
+  box-shadow: 0 0 5px 2px var(--orange),
+              inset -1px 1px 8px -2px rgb(30,30,30);
+  border-radius: 10px;
+  transition: box-shadow 0.3s, width 0.7s ease-out;
+  background-color: rgb(234,234,234);
+  background-image: radial-gradient(rgb(255,255,255), rgb(234,234,234));
 }
 
 #searchForm:hover,
 #searchForm.hover {
-    box-shadow: 0px 1px 6px -3px rgb(50,50,50),
-    inset 1px -2px 4px -3px rgb(50,50,50);
-    outline: 0;
+  box-shadow: 0px 1px 6px -3px rgb(50,50,50),
+  inset 1px -2px 4px -3px rgb(50,50,50);
+  outline: 0;
 }
 
 nav.navbar button,
 #loginModal button,
 #searchForm input[type=text] {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 10px;
-    border: 0;
-    font-size: 0.8rem;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 0.8rem;
 }
 
 #searchForm input[type=text] {
-    border-radius: 10px;
-    border-bottom-right-radius: 0;
-    border-top-right-radius:0; 
-    width: 35px;
-    transition: all 0.2s ease-out;
-    background-color: transparent;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius:0; 
+  width: 35px;
+  transition: all 0.2s ease-out;
+  background-color: transparent;
 }
 
 #searchForm button {
-    border-bottom-left-radius: 0;
-    border-top-left-radius:0; 
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/ca/VisualEditor_-_Icon_-_Search.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    padding: 12px;
-    background-color: transparent;
-    border-left: 1px solid grey;
+  border-bottom-left-radius: 0;
+  border-top-left-radius:0; 
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/ca/VisualEditor_-_Icon_-_Search.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 12px;
+  background-color: transparent;
+  border-left: 1px solid grey;
 }
 
 #loginModalButtonHolder {
-    justify-self: center;
+  justify-self: center;
 }
 
 #loginModalButton {
-    position: relative;
-    display: flex;
-    max-width: 115px;
-    background-color: var(--beige);
-    background-image: linear-gradient(to top right, rgb(214,214,214), rgb(255,255,255));
-    border: 0px solid rgb(244,244,244);
-    color: var(--navy);
-    box-shadow: -2px 2px 5px -3px rgb(30,30,30);
+  position: relative;
+  display: flex;
+  max-width: 115px;
+  background-color: var(--beige);
+  background-image: linear-gradient(to top right, rgb(214,214,214), rgb(255,255,255));
+  border: 0px solid rgb(244,244,244);
+  color: var(--navy);
+  box-shadow: -2px 2px 5px -3px rgb(30,30,30);
 }
 
 #loginModalButton:active {
-    box-shadow: 0px 1px 5px -3px rgb(30,30,30);
-    margin-top: 2px;
+  box-shadow: 0px 1px 5px -3px rgb(30,30,30);
+  margin-top: 2px;
 }
 
 #loginModalButton:focus {
-    outline: 0;
+  outline: 0;
 }
 
 #searchForm input[type=text]:active,
 #searchForm input[type=text]:focus {
-    width: 230px;
-    outline: 0;
+  width: 230px;
+  outline: 0;
 }
 
 #toggleLogin {
-    padding: 5px 10px;
+  padding: 5px 10px;
 }
 
 
 .navbar-toggler {
-    display: none! important;
+  display: none! important;
 }
 
-/*______navbar end______*/
+/**********************************/
+/***********navbar end*************/
+/**********************************/
+/**********navbar begin************/
+/**********************************/
 
 
 .container {
-    width: 100%;
-    padding: 0px;
+  width: 100%;
+  padding: 0px;
 }
 
 #homeboy {
-    display: grid;
-    padding: 0;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    border: 0px dashed yellow;
-    min-height: 100vh;
+  display: grid;
+  padding: 0;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  border: 0px dashed yellow;
+  min-height: 100vh;
 }
 
 .image_upload_box {position:relative;
-    margin-top: 50px;}
+  margin-top: 50px;}
     
 #homeModule {
-    text-align: center;
+  text-align: center;
 }
 
 #homeModule h4 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
     
 #homeModule img {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 #postsModule {
-    display: grid;    
-    grid-auto-flow: row;
-    justify-items: center;
-    padding: 20px;
-    border: 0px dashed purple;
-    align-items: start;
-    align-content: start;
+  display: grid;    
+  grid-auto-flow: row;
+  justify-items: center;
+  padding: 20px;
+  border: 0px dashed purple;
+  align-items: start;
+  align-content: start;
 }
 
 .postBox {
-    display: grid;
-    width: 100%;
-    justify-items: center;
-    align-items: center;
-    border-radius: 5px;
-    padding: 0px;
-    border: 0px dashed red;
-    margin: 10px;
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0px;
+  border: 0px dashed red;
+  margin: 10px;
 }
 
 .postBox > textarea {
-    display: block;
-    height: 2.8rem;
-    width: inherit;
-    border-radius: 5px;
-    background-color: rgb(234,234,234);
-    background-image: radial-gradient(rgb(255,255,255), rgb(234,234,234));
-    padding: 10px;
-    transition: all 0.5s ease-in-out;
-    box-sizing: border-box;
-    box-shadow: inset -1px 1px 8px -2px rgb(30,30,30);
+  display: block;
+  height: 2.8rem;
+  width: inherit;
+  border-radius: 5px;
+  background-color: rgb(234,234,234);
+  background-image: radial-gradient(rgb(255,255,255), rgb(234,234,234));
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  box-sizing: border-box;
+  box-shadow: inset -1px 1px 8px -2px rgb(30,30,30);
 }
 
 .postBox > textarea:focus {
-    height: 200px;
+  height: 200px;
 }
 
 #navList {
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    padding: 15px;
-    margin: 10px;
-    background-color: var(--beige);
-    box-shadow: 0 0 5px -2px rgb(0,0,0);
-    border: 0px dashed lightblue;
-    height: 50px;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  margin: 10px;
+  background-color: var(--beige);
+  box-shadow: 0 0 5px -2px rgb(0,0,0);
+  border: 0px dashed lightblue;
+  height: 50px;
 }
 
 @media(min-width:750px){
-    #postsModule {
-      margin-top: 50px;
-    }
-    #homeModule {
-      padding-top:50px;
-    }
+  #postsModule {
+    margin-top: 50px;
+  }
+  #homeModule {
+    padding-top:50px;
+  }
 }
 
 #postContainer {
-    display: grid;
-    background-color: var(--navy);
-    border-radius: 5px;
-    border: 2px solid var(--tan);
-    width: 100%;
-    padding: 15px;
-    box-shadow: inset 0 0 10px 0px rgb(0,0,0),
-    inset -1px 1px 20px 0px rgba(123,195,190,0.8),
-    0 0 20px 0 rgba(123,195,190,0.8);
-    margin: 10px;
-    align-items: start;
-    align-self: start;
+  display: grid;
+  background-color: var(--navy);
+  border-radius: 5px;
+  border: 2px solid var(--tan);
+  width: 100%;
+  padding: 15px;
+  box-shadow: inset 0 0 10px 0px rgb(0,0,0),
+      inset -1px 1px 20px 0px rgba(123,195,190,0.8),
+      0 0 20px 0 rgba(123,195,190,0.8);
+  margin: 10px;
+  align-items: start;
+  align-self: start;
 }
 
 #postContainer h2 {
-    font-weight: bold;
-    font-size: 1.5rem;
-    line-height: 2.0rem;
-    letter-spacing: 0.1rem;
-    padding: 5px 10px;
-    color: var(--lightblue);
-    text-shadow:  1px -1px 0 rgb(123,195,190),
-    -1px 1px 3px rgb(0,0,0);
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 2.0rem;
+  letter-spacing: 0.1rem;
+  padding: 5px 10px;
+  color: var(--lightblue);
+  text-shadow:  1px -1px 0 rgb(123,195,190),
+  -1px 1px 3px rgb(0,0,0);
 }
 
 .tweet {
-    border: 1px solid var(--lightblue);
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-    background-color: transparent;
-    box-shadow: 0 1px 8px -2px rgb(5,5,5);
-    color: var(--beige);
-    background-color: var(--navy);
-    background-image: linear-gradient(to top right, rgba(0,44,45,0.0), rgba(100,234,234,0.2));
+  border: 1px solid var(--lightblue);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  background-color: transparent;
+  box-shadow: 0 1px 8px -2px rgb(5,5,5);
+  color: var(--beige);
+  background-color: var(--navy);
+  background-image: linear-gradient(to top right, rgba(0,44,45,0.0), rgba(100,234,234,0.2));
 }
 
 .tweet a {
-    color: var(--lightblue);
-    text-shadow: 1px -1px 0 rgb(123,195,190),
-                -1px 1px 3px rgb(0,0,0);
-    font-weight: normal;
+  color: var(--lightblue);
+  text-shadow: 1px -1px 0 rgb(123,195,190),
+              -1px 1px 3px rgb(0,0,0);
+  font-weight: normal;
 }
 
 a.userlink {
-    font-weight: bold;
-    font-size: 1.1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .time {
-    color: rgb(185,185,185);
+  color: rgb(185,185,185);
 }
 
 .tweet .tweetContent {
-    padding: 20px 10px;
-    text-shadow: -1px 1px 1px rgb(0,0,0);
+  padding: 20px 10px;
+  text-shadow: -1px 1px 1px rgb(0,0,0);
 }
 
 #loginAlert,
 #postSuccess,
 #postFail {
-    display: none;
+  display: none;
 }
 
 #tweetSuccess{
@@ -408,155 +414,155 @@ a.userlink {
 }
 
 footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    color: var(--yellow);
-    background-color: var(--navy);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  color: var(--yellow);
+  background-color: var(--navy);
 }
 
-/*______login modal begin______*/
+/**********************************/
+/********login modal begin*********/
+/**********************************/
 
 .mod {
-    display: none;
-    align-content: center;
-    position: fixed;
-    z-index: 1;
-    margin: 0;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+  display: none;
+  align-content: center;
+  position: fixed;
+  z-index: 1;
+  margin: 0;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
 .mod_box {
-    display: block;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 500px;
-    position: relative;
-    background-image: linear-gradient(to top right, var(--red), var(--yellow));
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: animatetop;
-    animation-duration: 0.4s;
-    text-align: center;
+  display: block;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  background-image: linear-gradient(to top right, var(--red), var(--yellow));
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  text-align: center;
 }
 
 .mod_box hr {
-    width: 85%;
-    background-color: transparent;
-    margin: 15px auto;
-    border-color: var(--beige);
-    border-width: 0;
-    padding: 0;
-    height: 1px;
-    box-shadow: 0 0 2px 0 var(--yellow);
+  width: 85%;
+  background-color: transparent;
+  margin: 15px auto;
+  border-color: var(--beige);
+  border-width: 0;
+  padding: 0;
+  height: 1px;
+  box-shadow: 0 0 2px 0 var(--yellow);
 }
 
 .mod_head {
-    display: grid;
-    padding: 10px;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
+  display: grid;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
 }
 
 .mod_bod {
-    padding: 0 0;
-    border: 0px solid rgb(185,185,185);
+  padding: 0 0;
+  border: 0px solid rgb(185,185,185);
 }
 
 #loginAlert {
-    display: inline;
-    line-height: 0;
-    font-size: 0;
+  display: inline;
+  line-height: 0;
+  font-size: 0;
 	border: 0;
 }
 
 #loginAlert p {
-    display: block;
-    text-align: center;
-    padding: 10px;
-    border: 0;
-    font-size: 1.0rem;
-    line-height: 1.2rem;
-    color: white;
-    text-shadow: 0 1px 2px rgb(30,30,30);
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border: 0;
+  font-size: 1.0rem;
+  line-height: 1.2rem;
+  color: white;
+  text-shadow: 0 1px 2px rgb(30,30,30);
 }
   
 .mod_bod form input {
-    display: inline-block;
-    width: 100%;
-    padding: 10px;
-    border: 0px solid rgb(185,185,185);
-    background: transparent;
-    color: rgb(250,240,220);
-    text-shadow: 0 1px 2px rgb(30,30,30);
-    line-height: 0.9rem;
-    font-size: 1.3rem;
-    font-weight: normal;
-    text-align: center;
-    opacity: 1.0;
-    transition: opacity 0.5s;
-    overflow: visible;
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  border: 0px solid rgb(185,185,185);
+  background: transparent;
+  color: rgb(250,240,220);
+  text-shadow: 0 1px 2px rgb(30,30,30);
+  line-height: 0.9rem;
+  font-size: 1.3rem;
+  font-weight: normal;
+  text-align: center;
+  opacity: 1.0;
+  transition: opacity 0.5s;
+  overflow: visible;
 }
 
 .mod_bod form input::placeholder {
-    color: var(--navy);
-    text-shadow: 1px 1px 0 rgb(178, 198, 205)! important;
-    opacity: 0.8;
-    font-size: 0.9rem;
-    font-weight: bold;
+  color: var(--navy);
+  text-shadow: 1px 1px 0 rgb(178, 198, 205)! important;
+  opacity: 0.8;
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 
 .mod_bod form input:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .mod_bod form input:focus {
-    cursor: text;
-    outline: 0;
+  cursor: text;
+  outline: 0;
 }
 
 .mod_bod form input:focus::placeholder {
-    opacity: 0;
+  opacity: 0;
 }
 
 .mod_foot {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 30% 30% 30%;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    width: 100%;
-    border: 0px solid grey;
-    text-align: center;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 30% 30% 30%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  border: 0px solid grey;
+  text-align: center;
 }
 
 button#loginSignupButton {
-    color: rgb(255,255,255);
-    text-shadow: 0 1px 2px rgb(30,30,30);
-    background: transparent;
-    font: normal normal bold 1.0rem/1.2rem 'Arial';
-    cursor: pointer;
-    display: inline-block;
-    padding: 5px 15px;
+  color: rgb(255,255,255);
+  text-shadow: 0 1px 2px rgb(30,30,30);
+  background: transparent;
+  font: normal normal bold 1.0rem/1.2rem 'Arial';
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 15px;
 }
 
 @keyframes animatetop {
-    from {top: -100px; opacity: 0; display:none}
-    to {top: 0; opacity: 1; display: block}
-  }
-
-#username {
-    display: none;
+  from {top: -100px; opacity: 0; display:none}
+  to {top: 0; opacity: 1; display: block}
 }
 
-/*______login modal end______*/
+#username {
+  display: none;
+}
