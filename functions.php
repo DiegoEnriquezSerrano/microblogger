@@ -38,8 +38,17 @@ function esc($string) {
   return mysqli_real_escape_string($link, $string);
 }
 
+function query($sql){
+  global $link;
+  return mysqli_query($link, $sql);
+}
+
 function fetch_array($result){
   return mysqli_fetch_array($result);
+}
+
+function fetch_assoc($result){
+  return mysqli_fetch_assoc($result);
 }
 
 function stmt($prepared_sql){
@@ -112,14 +121,14 @@ function displayPosts($type) {
   }
 
   $query = "SELECT * FROM posts ".$whereClause." ORDER BY `datetime` DESC LIMIT 20";
-  $results = mysqli_query($link, $query);
+  $results = query($query);
 
   if (mysqli_num_rows($results) == 0) {
     echo "There are no posts to display";
   } else {
-    while ($row = mysqli_fetch_assoc($results)) {
+    while ($row = fetch_assoc($results)) {
       $userQueryResult = bind_and_get_result("SELECT * FROM users WHERE id = ?", "s", esc($row['userid']));
-      $user = mysqli_fetch_assoc($userQueryResult);
+      $user = fetch_assoc($userQueryResult);
       echo '<div class="tweet">
         <p><a class="userlink" href="?page=publicprofiles&username='.$user['username'].'">'.$user['username'].'</a> <span class="time">'.time_since(time() - strtotime($row['datetime']))." ago</span></p>";
       echo '
@@ -137,7 +146,7 @@ function displayPosts($type) {
         $isFollowingQueryResult = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ? AND is_following = ?", "ss", $new=array($_SESSION['id'], $row['userid']));
         
         if (isset($_SESSION['id']) && $_SESSION['id'] == $user['id']) {
-          echo "";
+          echo '<a  class="delete_post_button" data-postID="'.$row['id'].'">Delete</a>';
         } else if (mysqli_num_rows($isFollowingQueryResult) > 0) {
           echo "Unfollow";
         } else {
@@ -153,16 +162,18 @@ function displayPosts($type) {
 }
 
 function displaySearch() {
-  echo '
+  $search_bar = <<<DELIMETER
   <form id="searchForm">
     <input type="hidden" name="page" value="search">
     <input type="text" name="q" id="search" placeholder="Search posts">
     <button type="submit" id="searchButton"></button>
-  </form>';
+  </form>
+DELIMETER;
+  echo $search_bar;
 }
 
 function displayNavlist() {
-  echo '
+  $nav_list= <<<DELIMETER
     <ul id="navList">
       <li class="nav-item">
         <a class="nav-link" href="?page=timeline">The community</a>
@@ -173,29 +184,33 @@ function displayNavlist() {
       <li class="nav-item">
         <a class="nav-link" href="?page=publicprofiles">Public profiles</a>
       </li>
-    </ul><!--"#navList"-->';
+    </ul><!--"#navList"-->
+DELIMETER;
+  echo $nav_list;
 }
 
 function displayPostBox() {
   if(isset($_SESSION['id']) && $_SESSION['id'] > 0) {
-    echo '
+    $post_box = <<<DELIMETER
     <div class="postBox">
       <span class="success" id="postSuccess">Your post was successfully published.</span>
       <span class="danger" id="postFail">Could not publish post. Please try again later.</span>
       <textarea id="postTextfield" placeholder="Tell the world how you feel!"></textarea>
       <button id="createPostButton">Post</button>
-    </div><!--'.'.postBox'.'-->';
+    </div><!--postBox-->
+DELIMETER;
+    echo $post_box;
   }
 }
 
 function displayUsers() {
   global $link;
   $query = "SELECT * FROM users";
-  $results = mysqli_query($link, $query);
+  $results = query($query);
   if (mysqli_num_rows($results) == 0) {
     echo "There are no users";
   } else {
-    while ($row = mysqli_fetch_assoc($results)) {
+    while ($row = fetch_assoc($results)) {
       echo "<p><a href='?page=publicprofiles&username=".$row['username']."'>".$row['username']."</a></p>";
     }
   }

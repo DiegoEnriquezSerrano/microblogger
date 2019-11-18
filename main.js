@@ -31,32 +31,34 @@ _q('#toggleLogin').onclick = () => {
   }
 }
 
-
 const timezone = function(){return Intl.DateTimeFormat().resolvedOptions().timeZone;}
 
-$(document).ready(function(){
-  $.ajax({
-    type: "POST",
-    url: "functions.php?action=updateTimezone",
-    data: "timezone=" + timezone(),
-    success: function(result){
-      done();
-    }
-  });
-});
+window.onload = () => {
+  let ajax = new XMLHttpRequest();
+  ajax.open("POST", "functions.php?action=updateTimezone");
+  ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  ajax.onload = () => { if (ajax.readyState != 4 || ajax.status != 200) return };
+  ajax.send('timezone='+ timezone());
+}
 
-$('#loginSignupButton').click(function() {
-  $.ajax({
-    type: "POST",
-    url: "actions.php?action=loginSignup",
-    data: "email=" + $("#email").val() + "&password=" + $("#password").val() + "&username=" + $("#username").val() + "&loginActive=" + $("#loginActive").val(),
-    success: function(result){
-      if (result == "1") {
-        window.location.replace("index.php");
-      } else {
-        $("#loginAlert").html(result).show();
-      }
-    }
+_q('#loginSignupButton').onclick = () => {
+  let ajax = new XMLHttpRequest(); 
+  ajax.open("POST", "actions.php?action=loginSignup");
+  ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  ajax.onreadystatechange = () => { 
+      if (ajax.readyState != 4 || ajax.status != 200) return; 
+      ajax.responseText == 1 ? window.location.href = "index.php" : _q("#loginAlert").innerHTML = ajax.responseText;
+  };
+  ajax.send(`email=${_q('#email').value}&password=${_q('#password').value}&username=${_q('#username').value}&loginActive=${_q('#loginActive').value}`);
+};
+
+const deleteButtons = _qs('.delete_post_button');
+
+deleteButtons.forEach(elem => elem.onclick = () => {
+  let url = "actions.php?action=deletePost&id=" + elem.dataset.postid;
+  let params = {method: 'POST'};
+  fetch(url,params).then(() => {
+    elem.parentElement.parentElement.remove();
   });
 });
 
@@ -85,6 +87,9 @@ $('#createPostButton').click(function() {
       if (result == "1") {
         $("#postSuccess").show();
         $("#postFail").hide();
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 2000);
       } else if (result != "") {
         $("#postFail").html(result).show();
         $("#postSuccess").hide();

@@ -2,6 +2,7 @@
 
 include_once 'dbh.php';
 include("functions.php");
+
 if(isset($_SESSION['id'])) {$key = $_SESSION['id'];}
 
 if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
@@ -38,9 +39,9 @@ if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
         }
         $img_insert = bind_and_get_result("SELECT * FROM `users` WHERE email = ?", "s", $credentials['email']);
         if (mysqli_num_rows($img_insert) > 0) {
-          while ($row = mysqli_fetch_assoc($img_insert)) {
+          while ($row = fetch_assoc($img_insert)) {
             $userid = $row['id'];
-            bind_and_execute_stmt("INSERT INTO `profileimg` ( `userid`, `status`) VALUES (?, 1);", "s", $userid);
+            bind_and_execute_stmt("INSERT INTO `profileimg` ( `userid`, `status`, `file_ext`) VALUES (?, 1, '.jpg')", "s", $userid);
             echo 1;
           }
         } else {
@@ -50,7 +51,7 @@ if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
     }
   } else {
     $result = bind_and_get_result("SELECT * FROM `users` WHERE email = ?", "s", $credentials['email']);
-    $row = mysqli_fetch_array($result);
+    $row = fetch_array($result);
     if (isset($row)) {
       if (password_verify(esc($_POST['password']), $row['password'])) {
         $_SESSION['id'] = $row['id'];
@@ -76,7 +77,7 @@ if (isset($error) && $error != "") {
 if (isset($_GET['action']) && $_GET['action'] == 'toggleFollow') {
   $result = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ? AND is_following = ?", "ss", $new=array(esc($_SESSION['id']),esc($_POST['userid'])));
   if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
+    $row = fetch_assoc($result);
     bind_and_execute_stmt("DELETE FROM following_relations WHERE id = ?", "s", esc($row['id']));
     echo "1";
   } else {
@@ -87,13 +88,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'toggleFollow') {
 
 if (isset($_GET['action']) && $_GET['action'] == 'createPost') {
   if (!$_POST['postTextfield']) {
-    echo "Your tweet could not be posted.";
+    echo "Cannot create empty post.";
   } else if (strlen($_POST['postTextfield']) > 69420) {
-    echo "Your tweet is too long.";
+    echo "Your post is too long.";
   } else {
     $date = date('Y-m-d H:i:s');
     bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`) VALUES ( ?, ?, ?) ", "sss", $new=array(esc($_POST['postTextfield']),esc($_SESSION['id']), esc($date)));
     echo "1";
+  }
+}
+
+if (isset($_GET['action']) && $_GET['action'] == 'deletePost') {
+  if (!isset($_GET['id'])) {
+    echo "Post does not exist";
+  } else {
+    $user_post = bind_and_get_result("SELECT * FROM posts WHERE id = ?", "s", $_GET['id']);
+    $row = fetch_assoc($user_post);
+    if($row['userid'] !== $_SESSION['id']) {
+      echo "Cannot delete another user's post";
+    } else {
+      bind_and_execute_stmt("DELETE FROM posts WHERE id = ?", "s", $_GET['id']);
+      header("Location: index.php");
+      echo "1";
+    }
   }
 }
 
@@ -110,14 +127,15 @@ if(isset($_POST['submit'])){
   if(in_array($fileActualExt, $allowed)) {
     if($fileError === 0){
       if ($fileSize < 200000){
-        $fileNameNew = "profile".$_SESSION['id'].".".$fileActualExt;
-        $fileDestination = 'uploads/'.$fileNameNew;
+        $fileNameNew = "profile{$_SESSION['id']}.{$fileActualExt}";
+        $fileDestination = "uploads/{$fileNameNew}";
         move_uploaded_file($fileTmpName, $fileDestination);
-        $sql = "UPDATE profileimg SET status = 0 WHERE userid =".$_SESSION['id'];
-        $result = mysqli_query($link, $sql);
-        header("Location: index.php?uploadsuccess");
+        $fileExtWithDot = ".{$fileActualExt}";
+        $sql = "UPDATE profileimg SET status = 0, file_ext ='{$fileExtWithDot}' WHERE userid =".$_SESSION['id'];
+        $result = query($sql);
+        header("Location: index.php");
       } else {
-        echo "Your file is too big.";
+        echo "Your file is too large.";
       }
     } else {
       echo "There was an error uploading your file.";

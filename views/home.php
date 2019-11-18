@@ -8,7 +8,7 @@
       <?php displayNavlist(); ?>
 
       <div id="postContainer">
-        <h2>Recent postss</h2>
+        <h2>Recent posts</h2>
         <?php displayPosts('public'); ?>
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->

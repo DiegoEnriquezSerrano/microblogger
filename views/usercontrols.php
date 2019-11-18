@@ -1,25 +1,23 @@
 <?php
 
   include_once 'dbh.php';
-  $id = $_SESSION['id'];
 
-  $sql = "SELECT * FROM `users` WHERE id = '$id'";
-  $result = mysqli_query($link, $sql);
+  $id = esc($_SESSION['id']);
+  $result = bind_and_get_result("SELECT * FROM users WHERE id = ?", "s", $id);
 
   if(mysqli_num_rows($result) > 0) {
 
-    while($row = mysqli_fetch_assoc($result)) {
-      $rowId = $row['id'];
-      $sqlImg = " SELECT * FROM profileimg WHERE userid = '$rowId'";
-      $resultImg = mysqli_query($link, $sqlImg);
+    while($row = fetch_assoc($result)) {
+      $rowId = esc($row['id']);
+      $sqlImg = bind_and_get_result("SELECT * FROM profileimg WHERE userid = ?", "s", $rowId);
 
-      while($rowImg = mysqli_fetch_assoc($resultImg)) {
-        echo "<h4>".$row['username']."</h4><br>";
+      while($rowImg = fetch_assoc($sqlImg)) {
+        echo "<h4>{$row['username']}</h4><br>";
         echo "
   <div>";
         if($rowImg['status'] == 0) {
-          echo '
-      <img src="uploads/profile'.$rowId.'.jpg?'.mt_rand().'"><br>';
+          echo "
+      <img src='uploads/profile{$rowId}{$rowImg['file_ext']}?".mt_rand()."'><br>";
         } else {
           echo '
       <img src="uploads/profiledefault.jpg"><br>';
@@ -27,9 +25,7 @@
         echo "
   </div>";
       }
-
     }
-
   } else {
     echo "There are no users yet.";
   }
