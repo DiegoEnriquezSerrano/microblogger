@@ -80,7 +80,7 @@ function bind_and_get_result($prepared_sql, $placeholder, $values) {
   return mysqli_stmt_get_result($stmt);
 }
 
-function displayPosts($type) {
+function display_posts($type) {
   global $link;
   if ($type == 'public') {
     $whereClause = "";
@@ -111,7 +111,7 @@ function displayPosts($type) {
       $whereClause = "WHERE userid = 0";
     } else {
       echo "<p>Showing results for '". esc($_GET['q'])."':</p>";
-      $whereClause = "WHERE tweet LIKE'%". esc($_GET['q'])."%'";
+      $whereClause = "WHERE post LIKE '%". esc($_GET['q'])."%'";
     }
   } else if (strpos($type, 'username')) {
     $userQueryResult = bind_and_get_result("SELECT * FROM users WHERE username = ?", "s", esc($_GET['username']));
@@ -130,10 +130,41 @@ function displayPosts($type) {
       $userQueryResult = bind_and_get_result("SELECT * FROM users WHERE id = ?", "s", esc($row['userid']));
       $user = fetch_assoc($userQueryResult);
       echo '<div class="tweet">
-        <p><a class="userlink" href="?page=publicprofiles&username='.$user['username'].'">'.$user['username'].'</a> <span class="time">'.time_since(time() - strtotime($row['datetime']))." ago</span></p>";
+        <div class="post_header">
+          <a class="user_avatar" href="?page=publicprofiles&username='.$user['username'].'">';
+      $userProfileImageQuery = bind_and_get_result("SELECT * FROM profileimg WHERE userid = ?", "s", esc($row['userid']));
+      $userProfileImage = fetch_assoc($userProfileImageQuery);
+      if ($userProfileImage['status'] == 0) {
+        echo "<img src='uploads/profile{$row['userid']}{$userProfileImage['file_ext']}'>";
+      } else if ($userProfileImage['status'] == 1) {
+        echo "<img src='rsc/profiledefault.jpg'>";
+      }
+      echo '</a>';
+      echo '
+          <p class="post_details_box"><a class="userlink" href="?page=publicprofiles&username='.$user['username'].'">'.$user['username'].'</a><br>';
+      echo '
+          <span class="time"> '.time_since(time() - strtotime($row['datetime']))." ago</span><br>";
+      if ($_SESSION) {
+        $isFollowingQueryResult = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ? AND is_following = ?", "ss", $new=array($_SESSION['id'], $row['userid']));
+        if (isset($_SESSION['id']) && $_SESSION['id'] == $user['id']) {
+          echo '';
+        } else {
+          echo '
+          <a class="toggleFollow" data-userId="'.$row['userid'].'">';
+          if (mysqli_num_rows($isFollowingQueryResult) > 0) {
+            echo "Unfollow";
+          } else {
+            echo "Follow";
+          }
+        }
+      } else {
+        echo '<a class="loginModalButtons">Sign up or Login to follow';
+      }
+      echo '</a></p><!--post_details_box-->';
+      echo '
+      </div><!--post_header-->';
       echo '
         <p class="tweetContent">';
-
       if (strlen(preg_replace('#^https?://#', '', $row['post'])) > 6913) { 
         echo substr(preg_replace('#^https?://#', '', nl2br($row['post'])), 0, 6913).'&hellip;'; 
       } else { 
@@ -141,27 +172,17 @@ function displayPosts($type) {
       }
       echo '</p>';
       if ($_SESSION) {
-        echo '
-        <p><a class="toggleFollow" data-userId="'.$row['userid'].'">';
-        $isFollowingQueryResult = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ? AND is_following = ?", "ss", $new=array($_SESSION['id'], $row['userid']));
-        
         if (isset($_SESSION['id']) && $_SESSION['id'] == $user['id']) {
           echo '<a  class="delete_post_button" data-postID="'.$row['id'].'">Delete</a>';
-        } else if (mysqli_num_rows($isFollowingQueryResult) > 0) {
-          echo "Unfollow";
-        } else {
-          echo "Follow";
         }
-      } else {
-        echo '<p><a class="loginModalButtons">Sign up or Login to follow';
-      }
-      echo '</a></p>
-      </div>';
+      } 
+      echo '
+        </div>';
     }
   }
 }
 
-function displaySearch() {
+function display_search() {
   $search_bar = <<<DELIMETER
   <form id="searchForm">
     <input type="hidden" name="page" value="search">
@@ -172,7 +193,7 @@ DELIMETER;
   echo $search_bar;
 }
 
-function displayNavlist() {
+function display_navlist() {
   $nav_list= <<<DELIMETER
     <ul id="navList">
       <li class="nav-item">
@@ -189,7 +210,7 @@ DELIMETER;
   echo $nav_list;
 }
 
-function displayPostBox() {
+function display_post_box() {
   if(isset($_SESSION['id']) && $_SESSION['id'] > 0) {
     $post_box = <<<DELIMETER
     <div class="postBox">
@@ -203,7 +224,7 @@ DELIMETER;
   }
 }
 
-function displayUsers() {
+function display_users() {
   global $link;
   $query = "SELECT * FROM users";
   $results = query($query);

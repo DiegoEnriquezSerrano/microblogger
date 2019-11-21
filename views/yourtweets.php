@@ -3,12 +3,12 @@
     <div id="homeModule">
     </div><!--'#homeModule'-->
     <div id="postsModule">
-      <?php displayPostBox(); ?>
-      <?php displayNavlist(); ?>
+      <?php display_post_box(); ?>
+      <?php display_navlist(); ?>
 
       <div id="postContainer">
         <h2>Your posts</h2>
-        <?php displayPosts('yourposts'); ?>
+        <?php display_posts('yourposts'); ?>
         
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->

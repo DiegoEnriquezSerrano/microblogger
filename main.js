@@ -58,7 +58,7 @@ deleteButtons.forEach(elem => elem.onclick = () => {
   let url = "actions.php?action=deletePost&id=" + elem.dataset.postid;
   let params = {method: 'POST'};
   fetch(url,params).then(() => {
-    elem.parentElement.parentElement.remove();
+    elem.parentElement.remove();
   });
 });
 

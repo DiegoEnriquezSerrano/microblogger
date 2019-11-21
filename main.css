@@ -256,16 +256,17 @@ nav.navbar button,
 
 #homeboy {
   display: grid;
-  padding: 0;
+  padding: 50px 0 0 0;
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  border: 0px dashed yellow;
   min-height: 100vh;
 }
 
-.image_upload_box {position:relative;
-  margin-top: 50px;}
+.image_upload_box {
+  position:relative;
+  margin-top: 50px;
+}
     
 #homeModule {
   text-align: center;
@@ -277,6 +278,9 @@ nav.navbar button,
     
 #homeModule img {
   max-width: 250px;
+  height: auto;
+  border-radius: 50%;
+  border: 0.75em solid rgb(255,255,255);
 }
 
 #postsModule {
@@ -333,10 +337,10 @@ nav.navbar button,
 
 @media(min-width:750px){
   #postsModule {
-    margin-top: 50px;
+    margin-top: 0px;
   }
   #homeModule {
-    padding-top:50px;
+    padding-top: 0px;
   }
 }
 
@@ -378,6 +382,20 @@ nav.navbar button,
   background-image: linear-gradient(to top right, rgba(0,44,45,0.0), rgba(100,234,234,0.2));
 }
 
+.post_header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 260px fr;
+  align-content: start;
+  justify-content: start;
+  line-height: 1.50em;
+  vertical-align: text-bottom;
+}
+
+.post_header p {
+  padding-left: 10px;
+}
+
 .tweet a {
   color: var(--lightblue);
   text-shadow: 1px -1px 0 rgb(123,195,190),
@@ -385,9 +403,16 @@ nav.navbar button,
   font-weight: normal;
 }
 
+a.user_avatar img {
+  max-width: 75px;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid var(--lightblue);
+}
+
 a.userlink {
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .time {
@@ -397,6 +422,12 @@ a.userlink {
 .tweet .tweetContent {
   padding: 20px 10px;
   text-shadow: -1px 1px 1px rgb(0,0,0);
+}
+
+a.delete_post_button,
+a.toggleFollow,
+a.userlink {
+  letter-spacing: 0.10rem;
 }
 
 #loginAlert,

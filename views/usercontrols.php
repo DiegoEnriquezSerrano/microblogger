@@ -20,7 +20,7 @@
       <img src='uploads/profile{$rowId}{$rowImg['file_ext']}?".mt_rand()."'><br>";
         } else {
           echo '
-      <img src="uploads/profiledefault.jpg"><br>';
+      <img src="rsc/profiledefault.jpg"><br>';
         }  
         echo "
   </div>";

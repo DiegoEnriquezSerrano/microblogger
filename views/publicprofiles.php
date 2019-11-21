@@ -3,17 +3,17 @@
     <div id="homeModule">
     </div><!--'#homeModule'-->
     <div id="postsModule">
-      <?php displayPostBox(); ?>
-      <?php displayNavlist(); ?>
+      <?php display_post_box(); ?>
+      <?php display_navlist(); ?>
       <div id="postContainer">
         <?php if (isset($_GET['username'])) {?>
           <?php 
           $username = 'username=';
           $actualUsername = $_GET['username'];
-          displayPosts('$username.$actualUsername'); ?>
+          display_posts('$username.$actualUsername'); ?>
         <?php } else { ?>
           <h2>Public profiles</h2>
-          <?php displayUsers(); ?>
+          <?php display_users(); ?>
         <?php } ?>
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->
