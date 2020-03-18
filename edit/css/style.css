@@ -1,0 +1,83 @@
+/* #homeboy {
+  display: grid;
+  grid-template-areas: 
+      "header header  sections"
+      "home   middle  sections"
+      "home   middle  sections";
+}
+
+#headerModule {
+  grid-area: header;
+}
+
+#homeModule {
+  grid-area: home;
+} */
+
+#editModule {
+  grid-area: middle;
+}
+
+/* #sectionsModule {
+  grid-area: sections;
+} */
+
+#editModule {
+  display: grid;
+}
+
+#edit_container {
+  display: block;
+  min-width: 250px;
+  max-width: 700px;
+  width: 100%;
+  background-color: var(--red);
+  background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
+  border-radius: 10px;
+  border: 2px solid coral;
+  box-shadow: -1px 2px 6px -2px rgb(5,5,5);
+}
+
+#edit_form {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  grid-template-areas: 
+    "key1 value1"
+    "key2 value2"
+    "key3 value3";
+}
+
+.label.one {
+  grid-area: key1;
+}
+
+.label.two {
+  grid-area: key2;
+}
+
+.label.three {
+  grid-area: key3;
+}
+
+.input.one {
+  grid-area: value1;
+}
+
+.input.two {
+  grid-area: value2;
+}
+.input.three {
+  grid-area: value3;
+}
+
+.label {
+  padding: 20px;
+}
+
+.input {
+  display: block;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid coral;
+  background: #b0b0b0;
+}

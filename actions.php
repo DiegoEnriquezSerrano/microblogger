@@ -12,6 +12,7 @@ if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
     'password' => password_hash(esc($_POST['password']), PASSWORD_DEFAULT),
     'username' => esc($_POST['username'])
   );
+
   if (!$credentials['email']) {
     $error = "An email address is required.";
   } else if (!$_POST['password']) {
@@ -19,11 +20,12 @@ if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
   } else if (filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) === false) {
     $error = "Please enter a valid email address";
   }
+
   if ($error != "") { 
-    $errorString = "<p>".$error."</p>";
-    echo $errorString; 
+    echo "<p>{$error}</p>"; 
     exit();
   };
+
   if($_POST['loginActive'] == "0") {
     if (!$credentials['username']) {
       $error = "A user name is required.";
@@ -32,20 +34,26 @@ if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
       if (mysqli_num_rows($email_check) > 0) {
         $error = "That email address is taken.";
       } else {
-        bind_and_execute_stmt("INSERT INTO users (`email`, `password`, `username`) VALUES (?, ?, ?)", "sss", array_values($credentials));
-        $_SESSION['id'] = mysqli_insert_id($link);
-        if (isset($_POST['stayLoggedIn']) && $_POST['stayLoggedIn'] == '1') {
-          setcookie("id", mysqli_insert_id($link), time() + 60*60*24*1);
-        }
-        $img_insert = bind_and_get_result("SELECT * FROM `users` WHERE email = ?", "s", $credentials['email']);
-        if (mysqli_num_rows($img_insert) > 0) {
-          while ($row = fetch_assoc($img_insert)) {
-            $userid = $row['id'];
-            bind_and_execute_stmt("INSERT INTO `profileimg` ( `userid`, `status`, `file_ext`) VALUES (?, 1, '.jpg')", "s", $userid);
-            echo 1;
-          }
+        $username_check = bind_and_get_result("SELECT id FROM `users` WHERE username = ?", "s", $credentials['username']);
+        if (mysqli_num_rows($username_check) > 0) {
+          $error = "That username is taken.";
         } else {
-          echo "You have an error!";
+          bind_and_execute_stmt("INSERT INTO users (`email`, `password`, `username`) VALUES (?, ?, ?)", "sss", array_values($credentials));
+          $_SESSION['id'] = mysqli_insert_id($link);
+          if (isset($_POST['stayLoggedIn']) && $_POST['stayLoggedIn'] == '1') {
+            setcookie("id", mysqli_insert_id($link), time() + 60*60*24*1);
+          }
+          $img_insert = bind_and_get_result("SELECT `id` FROM `users` WHERE email = ?", "s", $credentials['email']);
+          if (mysqli_num_rows($img_insert) > 0) {
+            while ($row = fetch_assoc($img_insert)) {
+              $userid = $_SESSION['id'];
+              bind_and_execute_stmt("INSERT INTO `profileimg` ( `userid`, `status`, `file_ext`) VALUES (?, 1, '.jpg')", "s", $userid);
+              bind_and_execute_stmt("INSERT INTO `profiles` (`user_id`) VALUES (?)", "s", $userid);
+              echo 1;
+            }
+          } else {
+            echo "You have an error!";
+          }
         }
       }
     }
@@ -69,8 +77,7 @@ if (isset($_GET['action']) && $_GET['action'] == "loginSignup") {
 }
 
 if (isset($error) && $error != "") {
-  $errorString = '<p>'.$error.'</p>';
-  echo $errorString;
+  echo '<p>'.$error.'</p>';
   exit();
 }
 
@@ -87,13 +94,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'toggleFollow') {
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'createPost') {
-  if (!$_POST['postTextfield']) {
+  if (!$_POST['post_box_textfield']) {
     echo "Cannot create empty post.";
-  } else if (strlen($_POST['postTextfield']) > 69420) {
+  } else if (strlen($_POST['post_box_textfield']) > 69420) {
     echo "Your post is too long.";
   } else {
     $date = date('Y-m-d H:i:s');
-    bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`) VALUES ( ?, ?, ?) ", "sss", $new=array(esc($_POST['postTextfield']),esc($_SESSION['id']), esc($date)));
+    bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));
     echo "1";
   }
 }
@@ -108,6 +115,23 @@ if (isset($_GET['action']) && $_GET['action'] == 'deletePost') {
       echo "Cannot delete another user's post";
     } else {
       bind_and_execute_stmt("DELETE FROM posts WHERE id = ?", "s", $_GET['id']);
+      header("Location: index.php");
+      echo "1";
+    }
+  }
+}
+
+if (isset($_GET['action']) && $_GET['action'] == 'relayPost') {
+  if (!isset($_GET['id'])) {
+    echo "Post does not exist";
+  } else {
+    $user_post = bind_and_get_result("SELECT * FROM posts WHERE id = ?", "s", $_GET['id']);
+    $row = fetch_assoc($user_post);
+    if($row['userid'] == $_SESSION['id']) {
+      echo "Cannot relay your own post.";
+    } else {
+      $date = date('Y-m-d H:i:s');
+      bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`, `repost_from_post_id`) VALUES ( ?, ?, ?, ?, ?)", "sssss", $new=array('', esc($_SESSION['id']), esc($date), 1, $_GET['id']));
       header("Location: index.php");
       echo "1";
     }
