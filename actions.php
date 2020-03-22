@@ -1,6 +1,6 @@
 <?php 
 
-include_once 'dbh.php';
+include_once 'config/dbh.php';
 include("functions.php");
 
 if(isset($_SESSION['id'])) {$key = $_SESSION['id'];}

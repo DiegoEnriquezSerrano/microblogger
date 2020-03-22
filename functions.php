@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-include_once 'dbh.php';
+require_once 'config/dbh.php';
+require_once 'config/routes.php';
 
 if (isset($_GET['action']) && $_GET['action'] == "updateTimezone") {
   date_default_timezone_set($_POST['timezone']); 
@@ -17,6 +18,9 @@ $homeDirectory = HOME_DIRECTORY;
 $userDirectory = USER_DIRECTORY;
 $postDirectory = POST_DIRECTORY;
 $editDirectory = EDIT_DIRECTORY;
+$stylesDirectory = STYLES_DIRECTORY;
+$fontsDirectory = FONTS_DIRECTORY;
+$javascriptDirectory = JAVASCRIPT_DIRECTORY;
 
 function time_since($since) {
   $chunks = array(
@@ -158,7 +162,7 @@ function getUserLink($scope, $criteria) {
 
 function getPostPagePath($post, $criteria) {
   $postId = getPostId($post, $criteria);
-  return HOME_DIRECTORY.'post/?'.$postId;
+  return HOME_DIRECTORY.'post/'.$postId;
 }
 
 function getUserImage($scope, $criteria) {
@@ -256,7 +260,7 @@ function display_posts($type) {
 
   } else if (strpos($type, 'userid=') !== false) {
     $userid = explode("=", $type);
-    $whereClause = 'WHERE userid = '.$userid[1].esc($endClause);
+    $whereClause = 'WHERE userid = '.esc($userid[1]).esc($endClause);
 
   } else if (strpos($type, 'postid=') !== false) {
     $postid = explode("=", $type);
@@ -268,28 +272,21 @@ function display_posts($type) {
   } else if ($type == 'search') {
     echo "<p>Showing results for '". esc($_GET['q'])."':</p>";
     $whereClause = "WHERE post LIKE '%". esc($_GET['q']) ."%'".esc($endClause);
-
+///////////////////////////////////////////////
+////////////////////////////AUTH REQUIRED BEGIN
   } else if (!isset($_SESSION['id'])) {
     $whereClause = 'WHERE userid = 0';
 
   } else if ($type == 'isFollowing') {
-    $result = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ?", "s", esc($_SESSION['id']));
-    $whereClause = "";
-    if(mysqli_num_rows($result) < 1) {
-      $whereClause = "WHERE userid = 0";
-    } else {
-      while ($row = fetch_assoc($result)) {
-        if ($whereClause == "") $whereClause = "WHERE";
-        else $whereClause.= " OR";
-        $whereClause.= " userid = ".$row['is_following'].esc($endClause);
-      }
-    }
+    $whereClause = "WHERE userid = ".esc($_SESSION['id'])." OR userid IN 
+                      (SELECT is_following FROM following_relations WHERE follower = ".esc($_SESSION['id']).")".esc($endClause);
   
   } else if ($type == 'yourposts') {
     $whereClause = "WHERE userid = ".esc($_SESSION['id']).esc($endClause);
   }
-
-  $query = "SELECT * FROM posts ".esc($whereClause);
+///////////////////////////////////////////////
+//////////////////////////////AUTH REQUIRED END
+  $query = "SELECT * FROM posts ".$whereClause;
   $results = query($query);
 
   if (!$results || mysqli_num_rows($results) < 1) {
@@ -474,89 +471,6 @@ DELIMETER;
 
       echo $echoPost;
     }
-  }
-}
-
-function displaySections() {
-  global $homeDirectory;
-  $sections = <<<DELIMETER
-<a class="sectionLink" href="">
-  <span>Home</span>
-</a>
-<a class="sectionLink" href="{$homeDirectory}directory">
-  <span>Directory</span>
-</a>
-<a class="sectionLink" href="">
-  <span>Notifications</span>
-</a>
-<a class="sectionLink" href="">
-  <span>Messages</span>
-</a>
-<a class="sectionLink" href="">
-  <span>Account</span>
-</a>
-<a class="sectionLink" href="">
-  <span>Logout</span>
-</a>
-<hr>
-<a class="sectionLink" href="">
-  <span>Musicians</span>
-</a>
-<a class="sectionLink" href="">
-  <span>Visual Artists</span>
-</a>
-<a class="sectionLink" href="">
-  <span>Writers</span>
-</a>
-<div class="flex-spacer"></div>
-DELIMETER;
-  echo $sections;
-}
-
-function display_navlist($type) {
-  if($type == 'profile') {
-  $nav_list= <<<DELIMETER
-      <ul id="navList">
-        <li class="nav-item"><a class="nav-link" href="?page=timeline">All</a></li>
-        <li class="nav-item"><a class="nav-link active" href="?page=yourposts">Text</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=timeline">Image</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=yourposts">Video</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=yourposts">Audio</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=publicprofiles">Article</a></li>
-      </ul><!--"#navList"-->
-DELIMETER;
-  } else {
-    $nav_list = <<<DELIMETER
-      <ul id="navList">
-        <li class="nav-item"><a class="nav-link active" href="?page=timeline">Feed</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=yourposts">Drafts</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=timeline">Liked</a></li>
-      </ul><!--navList-->
-DELIMETER;
-  }
-  echo $nav_list;
-}
-
-function display_post_box() {
-  if(isset($_SESSION['id']) && $_SESSION['id'] > 0) {
-    $post_box = <<<DELIMETER
-      <div class="post_box">
-        <div id="draft_slider">
-          <span id="">Draft?</span>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label>
-        </div><!--draft_slider-->
-        <div id="post_pass_or_fail">
-          <span class="success" id="postSuccess">Great success.</span>
-          <span class="danger" id="postFail">Couldn't publish. Try again.</span>
-        </div><!--post_pass_or_fail-->
-        <button id="post_box_button">Post</button>
-        <textarea id="post_box_textfield" placeholder="Tell the world how you feel!"></textarea>
-      </div><!--postBox-->
-DELIMETER;
-    echo $post_box;
   }
 }
 
