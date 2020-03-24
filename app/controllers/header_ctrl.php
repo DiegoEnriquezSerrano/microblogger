@@ -2,12 +2,15 @@
 
 global $stylesDirectory;
 
-$userStyles = '<link rel="stylesheet" href="'.$stylesDirectory.'user_styles.css">';
-$homeStyles = '<link rel="stylesheet" href="'.$stylesDirectory.'main_styles.css">';
-$yesAuthStyles = '<link rel="stylesheet" href="'.$stylesDirectory.'home_styles.css">';
-$postStyles = '<link rel="stylesheet" href="'.$stylesDirectory.'post_styles.css">';
-$editStyles = '<link rel="stylesheet" href="'.$stylesDirectory.'edit_styles.css">';
-$noAuthStyles = '<link rel="stylesheet" href="'.$stylesDirectory.'no_session_styles.css">';
+$linkStart = '<link rel="stylesheet" href="'.$stylesDirectory;
+
+$userStyles = $linkStart.'user_styles.css">';
+$homeStyles = $linkStart.'main_styles.css">';
+$yesAuthStyles = $linkStart.'home_styles.css">';
+$postStyles = $linkStart.'post_styles.css">';
+$editStyles = $linkStart.'edit_styles.css">';
+$directoryStyles = $linkStart.'directory_styles.css">';
+$noAuthStyles = $linkStart.'no_session_styles.css">';
 
 
 function returnListOfStyleSheets($stylesArray) {

@@ -39,5 +39,3 @@
 DELIMETER;
 
   echo $userModule;
-
-  include("app/views/_post_form.php");

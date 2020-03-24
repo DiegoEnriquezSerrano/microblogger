@@ -90,6 +90,22 @@ $(".toggleFollow").click(function() {
   });
 });
 
+$(".like_post_button").click(function() {
+  let id = $(this).attr("data-postId");
+  $.ajax({
+    type: "POST",
+    url: homeDirectory + "actions.php?action=toggleLike",
+    data: "postid=" + id,
+    success: function(result) {
+      if (result == "1") {
+        $(".like_post_button[data-postId='" + id + "']").html("&#x2665; Like");
+      } else if (result == "2") {
+        $(".like_post_button[data-postId='" + id + "']").html("&#x2665; Unlike");
+      }
+    }
+  });
+});
+
 $('#post_box_button').click(function() {
   $.ajax({
     type: "POST",

@@ -228,8 +228,8 @@ function getPostInteractButtons($post, $criteria) {
       if (array_key_exists('original_post_user_id', $post) && $_SESSION['id'] == $post['post_user_id']) {
         return '<a class="delete_post_button" data-postID="'.$post['post_id'].'">&#x00D7; Delete</a>';
       }
-      $isFollowingQueryResult = bind_and_get_result("SELECT * FROM liked_relations WHERE user = ? AND post_liked = ?", "ss", $new=array($_SESSION['id'], $postId));
-      if (mysqli_num_rows($isFollowingQueryResult) > 0) {
+      $isPostLikedQueryResult = bind_and_get_result("SELECT * FROM liked_relations WHERE user = ? AND post_liked = ?", "ss", $new=array($_SESSION['id'], $postId));
+      if (mysqli_num_rows($isPostLikedQueryResult) > 0) {
         $likedStatus = '<a class="like_post_button" data-postID="'.$post['post_id'].'">&#x2665; Unlike</a>';
       } else {
         $likedStatus = '<a class="like_post_button" data-postID="'.$post['post_id'].'">&#x2665; Like</a>';
@@ -477,39 +477,20 @@ DELIMETER;
 function displayUsers($who) {
   global $homeDirectory;
   global $link;
+  if(isset($_SESSION['id'])) $id = esc($_SESSION['id']);
   if ($who == 'all') {
     $whereClause = "";
-
   } else if (!isset($_SESSION['id'])) {
     $whereClause = 'WHERE id = 0';
-
   } else if ($who == 'following') {
-    $result = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ?", "s", esc($_SESSION['id']));
-    $whereClause = "";
-    if(mysqli_num_rows($result) < 1) {
-      $whereClause = "WHERE id = 0";
-    } else {
-      while ($row = fetch_assoc($result)) {
-        if ($whereClause == "") $whereClause = "WHERE";
-        else $whereClause.= " OR";
-        $whereClause.= " id = ".$row['is_following'];
-      }
-    }
-  
+    $whereClause = 'WHERE id IN (SELECT is_following FROM following_relations WHERE follower = '.$id.')';
   } else if ($who == 'followers') {
-    $result = bind_and_get_result("SELECT * FROM following_relations WHERE is_following = ?", "s", esc($_SESSION['id']));
-    $whereClause = "";
-    if(mysqli_num_rows($result) < 1) {
-      $whereClause = "WHERE id = 0";
-    } else {
-      while ($row = fetch_assoc($result)) {
-        if ($whereClause == "") $whereClause = "WHERE";
-        else $whereClause.= " OR";
-        $whereClause.= " id = ".$row['follower'];
-      }
-    }
+    $whereClause = 'WHERE id IN (SELECT follower FROM following_relations WHERE is_following = '.$id.')';
+  } else if ($who == 'mutuals') {
+    $whereClause = 'WHERE id IN (SELECT follower FROM following_relations WHERE is_following = '.$id.')
+                    AND id IN (SELECT is_following FROM following_relations WHERE follower = '.$id.')
+                    AND id != '.$id;
   }
-
   $query = "SELECT * FROM users ".$whereClause." ORDER BY RAND() DESC LIMIT 20";
   $results = query($query);
 
@@ -535,7 +516,7 @@ function displayUsers($who) {
       //   echo $key.': '.$value.'<br>';
       // };
 
-      global $homeDirectory;
+      // global $homeDirectory;
       $userId = getUserId($user, '');
       $userName = getUserName($user, '');
       $userDisplayName = getUserDisplayName($user, '');

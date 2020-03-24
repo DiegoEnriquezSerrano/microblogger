@@ -13,7 +13,16 @@ function display_navlist($type) {
         <li class="nav-item"><a class="nav-link" href="?page=publicprofiles">Article</a></li>
       </ul><!--"#navList"-->
 DELIMETER;
-  } else {
+  } else if ($type == 'directory') {
+    $nav_list= <<<DELIMETER
+        <ul id="navList">
+          <li class="nav-item"><a class="nav-link active" href="{$homeDirectory}directory">All</a></li>
+          <li class="nav-item"><a class="nav-link" href="{$homeDirectory}directory/following">Following</a></li>
+          <li class="nav-item"><a class="nav-link" href="{$homeDirectory}directory/followers">Followers</a></li>
+          <li class="nav-item"><a class="nav-link" href="{$homeDirectory}directory/mutuals">Mutuals</a></li>
+        </ul><!--"#navList"-->
+  DELIMETER;
+    } else {
     $nav_list = <<<DELIMETER
       <ul id="navList">
         <li class="nav-item"><a class="nav-link active" href="{$homeDirectory}timeline">Feed</a></li>
