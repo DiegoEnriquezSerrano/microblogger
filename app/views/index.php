@@ -1,7 +1,8 @@
 <?php include("app/views/_nav_list.php") ?>
 
     <div id="homeModule">
-<?php include("app/views/_user_controls.php"); ?>
+<?php include("app/views/_user_controls.php"); 
+      include("app/views/_post_form.php"); ?>
 
     </div><!--'#homeModule'-->
     <div id="postsModule">

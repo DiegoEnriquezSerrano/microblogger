@@ -54,11 +54,10 @@ include("app/views/_header.php");
     include("app/views/edit/index.php");
 
   } else if ($parameterArray[0] == '') {
+    include("app/controllers/home_ctrl.php");
     if (!isset($_SESSION['id'])) {
-      include("app/controllers/home_ctrl.php");
       include("app/views/no_session.php");
     } else {
-      include("app/controllers/home_ctrl.php");
       include("app/views/index.php");
     }
   } else {
