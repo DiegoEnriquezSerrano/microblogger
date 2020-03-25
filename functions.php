@@ -283,6 +283,9 @@ function display_posts($type) {
   
   } else if ($type == 'yourposts') {
     $whereClause = "WHERE userid = ".esc($_SESSION['id']).esc($endClause);
+
+  } else if ($type == 'liked') {
+    $whereClause = "WHERE id IN (SELECT post_liked FROM liked_relations WHERE user = ".esc($_SESSION['id']).")".esc($endClause);
   }
 ///////////////////////////////////////////////
 //////////////////////////////AUTH REQUIRED END

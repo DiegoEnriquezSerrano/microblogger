@@ -44,3 +44,6 @@ if ($postRow['is_repost'] == 1 && $postRow['post_text'] == '') url(HOME_DIRECTOR
 $postId = 'postid=';
 $actualPostid = $postRow['post_id'];
 $homeDirectory = HOME_DIRECTORY;
+
+
+$scripts = $mainScript;

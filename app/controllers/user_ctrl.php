@@ -27,3 +27,5 @@ $userid = 'userid=';
 $actualUserid = $user['user_id'];
 
 //^^^^like the post page, the user page has to get enough vital information about the object
+
+$scripts = $mainScript;

@@ -16,19 +16,19 @@ DELIMETER;
   } else if ($type == 'directory') {
     $nav_list= <<<DELIMETER
         <ul id="navList">
-          <li class="nav-item"><a class="nav-link active" href="{$homeDirectory}directory">All</a></li>
-          <li class="nav-item"><a class="nav-link" href="{$homeDirectory}directory/following">Following</a></li>
-          <li class="nav-item"><a class="nav-link" href="{$homeDirectory}directory/followers">Followers</a></li>
-          <li class="nav-item"><a class="nav-link" href="{$homeDirectory}directory/mutuals">Mutuals</a></li>
+          <li class="nav-item"><a class="nav-link" data-directory="all" href="{$homeDirectory}directory">All</a></li>
+          <li class="nav-item"><a class="nav-link" data-directory="following" href="{$homeDirectory}directory/following">Following</a></li>
+          <li class="nav-item"><a class="nav-link" data-directory="followers" href="{$homeDirectory}directory/followers">Followers</a></li>
+          <li class="nav-item"><a class="nav-link" data-directory="mutuals" href="{$homeDirectory}directory/mutuals">Mutuals</a></li>
         </ul><!--"#navList"-->
   DELIMETER;
     } else {
     $nav_list = <<<DELIMETER
       <ul id="navList">
-        <li class="nav-item"><a class="nav-link active" href="{$homeDirectory}timeline">Feed</a></li>
+        <li class="nav-item"><a class="nav-link" href="{$homeDirectory}timeline">Feed</a></li>
         <li class="nav-item"><a class="nav-link" href="{$homeDirectory}published">Published</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=yourposts">Drafts</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=timeline">Liked</a></li>
+        <li class="nav-item"><a class="nav-link" href="{$homeDirectory}drafts">Drafts</a></li>
+        <li class="nav-item"><a class="nav-link" href="{$homeDirectory}liked">Liked</a></li>
       </ul><!--navList-->
 DELIMETER;
   }
