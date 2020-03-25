@@ -1,7 +1,5 @@
 <?php
 
-require_once "app/controllers/footer_ctrl.php";
-
 $renderFooter = <<<DELIMETER
   </div><!--'#homeboy'-->
   <footer class="footer">
@@ -9,9 +7,6 @@ $renderFooter = <<<DELIMETER
       <p>&copy; Diego Enriquez-Serrano 2020</p>
     </div>
   </footer>
- 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
   <div class="mod" id="loginModal" aria-labelledby="loginModal" aria-hidden="true">
     <div class="mod_box">

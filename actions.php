@@ -86,10 +86,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'toggleFollow') {
   if (mysqli_num_rows($result) > 0) {
     $row = fetch_assoc($result);
     bind_and_execute_stmt("DELETE FROM following_relations WHERE id = ?", "s", esc($row['id']));
-    echo "1";
+    echo 1;
   } else {
     bind_and_execute_stmt("INSERT INTO following_relations (follower, is_following) VALUES ( ?, ?) ", "ss", $new=array(esc($_SESSION['id']),esc($_POST['userid'])));
-    echo "2";
+    echo 2;
   }
 }
 
@@ -101,7 +101,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'createPost') {
   } else {
     $date = date('Y-m-d H:i:s');
     bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));
-    echo "1";
+    echo 1;
   }
 }
 
@@ -132,7 +132,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'relayPost') {
     } else {
       $date = date('Y-m-d H:i:s');
       bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`, `repost_from_post_id`) VALUES ( ?, ?, ?, ?, ?)", "sssss", $new=array('', esc($_SESSION['id']), esc($date), 1, $_GET['id']));
-      header("Location: index.php");
       echo "1";
     }
   }
@@ -143,10 +142,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'toggleLike') {
   if (mysqli_num_rows($result) > 0) {
     $row = fetch_assoc($result);
     bind_and_execute_stmt("DELETE FROM liked_relations WHERE id = ?", "s", esc($row['id']));
-    echo "1";
+    echo 1;
   } else {
     bind_and_execute_stmt("INSERT INTO liked_relations (user, post_liked) VALUES ( ?, ?) ", "ss", $new=array(esc($_SESSION['id']),esc($_POST['postid'])));
-    echo "2";
+    echo 2;
   }
 }
 

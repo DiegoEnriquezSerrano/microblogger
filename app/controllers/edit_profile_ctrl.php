@@ -28,3 +28,6 @@ $userName = getUserName($user, 'parent');
 $userPath = getUserLink($user, 'parent');
 $userImage = getUserImage($user, 'parent');
 $userDisplayName = getUserDisplayName($user, 'parent');
+
+
+$scripts = $mainScript;

@@ -55,3 +55,6 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0) { url(HOME_DIRECTORY); } else 
 
       </div><!--sectionContainer-->
     </div><!--sections-->
+
+
+<?php $scripts = $mainScript.$noSessionScript; ?>

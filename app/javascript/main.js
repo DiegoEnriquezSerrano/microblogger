@@ -3,16 +3,11 @@ const _q = (query) => {return _d.querySelector(query);}
 const _qs = (query) => {return Array.from(_d.querySelectorAll(query));}
 
 const homeDirectory = 'http://localhost/microblogger/';
-
 const modal = _q('#loginModal');
-
 _qs('.loginModalButtons').forEach(button => button.onclick = () => {modal.style.display = "grid";});
-
 _q('#loginModalClose').onclick = () => {modal.style.display = "none";}
-
 _q('#search').onfocus = () => {_q('#searchForm').classList.toggle('hover')};
 _q('#search').onblur = () => {_q('#searchForm').classList.toggle('hover')};
-
 window.onclick = (event) => {if (event.target == modal) {modal.style.display = "none";}}
 
 (() => {_q('#loginActive').value = "1";})();
@@ -74,57 +69,61 @@ relayButtons.forEach(elem => elem.onclick = () => {
   });
 });
 
-$(".toggleFollow").click(function() {
-  let id = $(this).attr("data-userId");
-  $.ajax({
-    type: "POST",
-    url: homeDirectory + "actions.php?action=toggleFollow",
-    data: "userid=" + id,
-    success: function(result) {
-      if (result == "1") {
-        $("a[data-userId='" + id + "']").html("&#x2b; Follow");
-      } else if (result == "2") {
-        $("a[data-userId='" + id + "']").html("&#x2212; Unfollow");
-      }
-    }
-  });
+_qs('.toggleFollow').forEach(button => button.onclick = () => {
+  let url = homeDirectory + "actions.php?action=toggleFollow";
+  let params = {
+    method: 'POST',
+    body: 'userid=' + button.attributes['data-userid'].value,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  };
+  fetch(url, params)
+  .then(response => {return response.text()})
+  .then(data =>  {
+    if (data == 1) button.innerHTML = '&#x2b; Follow';
+    else if (data == 2) button.innerHTML = '&#x2212; Unfollow';
+  })
 });
 
-$(".like_post_button").click(function() {
-  let id = $(this).attr("data-postId");
-  $.ajax({
-    type: "POST",
-    url: homeDirectory + "actions.php?action=toggleLike",
-    data: "postid=" + id,
-    success: function(result) {
-      if (result == "1") {
-        $(".like_post_button[data-postId='" + id + "']").html("&#x2665; Like");
-      } else if (result == "2") {
-        $(".like_post_button[data-postId='" + id + "']").html("&#x2665; Unlike");
-      }
-    }
-  });
+_qs('.like_post_button').forEach(button => button.onclick = () => {
+  let url = homeDirectory + "actions.php?action=toggleLike";
+  let params = {
+    method: 'POST',
+    body: 'postid=' + button.attributes['data-postid'].value,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  };
+  fetch(url, params)
+  .then(response => {return response.text()})
+  .then(data =>  {
+    if (data == 1) button.innerHTML = '&#x2b; Like';
+    else if (data == 2) button.innerHTML = '&#x2212; Unlike';
+  })
 });
 
-$('#post_box_button').click(function() {
-  $.ajax({
-    type: "POST",
-    url: homeDirectory + "actions.php?action=createPost",
-    data:  "post_box_textfield=" + $("#post_box_textfield").val(),
-    success: function(result){
-      if (result == "1") {
-        $("#postSuccess").show();
-        $("#postFail").hide();
-        setTimeout(() => {
-          window.location.replace(homeDirectory);
-        }, 2000);
-      } else if (result != "") {
-        $("#postFail").html(result).show();
-        $("#postSuccess").hide();
-      }
+
+_q('#post_box_button').onclick = () => {
+  let url = homeDirectory + "actions.php?action=createPost";
+  let params = {
+    method: 'POST',
+    body: 'post_box_textfield=' + _q('#post_box_textfield').value,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  };
+  fetch(url, params)
+  .then(response => {return response.text()})
+  .then(data =>  {
+    if (data == 1) {
+      _q("#postSuccess").style.display = "block";
+      _q("#postFail").style.display = "none";
+      setTimeout(() => {
+        window.location.replace(homeDirectory);
+      }, 2000);
     }
-  });
-});
+    else if (data != "") {
+      _q("#postSuccess").style.display = "none";
+      _q("#postFail").style.display = "block";
+      _q("#postFail").innerHTML = data;
+    }
+  })
+};
 
 breakWord = (element, cutoffPoint) => {
   breakPoint = cutoffPoint - 1;

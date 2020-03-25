@@ -11,10 +11,10 @@ function displaySections() {
 <a class="sectionLink" href="{$homeDirectory}directory">
   <span>Directory</span>
 </a>
-<a class="sectionLink" href="">
+<a class="sectionLink" href="{$homeDirectory}notifications">
   <span>Notifications</span>
 </a>
-<a class="sectionLink" href="">
+<a class="sectionLink" href="{$homeDirectory}inbox">
   <span>Messages</span>
 </a>
 <a class="sectionLink" href="">
