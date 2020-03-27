@@ -3,6 +3,7 @@
 session_start();
 require_once 'config/dbh.php';
 require_once 'config/routes.php';
+  require_once "config/router.php";
 
 if (isset($_GET['action']) && $_GET['action'] == "updateTimezone") {
   date_default_timezone_set($_POST['timezone']); 
@@ -102,6 +103,14 @@ function bind_and_get_result($prepared_sql, $placeholder, $values) {
   return mysqli_stmt_get_result($stmt);
 }
 
+function concatArrayValuesAsString($array) {
+  $arrayReturn = '';
+  foreach($array as $values) {
+    $arrayReturn .= $values;
+  }
+  return $arrayReturn;
+}
+
 function getScopeInformation($object, $criteria) {
   if(array_key_exists('post_id', $object)) {
     $post = $object;
@@ -162,7 +171,10 @@ function getUserLink($scope, $criteria) {
 
 function getPostPagePath($post, $criteria) {
   $postId = getPostId($post, $criteria);
-  return HOME_DIRECTORY.'post/'.$postId;
+  global $parameterArray;
+  if ($parameterArray[0] == 'drafts') $path = 'draft/';
+  if (!isset($path)) $path = 'post/';
+  return HOME_DIRECTORY.$path.$postId;
 }
 
 function getUserImage($scope, $criteria) {
@@ -260,56 +272,70 @@ function display_posts($type) {
 
   } else if (strpos($type, 'userid=') !== false) {
     $userid = explode("=", $type);
-    $whereClause = 'WHERE userid = '.esc($userid[1]).esc($endClause);
+    $whereClause = ' WHERE userid = '.esc($userid[1]).esc($endClause);
 
   } else if (strpos($type, 'postid=') !== false) {
     $postid = explode("=", $type);
-    $whereClause = 'WHERE id = '.esc($postid[1]).esc($endClause);
+    $whereClause = ' WHERE id = '.esc($postid[1]).esc($endClause);
 
   } else if ($type == 'random') {
-    $whereClause = 'ORDER BY RAND() LIMIT 1';
+    $whereClause = ' ORDER BY RAND() LIMIT 1';
 
   } else if ($type == 'search') {
     echo "<p>Showing results for '". esc($_GET['q'])."':</p>";
-    $whereClause = "WHERE post LIKE '%". esc($_GET['q']) ."%'".esc($endClause);
+    $whereClause = " WHERE post LIKE '%". esc($_GET['q']) ."%'".esc($endClause);
 ///////////////////////////////////////////////
 ////////////////////////////AUTH REQUIRED BEGIN
   } else if (!isset($_SESSION['id'])) {
-    $whereClause = 'WHERE userid = 0';
+    $whereClause = ' WHERE userid = 0';
 
   } else if ($type == 'isFollowing') {
-    $whereClause = "WHERE userid = ".esc($_SESSION['id'])." OR userid IN 
+    $whereClause = " WHERE userid = ".esc($_SESSION['id'])." OR userid IN 
                       (SELECT is_following FROM following_relations WHERE follower = ".esc($_SESSION['id']).")".esc($endClause);
   
   } else if ($type == 'yourposts') {
-    $whereClause = "WHERE userid = ".esc($_SESSION['id']).esc($endClause);
+    $whereClause = " WHERE userid = ".esc($_SESSION['id']).esc($endClause);
 
   } else if ($type == 'liked') {
-    $whereClause = "WHERE id IN (SELECT post_liked FROM liked_relations WHERE user = ".esc($_SESSION['id']).")".esc($endClause);
+    $whereClause = " WHERE id IN (SELECT post_liked FROM liked_relations WHERE user = ".esc($_SESSION['id']).")".esc($endClause);
+
+  } else if ($type == 'yourdrafts') {
+    $whereClause = " WHERE userid = ".esc($_SESSION['id']).esc($endClause);
+    $table = 'drafts';
+
+  } else if (strpos($type, 'draftid=') !== false) {
+    $draftid = explode("=", $type);
+    $whereClause = ' WHERE id = '.esc($draftid[1]).esc($endClause);
+    $table = 'drafts';
   }
 ///////////////////////////////////////////////
 //////////////////////////////AUTH REQUIRED END
-  $query = "SELECT * FROM posts ".$whereClause;
+
+  if(!isset($table)) {
+    $table = 'posts';
+  }
+
+  $query = "SELECT * FROM ".$table.$whereClause;
   $results = query($query);
 
   if (!$results || mysqli_num_rows($results) < 1) {
-    echo "There are no posts to display";
+    echo "There are no {$table} to display";
   } else {
 
     while ($row = fetch_assoc($results)) {
 
       $postResult = bind_and_get_result(
-        "SELECT posts.id AS post_id, posts.userid AS post_user_id, users.username AS post_user_name,
+        "SELECT {$table}.id AS post_id, {$table}.userid AS post_user_id, users.username AS post_user_name,
                 profiles.user_display_name AS post_user_displayname, profileimg.status AS post_user_img_status,
                 profileimg.id AS post_user_img_id, profileimg.file_ext AS post_user_img_ext,
                 profiles.profile_header_img AS post_user_header_img, profiles.user_bio AS post_user_bio, 
-                posts.post AS post_text, posts.datetime AS post_created_at, posts.is_repost AS is_repost, 
-                posts.repost_from_post_id AS original_post_id
-         FROM posts
-         INNER JOIN profileimg ON profileimg.userid = posts.userid
-         LEFT JOIN users ON users.id = posts.userid
-         LEFT JOIN profiles ON profiles.user_id = posts.userid
-         WHERE posts.id = ?","s", esc($row['id']));
+                {$table}.post AS post_text, {$table}.datetime AS post_created_at, {$table}.is_repost AS is_repost, 
+                {$table}.repost_from_post_id AS original_post_id
+         FROM {$table}
+         INNER JOIN profileimg ON profileimg.userid = {$table}.userid
+         LEFT JOIN users ON users.id = {$table}.userid
+         LEFT JOIN profiles ON profiles.user_id = {$table}.userid
+         WHERE {$table}.id = ?","s", esc($row['id']));
 
       if (mysqli_num_rows($postResult) < 1) {
         echo 'That post does not exist';

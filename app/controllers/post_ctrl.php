@@ -46,4 +46,4 @@ $actualPostid = $postRow['post_id'];
 $homeDirectory = HOME_DIRECTORY;
 
 
-$scripts = $mainScript;
+$scripts = [$mainScript];

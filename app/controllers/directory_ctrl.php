@@ -23,7 +23,7 @@ if(isset($parameterArray)) {
   url($homeDirectory);
 }
 
-$scripts = $mainScript.$directoryScript;
+$scripts = [$mainScript,$directoryScript];
 
 include_once "app/views/_nav_list.php";
 include_once "app/views/_nav_panel.php";

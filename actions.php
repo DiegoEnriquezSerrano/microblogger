@@ -101,22 +101,53 @@ if (isset($_GET['action']) && $_GET['action'] == 'createPost') {
   } else {
     $date = date('Y-m-d H:i:s');
     bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));
-    echo 1;
+    $lastPostId = mysqli_insert_id($link);
+    $lastPostResult = bind_and_get_result("SELECT * FROM posts WHERE id = ?", "s", $lastPostId);
+    $lastPostRow = fetch_assoc($lastPostResult);
+    echo display_posts('postid='.$lastPostId);
+  }
+}
+
+if (isset($_GET['action']) && $_GET['action'] == 'createDraft') {
+  if (!$_POST['post_box_textfield']) {
+    echo "Cannot create empty post.";
+  } else if (strlen($_POST['post_box_textfield']) > 69420) {
+    echo "Your post is too long.";
+  } else {
+    $date = date('Y-m-d H:i:s');
+    bind_and_execute_stmt("INSERT INTO drafts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));
+    $lastDraftId = mysqli_insert_id($link);
+    $lastDraftResult = bind_and_get_result("SELECT * FROM drafts WHERE id = ?", "s", $lastDraftId);
+    $lastDrafttRow = fetch_assoc($lastDraftResult);
+    echo display_posts('draftid='.$lastDraftId);
+    // echo json_encode([
+    //   'post_id' => $lastPostRow['id'], 
+    //   'user_id' => $lastPostRow['userid'],
+    //   'post_body' => $lastPostRow['post'],
+    //   'datetime' => $lastPostRow['datetime'],
+    //   'is_relay' => $lastPostRow['is_repost'],
+    //   'post_relayed' => $lastPostRow['repost_from_post_id']
+    //   ]);
   }
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'deletePost') {
+  if (isset($_GET['draft'])) {
+    $table = 'drafts';
+  }
+  if (!isset($table)) {
+    $table = 'posts';
+  }
   if (!isset($_GET['id'])) {
     echo "Post does not exist";
   } else {
-    $user_post = bind_and_get_result("SELECT * FROM posts WHERE id = ?", "s", $_GET['id']);
+    $user_post = bind_and_get_result("SELECT * FROM {$table} WHERE id = ?", "s", $_GET['id']);
     $row = fetch_assoc($user_post);
     if($row['userid'] !== $_SESSION['id']) {
       echo "Cannot delete another user's post";
     } else {
-      bind_and_execute_stmt("DELETE FROM posts WHERE id = ?", "s", $_GET['id']);
-      header("Location: index.php");
-      echo "1";
+      bind_and_execute_stmt("DELETE FROM {$table} WHERE id = ?", "s", $_GET['id']);
+      echo 1;
     }
   }
 }
@@ -132,7 +163,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'relayPost') {
     } else {
       $date = date('Y-m-d H:i:s');
       bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`, `repost_from_post_id`) VALUES ( ?, ?, ?, ?, ?)", "sssss", $new=array('', esc($_SESSION['id']), esc($date), 1, $_GET['id']));
-      echo "1";
+      $lastPostId = mysqli_insert_id($link);
+      $lastPostResult = bind_and_get_result("SELECT * FROM posts WHERE id = ?", "s", $lastPostId);
+      $lastPostRow = fetch_assoc($lastPostResult);
+      echo display_posts('postid='.$lastPostId);
     }
   }
 }
