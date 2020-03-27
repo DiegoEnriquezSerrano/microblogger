@@ -9,7 +9,7 @@ function display_post_box() {
         <div id="draft_slider">
           <span id="">Draft?</span>
           <label class="switch">
-            <input type="checkbox">
+            <input id="draftActive" value="1" type="checkbox">
             <span class="slider round"></span>
           </label>
         </div><!--draft_slider-->

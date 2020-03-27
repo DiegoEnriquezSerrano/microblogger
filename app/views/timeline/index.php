@@ -11,9 +11,7 @@
 <?php display_navlist('home'); ?>
 
       <div id="postContainer">
-        <h2>Posts for you</h2>
-        
-<?php display_posts('isFollowing'); ?>
+<?php display_posts($who); ?>
 
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->

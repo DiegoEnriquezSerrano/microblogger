@@ -10,10 +10,8 @@
 <?php include("app/views/_post_form.php"); ?>
 <?php display_navlist('home'); ?>
 
-      <div id="postContainer">
-        <h2>Posts for you</h2>
-        
-<?php display_posts('liked'); ?>
+      <div id="postContainer">        
+<?php display_posts($who); ?>
 
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->

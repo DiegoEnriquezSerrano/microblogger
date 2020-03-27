@@ -1,15 +1,17 @@
 <?php include("app/views/_nav_list.php") ?>
 
     <div id="homeModule">
-    <?php include("app/views/_user_controls.php"); ?>
+
+<?php include("app/views/_user_controls.php"); ?>
+
     </div><!--'#homeModule'-->
     <div id="postsModule">
-      <?php include("app/views/_post_form.php"); ?>
-      <?php display_navlist('home'); ?>
+
+<?php include("app/views/_post_form.php"); ?>
+<?php display_navlist('home'); ?>
 
       <div id="postContainer">
-        <h2>Your posts</h2>
-        <?php display_posts('yourposts'); ?>
+<?php display_posts($who); ?>
         
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->

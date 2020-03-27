@@ -1,5 +1,6 @@
 <?php
 
+$scriptsArray = concatArrayValuesAsString($scripts);
 $renderFooter = <<<DELIMETER
   </div><!--'#homeboy'-->
   <footer class="footer">
@@ -32,7 +33,7 @@ $renderFooter = <<<DELIMETER
     </div><!--'.mod_box'-->
   </div><!--'#loginModal'-->
 
-{$scripts}
+  {$scriptsArray}
   
 </body>
 </html>

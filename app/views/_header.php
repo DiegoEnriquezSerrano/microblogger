@@ -4,7 +4,7 @@ require_once "app/controllers/header_ctrl.php";
 
 function display_header_and_styles($stylesArray) {
   global $homeDirectory;
-  $styles = returnListOfStyleSheets($stylesArray);
+  $styles = concatArrayValuesAsString($stylesArray);
   $echoHeader = <<<DELIMETER
 <!DOCTYPE HTML>
 <html lang="en">

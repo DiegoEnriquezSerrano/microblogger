@@ -19,6 +19,14 @@
     display_header_and_styles($styles);
     include("app/views/post/index.php");
     
+  } else if ($parameterArray[0] == 'draft') {
+    if ($parameterArray[1] == '') {
+      url(HOME_DIRECTORY);
+    }
+    include("app/controllers/draft_ctrl.php");
+    display_header_and_styles($styles);
+    include("app/views/draft/index.php");
+    
   } else if ($parameterArray[0] == 'timeline') {
     checkForSession();
     include("app/controllers/timeline_ctrl.php");
@@ -36,6 +44,12 @@
     include("app/controllers/timeline_ctrl.php");
     display_header_and_styles($styles);
     include("app/views/timeline/liked_posts.php");
+
+  } else if ($parameterArray[0] == 'drafts') {
+    checkForSession();
+    include("app/controllers/timeline_ctrl.php");
+    display_header_and_styles($styles);
+    include("app/views/timeline/drafts.php");
 
   } else if ($parameterArray[0] == 'search') {
     include("app/controllers/search_ctrl.php");
