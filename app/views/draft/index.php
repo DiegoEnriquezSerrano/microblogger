@@ -5,8 +5,8 @@
     </div><!--'#homeModule'-->
     <div id="postsModule">
       <div id="postContainer">
-        <h2>Recent post</h2>
-<?php display_posts($draftId.$actualDraftid); ?>
+        <h2>Edit draft</h2>
+<?php include_once "app/views/_post_form.php" ?>
 
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->

@@ -18,7 +18,7 @@ _q('#toggle_auth_box_login').onclick = () => {
 
 _q('#auth_box_submit_button').onclick = () => {
   let ajax = new XMLHttpRequest(); 
-  ajax.open("POST", homeDirectory + "actions.php?action=loginSignup");
+  ajax.open("POST", homeDirectory + "app/api/authenticate.php");
   ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   ajax.onreadystatechange = () => { 
       if (ajax.readyState != 4 || ajax.status != 200) return; 

@@ -44,7 +44,7 @@ window.onload = () => {
 
 _q('#loginSignupButton').onclick = () => {
   let ajax = new XMLHttpRequest(); 
-  ajax.open("POST", homeDirectory + "actions.php?action=loginSignup");
+  ajax.open("POST", homeDirectory + "app/api/authenticate.php");
   ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   ajax.onreadystatechange = () => { 
       if (ajax.readyState != 4 || ajax.status != 200) return; 
@@ -77,7 +77,7 @@ postLinkToDraftLink = (anchorElement) => {
 function generateEventHandlers(){
 
   _qs('.delete_post_button').forEach(elem => elem.onclick = () => {
-    let url = homeDirectory + "actions.php?action=deletePost&id=" + elem.dataset.postid;
+    let url = homeDirectory + "app/api/delete.php?action=deletePost&id=" + elem.dataset.postid;
     if (secondSplit == 'drafts') {
       url = url + '&draft';
     }
@@ -91,10 +91,14 @@ function generateEventHandlers(){
 
   if (_q('#post_box_button') != null ) {
     _q('#post_box_button').onclick = () => {
-      if ( _q('#draftActive').value == 1 ) {
-        var url = homeDirectory + "actions.php?action=createPost";
+      if( (secondSplit[1] != undefined) && secondSplit[0] == 'draft' && _q('#draftActive').value == 0 ) {
+        var url = homeDirectory + "app/api/post.php?action=editDraft&id=" + secondSplit[1];
+      } else if ( (secondSplit[1] != undefined) && secondSplit[0] == 'draft' && _q('#draftActive').value == 1 ) {
+        var url = homeDirectory + "app/api/post.php?action=createPost&fromDraft=" + secondSplit[1];
+      } else if ( _q('#draftActive').value == 1 ) {
+        var url = homeDirectory + "app/api/post.php?action=createPost";
       } else if ( _q('#draftActive').value == 0 ) {
-        var url = homeDirectory + "actions.php?action=createDraft";
+        var url = homeDirectory + "app/api/post.php?action=createDraft";
       } else { 
         console.log('invalid command');
         return;
@@ -107,13 +111,14 @@ function generateEventHandlers(){
       fetch(url, params)
       .then(response => {return response.text()})
       .then(data =>  {
+        let postContainer = _q('#postContainer');
         if (secondSplit == 'liked') {
           return;
         } else if (secondSplit == 'drafts' && _q('#draftActive').value == 0) {
-          _q('#postContainer').innerHTML = data + _q('#postContainer').innerHTML;
-          postLinkToDraftLink(_q('#postContainer').firstElementChild.firstElementChild.lastElementChild.childNodes[7]);
+          postContainer.innerHTML = data + postContainer.innerHTML;
+          postLinkToDraftLink(postContainer.firstElementChild.firstElementChild.lastElementChild.childNodes[7]);
         } else if ((secondSplit == 'timeline' || secondSplit == 'published') && _q('#draftActive').value == 1) {
-          _q('#postContainer').innerHTML = data + _q('#postContainer').innerHTML;
+          postContainer.innerHTML = data + postContainer.innerHTML;
         } else return;
         generateEventHandlers();
       });
@@ -123,7 +128,7 @@ function generateEventHandlers(){
   };
   
   _qs('.relay_post_button').forEach(elem => elem.onclick = () => {
-    let url = homeDirectory + "actions.php?action=relayPost&id=" + elem.dataset.postid;
+    let url = homeDirectory + "app/api/relay.php?id=" + elem.dataset.postid;
     let params = {method: 'POST'};
     fetch(url, params)
     .then(response => {return response.text()})
@@ -134,7 +139,7 @@ function generateEventHandlers(){
   });
   
   _qs('.toggleFollow').forEach(button => button.onclick = () => {
-    let url = homeDirectory + "actions.php?action=toggleFollow";
+    let url = homeDirectory + "app/api/follow.php";
     let params = {
       method: 'POST',
       body: 'userid=' + button.attributes['data-userid'].value,
@@ -149,7 +154,7 @@ function generateEventHandlers(){
   });
   
   _qs('.like_post_button').forEach(button => button.onclick = () => {
-    let url = homeDirectory + "actions.php?action=toggleLike";
+    let url = homeDirectory + "app/api/like.php";
     let params = {
       method: 'POST',
       body: 'postid=' + button.attributes['data-postid'].value,

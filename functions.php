@@ -3,7 +3,7 @@
 session_start();
 require_once 'config/dbh.php';
 require_once 'config/routes.php';
-  require_once "config/router.php";
+require_once "config/router.php";
 
 if (isset($_GET['action']) && $_GET['action'] == "updateTimezone") {
   date_default_timezone_set($_POST['timezone']); 

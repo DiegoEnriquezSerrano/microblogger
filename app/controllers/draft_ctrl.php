@@ -36,11 +36,17 @@ $draftResult = bind_and_get_result(
   WHERE drafts.id = ?","i", esc(sanitizedDraftId($draftIdFromURL[1])));
 
 if (mysqli_num_rows($draftResult) < 1) {
-  echo 'That draft does not exist';
+  url(HOME_DIRECTORY.'drafts');
 }
 
 $draftRow = fetch_assoc($draftResult);
+
+if($draftRow['post_user_id'] != $_SESSION['id']) {
+  url(HOME_DIRECTORY.'drafts');
+}
+
 if ($draftRow['is_repost'] == 1 && $draftRow['post_text'] == '') url(HOME_DIRECTORY.'draft/?'.$draftRow['original_post_id']);
+
 $draftId = 'draftid=';
 $actualDraftid = $draftRow['post_id'];
 $homeDirectory = HOME_DIRECTORY;
