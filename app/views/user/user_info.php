@@ -1,6 +1,6 @@
 <?php
 
-  // print_r($userRow);
+  print_r($user);
 
   function displayUserInfo($user) {
 

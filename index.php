@@ -67,6 +67,10 @@
     display_header_and_styles($styles);
     include("app/views/edit/index.php");
 
+  } else if ($parameterArray[0] == 'logout') {
+    session_unset();
+    url(HOME_DIRECTORY);
+
   } else if ($parameterArray[0] == '') {
     include("app/controllers/home_ctrl.php");
     if (!isset($_SESSION['id'])) {

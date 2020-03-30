@@ -5,7 +5,7 @@ global $homeStyles;
 
 $styles = [$homeStyles, $userStyles];
 
-if($_SERVER['REQUEST_URI'] == "/microblogger/user/" || (strpos($_SERVER['REQUEST_URI'], "index.php" ) !== false)) {
+if(strpos($_SERVER['REQUEST_URI'], "index.php" ) !== false) {
   url("../");
 }
 //^^to avoid a page load without a username parameter or someone trying to access the 'ugly' index page link
@@ -28,4 +28,4 @@ $actualUserid = $user['user_id'];
 
 //^^^^like the post page, the user page has to get enough vital information about the object
 
-$scripts = $mainScript;
+$scripts = [$mainScript];

@@ -1,6 +1,6 @@
 <?php
 
-  include_once "../../functions.php";
+require_once "../../functions.php";
 
   $result = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ? AND is_following = ?", "ss", $new=array(esc($_SESSION['id']),esc($_POST['userid'])));
   if (mysqli_num_rows($result) > 0) {
