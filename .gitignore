@@ -1,3 +1,6 @@
 /uploads
 /config/routes.php
 /app/javascript/source.js
+._.htaccess
+.DS_Store
+/.vscode
