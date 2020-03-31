@@ -1,32 +1,25 @@
 <?php 
 
 require_once "app/views/_nav_list.php";
+require_once "app/views/user/user_info.php";
+
+$userInfo = displayUserInfo($user);
+$posts = display_posts($userid.$actualUserid);
 
 $pageBegin = <<<DELIMETER
   <div id="headerModule">
-    <div id="img_container">
-      <img src="">
-    </div><!--img_container-->
-    <div id="header_nav">
-    </div><!--header_nav-->
+    {$userInfo}
   </div><!--headerModule-->
   <div id="homeModule">
-
-DELIMETER;
-echo $pageBegin;
-
-include("app/views/user/user_info.php");
-
-$pageMiddle = <<<DELIMETER
     </div><!--'#homeModule'-->
     <div id="postsModule">
       <div id="postContainer">
+      {$posts}
   
 DELIMETER;
-echo $pageMiddle;
+echo $pageBegin;
 
 display_navlist('profile');
-display_posts($userid.$actualUserid);
 
 $otherMiddle = <<<DELIMETER
     </div><!--'#postContainer'-->

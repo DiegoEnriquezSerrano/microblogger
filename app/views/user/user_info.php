@@ -31,7 +31,5 @@
           </div><!--user_controls_container-->
         </div><!--userModule-->
 DELIMETER;
-    echo $userModule;
-}
-
-displayUserInfo($user);
+    return $userModule;
+  }

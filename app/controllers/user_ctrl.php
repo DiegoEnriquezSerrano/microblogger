@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 global $userStyles;
 global $homeStyles;
 
@@ -9,6 +10,10 @@ if(strpos($_SERVER['REQUEST_URI'], "index.php" ) !== false) {
   url("../");
 }
 //^^to avoid a page load without a username parameter or someone trying to access the 'ugly' index page link
+=======
+$styles = [$homeStyles, $userStyles];
+$scripts = [$mainScript];
+>>>>>>> 22c0563214fddd1b0cc339779620ce097b8999d2
 
 $userResult = bind_and_get_result(
   "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, profileimg.status AS user_img_status, 
@@ -16,7 +21,11 @@ $userResult = bind_and_get_result(
    FROM users 
    INNER JOIN profileimg ON profileimg.userid = users.id 
    LEFT JOIN profiles ON profiles.user_id = users.id
+<<<<<<< HEAD
    WHERE username = ?","s", esc($usernameToUse));
+=======
+   WHERE username = ?","s", esc($userPath));
+>>>>>>> 22c0563214fddd1b0cc339779620ce097b8999d2
 
 if (mysqli_num_rows($userResult) < 1) {
   echo 'That user does not exist';
@@ -24,8 +33,12 @@ if (mysqli_num_rows($userResult) < 1) {
 
 $user = fetch_assoc($userResult);
 $userid = 'userid=';
+<<<<<<< HEAD
 $actualUserid = $user['user_id'];
 
 //^^^^like the post page, the user page has to get enough vital information about the object
 
 $scripts = [$mainScript];
+=======
+$actualUserid = $user['user_id'];
+>>>>>>> 22c0563214fddd1b0cc339779620ce097b8999d2

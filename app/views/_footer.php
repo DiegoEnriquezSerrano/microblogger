@@ -33,6 +33,7 @@ $renderFooter = <<<DELIMETER
     </div><!--'.mod_box'-->
   </div><!--'#loginModal'-->
 
+  {$sourceScript}
   {$scriptsArray}
   
 </body>

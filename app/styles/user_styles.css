@@ -1,215 +1,215 @@
 #homeboy {
-    display: grid;
-    padding: 0;
-    grid-auto-flow: column;
-    width: 100%;
-    min-height: 100vh;
-    grid-template-columns: 89% 11%;
-    grid-template-areas: 
-        "middle sections"
-        "middle sections";
-  }
-  
-  #headerModule {
-    grid-area: header;
-    background-color: var(--red);
-    background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
-    box-shadow: -1px 2px 6px -2px rgb(5,5,5),
-    0 0 5px -3px rgb(0,0,0);
-    min-width: 100%;
-    overflow: hidden;
-    border: 0 solid transparent;
-    border-right: 2px solid coral;
-    border-bottom: 2px solid coral;
-    padding: 0;
-    min-height: calc(100vw/6);
-  }
-  
-  #homeModule {
-    grid-area: home;
-  }
-  
-  #postsModule {
-    grid-area: middle;
-  }
-  
-  #sectionsModule {
-    grid-area: sections;
-  }
-  
-  #img_container {
-    display: block;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3);
-    border-bottom: 1px solid coral;
-    box-shadow: inset 0 0 8px -3px rgba(0,0,0,0.8);
-    margin: 0;
-  }
-  
-  #userModule {
-    display: block;
-    background-color: var(--red);
-    background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
-    border-radius: 10px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    box-shadow: -1px 2px 6px -2px rgb(5,5,5);
-    min-width: 100%;
-    overflow: visible;
-    margin-bottom: 10px;
-    border-top: var(--red);
-    border-right: var(--red);
-  }
-  
-  #user_controls_header {
-    width: 100%;
-    height: 3rem;
-    background-color: var(--red);
-    background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
-    border-top: 0px solid coral;
-    border-left: 2px solid coral;
-  }
-  
-  #user_controls_header img {
-    border: 0px solid rgb(0,0,0);
-  }
-  
-  #user_controls_container {
-    background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
-    border: 2px solid coral;
-    border-top: 0 solid transparent;
-    border-radius: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  
-  #user_controls_top {
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-columns: 1fr;
-    padding: 10px;
-    border: 0;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-all;
-  }
-  
-  #user_image_link {
-    border: 2px solid coral;
-    display: inline-block;
-    position: relative;
-    top: calc(calc(-20vw/2) - calc(20vw/5));
-    padding: 0;
-    font-size: 0;
-    line-height: 0;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  
-  #user_image {
-    width: calc(100vw/5);
-    max-height: 100%;
-  }
-  
-  #user_image_container {
-    height: calc(20vw/3);
-  }
-  
-  #user_controls_top a {
-    color: var(--yellow);
-    text-shadow: -1px 1px 1px rgb(10,10,10);
-  }
-  
-  #user_controls_top a:hover {
-    color: var(--beige);
-    text-shadow: -1px 1px 1px rgb(10,10,10);
-  }
-  
-  #user_name {
-    text-align: left;
-    padding-left: 5px;
-  }
-  
-  #user_name a:first-child {
-    font-size: 1.5rem;
-  }
-  
-  #user_bio {
-    display: block;
-    overflow: hidden;
-    max-height: 1.6rem;
-    transition: max-height 0.5s ease-in-out;
-    text-align: left;
-  }
-  
-  #user_bio.active {
-    max-height: 100vh;
-  }
-  
-  #user_bio_label {
-    font-size: 1rem;
-    cursor: cell;
-    padding-left: 15px;
-  }
-  
-  #user_bio #arrow {
-    display: inline-block;
-    transition: transform 0.5s ease-out 0.1s;
-    font-size: 0.8rem
-  }
-  
-  #user_bio.active #user_bio_label {
-    cursor: n-resize;
-  }
-  
-  #user_bio.active #arrow {
-    vertical-align: middle;
-    transform: rotate(180deg);
-  }
-  
-  #user_bio_text {
-    padding: 10px;
-    margin: 5px 15px 10px 15px;
-    color: var(--beige);
-    text-shadow: -1px 1px 1px rgb(10,10,10);
-    font-size: 1.1rem;
-    background-color: rgba(0,0,0,0.3);
-    border-radius: 15px;
-  }
-  
-  #navList {
-    border-top: 0;
-  }
-  
-  #postsModule {
-    padding: 0;
-    border: 0;
-  }
-  
-  #postContainer {
-    margin: 0;
-    border: 0;
-    background: transparent;
-    box-shadow: 0;
-    display: block;
-    width: 100%;
-    max-width: 80vw;
-    column-count: 1;
-    column-gap: 0;
-    -webkit-column-count: 1;
-    -webkit-column-gap: 0;
-    padding: 10px 0 0 0;
-    z-index: 0;
-    margin-top: 50px;
-    align-items: start;
-    align-self: start;
-    }
+  display: grid;
+  padding: 0;
+  grid-auto-flow: column;
+  width: 100%;
+  min-height: 100vh;
+  grid-template-columns: 89% 11%;
+  grid-template-areas: 
+      "middle sections"
+      "middle sections";
+}
 
-    #postContainer > .tweet {
-    margin: 5px 0px 15px 0px;
-    }
-  
-  /* a.user_avatar img {
-    width: 55px;
-    height: 55px;
-  } */
+#headerModule {
+  grid-area: header;
+  background-color: var(--red);
+  background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
+  box-shadow: -1px 2px 6px -2px rgb(5,5,5),
+  0 0 5px -3px rgb(0,0,0);
+  min-width: 100%;
+  overflow: hidden;
+  border: 0 solid transparent;
+  border-right: 2px solid coral;
+  border-bottom: 2px solid coral;
+  padding: 0;
+  min-height: calc(100vw/6);
+}
+
+#homeModule {
+  grid-area: home;
+}
+
+#postsModule {
+  grid-area: middle;
+}
+
+#sectionsModule {
+  grid-area: sections;
+}
+
+#img_container {
+  display: block;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  border-bottom: 1px solid coral;
+  box-shadow: inset 0 0 8px -3px rgba(0,0,0,0.8);
+  margin: 0;
+}
+
+#userModule {
+  display: block;
+  background-color: var(--red);
+  background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
+  border-radius: 10px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  box-shadow: -1px 2px 6px -2px rgb(5,5,5);
+  min-width: 100%;
+  overflow: visible;
+  margin-bottom: 10px;
+  border-top: var(--red);
+  border-right: var(--red);
+}
+
+#user_controls_header {
+  width: 100%;
+  height: 3rem;
+  background-color: var(--red);
+  background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
+  border-top: 0px solid coral;
+  border-left: 2px solid coral;
+}
+
+#user_controls_header img {
+  border: 0px solid rgb(0,0,0);
+}
+
+#user_controls_container {
+  background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
+  border: 2px solid coral;
+  border-top: 0 solid transparent;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#user_controls_top {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+  padding: 10px;
+  border: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+#user_image_link {
+  border: 2px solid coral;
+  display: inline-block;
+  position: relative;
+  top: calc(calc(-20vw/2) - calc(20vw/5));
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#user_image {
+  width: calc(100vw/5);
+  max-height: 100%;
+}
+
+#user_image_container {
+  height: calc(20vw/3);
+}
+
+#user_controls_top a {
+  color: var(--yellow);
+  text-shadow: -1px 1px 1px rgb(10,10,10);
+}
+
+#user_controls_top a:hover {
+  color: var(--beige);
+  text-shadow: -1px 1px 1px rgb(10,10,10);
+}
+
+#user_name {
+  text-align: left;
+  padding-left: 5px;
+}
+
+#user_name a:first-child {
+  font-size: 1.5rem;
+}
+
+#user_bio {
+  display: block;
+  overflow: hidden;
+  max-height: 1.6rem;
+  transition: max-height 0.5s ease-in-out;
+  text-align: left;
+}
+
+#user_bio.active {
+  max-height: 100vh;
+}
+
+#user_bio_label {
+  font-size: 1rem;
+  cursor: cell;
+  padding-left: 15px;
+}
+
+#user_bio #arrow {
+  display: inline-block;
+  transition: transform 0.5s ease-out 0.1s;
+  font-size: 0.8rem
+}
+
+#user_bio.active #user_bio_label {
+  cursor: n-resize;
+}
+
+#user_bio.active #arrow {
+  vertical-align: middle;
+  transform: rotate(180deg);
+}
+
+#user_bio_text {
+  padding: 10px;
+  margin: 5px 15px 10px 15px;
+  color: var(--beige);
+  text-shadow: -1px 1px 1px rgb(10,10,10);
+  font-size: 1.1rem;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 15px;
+}
+
+#navList {
+  border-top: 0;
+}
+
+#postsModule {
+  padding: 0;
+  border: 0;
+}
+
+#postContainer {
+  margin: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: 0;
+  display: block;
+  width: 100%;
+  max-width: 80vw;
+  column-count: 1;
+  column-gap: 0;
+  -webkit-column-count: 1;
+  -webkit-column-gap: 0;
+  padding: 10px 0 0 0;
+  z-index: 0;
+  margin-top: 50px;
+  align-items: start;
+  align-self: start;
+  }
+
+  #postContainer > .tweet {
+  margin: 5px 0px 15px 0px;
+  }
+
+/* a.user_avatar img {
+  width: 55px;
+  height: 55px;
+} */

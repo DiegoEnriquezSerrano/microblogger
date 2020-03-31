@@ -11,7 +11,8 @@
 <?php display_navlist('home'); ?>
 
       <div id="postContainer">
-<?php display_posts($who); ?>
+          
+<?php echo $posts ?>
 
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->
