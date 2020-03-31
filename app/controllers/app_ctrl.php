@@ -241,9 +241,9 @@ function getPostInteractButtons($post, $criteria) {
 function getPostRelayInfo($post) {
   if ($post['is_repost'] == 1) {
     if (array_key_exists('original_post_user_name', $post)) {
-    return '<span class="relay-text">'.$post['post_user_name'].' relayed '.$post['original_post_user_name'].' </span>'.timeSinceDatetime($post['post_created_at']).' ago';
+    return '<span class="relay-text">'.$post['post_user_name'].' relayed '.$post['original_post_user_name'].' '.timeSinceDatetime($post['post_created_at']).' ago'.' </span>';
     } else {
-      return '<span class="relay-text">'.$post['post_user_name'].' relayed this post </span>'.timeSinceDatetime($post['post_created_at']).' ago';
+      return '<span class="relay-text">'.$post['post_user_name'].' relayed this post '.timeSinceDatetime($post['post_created_at']).' ago'.' </span>';
     }
   }
 }

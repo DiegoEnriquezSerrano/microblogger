@@ -1,7 +1,7 @@
 const _d = document;
 const _q = (query) => {return _d.querySelector(query);}
 const _qs = (query) => {return Array.from(_d.querySelectorAll(query));}
-const homeDirectory = 'http://localhost/microblogger/';
+const homeDirectory = 'http://localhost:8080/microblogger/';
 const paths = window.location.href.split(homeDirectory)[1].split('/');
 
 const getDirectoryLinks = _qs('.nav-link');

@@ -481,6 +481,11 @@ nav.navbar button,
   color: var(--beige);
 }
 
+/*///////////////////////////////////////////////end navlist/
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////start posts/*/
+
 @media(min-width:750px){
   #postsModule {
     margin-top: 0px;
@@ -493,13 +498,7 @@ nav.navbar button,
 #postContainer {
   display: grid;
   background-color: transparent;
-  border-radius: 0;
-  border: 0 solid var(--tan);
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  align-items: start;
-  align-self: start;
+  grid-gap: 10px;
 }
 
 #postContainer h2 {
@@ -516,21 +515,26 @@ nav.navbar button,
 .tweet {
   border: 2px solid var(--lightblue);
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 10px;
+  padding: 5px;
+  margin: 0;
   background-color: transparent;
   box-shadow: -1px 2px 8px -1px rgb(5,5,5);
   color: var(--beige);
   background-color: var(--navy);
   background-image: linear-gradient(to top right, rgba(13,45,45,1.0), rgba(30,82,84,1.0));
-  min-width: 350px;
+  min-width: 80vw;
   max-width: 100%;
 }
 
 .tweet .tweet {
-  min-width: 310px;
+  min-width: 70px;
   border: 1px solid var(--lightblue);
   box-shadow: 0 1px 8px -2px rgb(5,5,5);
+  margin: 5px 0;
+}
+
+.relay-text {
+  font-size: 0.85rem;
 }
 
 .post_header {
@@ -564,16 +568,19 @@ a.user_avatar img {
 
 a.userlink {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  display: block;
 }
 
 .time {
   color: rgb(185,185,185);
+  font-size: 0.8rem;
 }
 
 .tweet .tweetContent {
   padding: 20px 10px;
   text-shadow: -1px 1px 1px rgb(0,0,0);
+  font-size: 0.9rem;
 }
 
 a.delete_post_button,
@@ -612,11 +619,16 @@ a.userlink {
 }
 
 .postArrow {
-  font-size: 2.0em;
+  font-size: 1.5em;
   vertical-align: bottom;
   display: inline-block;
   height: 0.7em;
   overflow: hidden;
+}
+
+.post_details_box {
+  font-size: 0.9rem;
+  line-height: 1.0rem;
 }
 
 /*End Posts///////////////////////////////////////
@@ -685,7 +697,7 @@ a.userlink {
 }
 
 span[data-icon="menu"] {
-  background-image: url('../assets/icons/menu_icon.png');
+  background-image: url('../assets/icons/Menu_icon.png');
 }
 
 span[data-icon="home"] {
@@ -701,27 +713,27 @@ span[data-icon="notifications"] {
 }
 
 span[data-icon="message"] {
-  background-image: url('../assets/icons/message_icon.png');
+  background-image: url('../assets/icons/Message_icon.png');
 }
 
 span[data-icon="settings"] {
-  background-image: url('../assets/icons/settings_icon.png');
+  background-image: url('../assets/icons/Settings_icon.png');
 }
 
 span[data-icon="logout"] {
-  background-image: url('../assets/icons/logout_icon.png');
+  background-image: url('../assets/icons/Logout_icon.png');
 }
 
 span[data-icon="music"] {
-  background-image: url('../assets/icons/music_icon.png');
+  background-image: url('../assets/icons/Music_icon.png');
 }
 
 span[data-icon="arts"] {
-  background-image: url('../assets/icons/image_icon.png');
+  background-image: url('../assets/icons/Image_icon.png');
 }
 
 span[data-icon="writing"] {
-  background-image: url('../assets/icons/writing_icon.png');
+  background-image: url('../assets/icons/Writing_icon.png');
 }
 
 #sectionsModule {
