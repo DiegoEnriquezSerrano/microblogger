@@ -1,7 +1,5 @@
 <?php
 
-  print_r($user);
-
   function displayUserInfo($user) {
 
     $userBio = getUserBio($user, 'parent');

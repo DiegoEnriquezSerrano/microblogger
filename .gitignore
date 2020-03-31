@@ -1,5 +1,6 @@
 /uploads
 /config/routes.php
+/config/router.php
 /app/javascript/source.js
 ._.htaccess
 .DS_Store

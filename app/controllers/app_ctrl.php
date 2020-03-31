@@ -508,6 +508,7 @@ function displayUsers($who) {
   }
   $query = "SELECT * FROM users ".$whereClause." ORDER BY RAND() DESC LIMIT 20";
   $results = query($query);
+  $users = '';
 
   if (!$results || mysqli_num_rows($results) < 1) {
     echo "There are no users to display";
@@ -563,7 +564,8 @@ function displayUsers($who) {
       </div>
 DELIMETER;
 
-      echo $echoUser;
+      $users .= $echoUser;
     }
   }
+  return $users;
 }

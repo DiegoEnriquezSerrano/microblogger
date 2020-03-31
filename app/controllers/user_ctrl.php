@@ -18,3 +18,12 @@ if (mysqli_num_rows($userResult) < 1) {
 $user = fetch_assoc($userResult);
 $userid = 'userid=';
 $actualUserid = $user['user_id'];
+
+require_once "app/views/_nav_list.php";
+require_once "app/views/user/user_info.php";
+require_once "app/views/_nav_panel.php";
+
+$userInfo = displayUserInfo($user);
+$posts = display_posts($userid.$actualUserid);
+$navlist = display_navlist('profile');
+$sections = displaySections();

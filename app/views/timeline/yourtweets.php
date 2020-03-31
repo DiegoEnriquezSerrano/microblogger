@@ -1,4 +1,3 @@
-<?php include("app/views/_nav_list.php") ?>
 
     <div id="homeModule">
 
@@ -8,7 +7,7 @@
     <div id="postsModule">
 
 <?php include("app/views/_post_form.php"); ?>
-<?php display_navlist('home'); ?>
+<?php echo $navlist; ?>
 
       <div id="postContainer">
 <?php echo $posts; ?>
@@ -18,8 +17,7 @@
     <div id="sectionsModule">
       <div id="sectionsContainer">
 
-<?php include_once "app/views/_nav_panel.php";
-displaySections(); ?>
+<?php displaySections(); ?>
 
       </div><!--sectionContainer-->
     </div><!--sectionsModule-->

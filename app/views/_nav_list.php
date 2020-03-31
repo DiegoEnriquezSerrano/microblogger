@@ -32,5 +32,5 @@ DELIMETER;
       </ul><!--navList-->
 DELIMETER;
   }
-  echo $nav_list;
+  return $nav_list;
 }

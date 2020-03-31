@@ -1,10 +1,5 @@
 <?php 
 
-global $homeStyles;
-global $directoryStyles;
-
-$styles = [$homeStyles, $directoryStyles];
-
 if(isset($paths)) {
   if(isset($paths[1])) {
     if($paths[1] == 'following') {
@@ -23,7 +18,11 @@ if(isset($paths)) {
   url($homeDirectory);
 }
 
-$scripts = [$mainScript,$directoryScript];
-
 include_once "app/views/_nav_list.php";
 include_once "app/views/_nav_panel.php";
+
+$styles = [$homeStyles, $directoryStyles];
+$scripts = [$mainScript,$directoryScript];
+$sections = displaySections();
+$navlist = display_navlist('directory');
+$users = displayUsers($who);

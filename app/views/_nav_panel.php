@@ -38,5 +38,5 @@ function displaySections() {
 </a>
 <div class="flex-spacer"></div>
 DELIMETER;
-  echo $sections;
+  return $sections;
 }

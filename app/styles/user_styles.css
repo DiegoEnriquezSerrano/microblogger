@@ -5,8 +5,9 @@
   width: 100%;
   min-height: 100vh;
   grid-template-columns: 89% 11%;
+  grid-template-rows: 50px 1fr;
   grid-template-areas: 
-      "middle sections"
+      "header sections"
       "middle sections";
 }
 
@@ -15,7 +16,7 @@
   background-color: var(--red);
   background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
   box-shadow: -1px 2px 6px -2px rgb(5,5,5),
-  0 0 5px -3px rgb(0,0,0);
+              0 0 5px -3px rgb(0,0,0);
   min-width: 100%;
   overflow: hidden;
   border: 0 solid transparent;

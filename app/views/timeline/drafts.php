@@ -1,4 +1,3 @@
-<?php include("app/views/_nav_list.php") ?>
 
     <div id="homeModule">
 
@@ -18,8 +17,7 @@
     <div id="sectionsModule">
       <div id="sectionsContainer">
 
-<?php include_once "app/views/_nav_panel.php";
-displaySections(); ?>
+<?php displaySections(); ?>
 
       </div><!--sectionContainer-->
     </div><!--sectionsModule-->
