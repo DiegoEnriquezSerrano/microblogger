@@ -14,9 +14,11 @@ if ($paths[0] == 'timeline') {
 
 include_once "app/views/_nav_list.php";
 include_once "app/views/_nav_panel.php";
+include_once "app/views/_post_form.php";
 
 $styles = [$homeStyles, $yesAuthStyles];
 $scripts = [$mainScript, $timelineScript];
 $posts = display_posts($who);
 $navlist = display_navlist('home');
 $sections = displaySections();
+$postForm = display_post_box();

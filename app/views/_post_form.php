@@ -22,7 +22,6 @@ function display_post_box() {
         <textarea id="post_box_textfield" placeholder="Tell the world how you feel!">{$draftText}</textarea>
       </div><!--postBox-->
 DELIMETER;
-    echo $post_box;
+    return $post_box;
   }
 }
-display_post_box();

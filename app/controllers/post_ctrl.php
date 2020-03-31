@@ -15,12 +15,6 @@ if($_SERVER['REQUEST_URI'] == $postDirectory || (strpos($_SERVER['REQUEST_URI'],
   url(HOME_DIRECTORY);
 }
 
-global $homeStyles;
-global $yesAuthStyles;
-global $postStyles;
-
-$styles = [$homeStyles, $yesAuthStyles, $postStyles];
-
 $postIdFromURL = explode("/post/" ,$_SERVER['REQUEST_URI']);
 $postResult = bind_and_get_result(
   "SELECT posts.id AS post_id, posts.userid AS post_user_id, users.username AS post_user_name,
@@ -40,10 +34,16 @@ if (mysqli_num_rows($postResult) < 1) {
 }
 
 $postRow = fetch_assoc($postResult);
+
 if ($postRow['is_repost'] == 1 && $postRow['post_text'] == '') url(HOME_DIRECTORY.'post/?'.$postRow['original_post_id']);
+
+include_once "app/views/_nav_panel.php";
+include_once "app/views/_nav_list.php";
+
 $postId = 'postid=';
 $actualPostid = $postRow['post_id'];
-$homeDirectory = HOME_DIRECTORY;
-
-
 $scripts = [$mainScript];
+$styles = [$homeStyles, $yesAuthStyles, $postStyles];
+$postShow = display_posts($postId.$actualPostid);
+$sections = displaySections();
+$navlist = display_navlist('home');

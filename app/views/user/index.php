@@ -3,10 +3,10 @@
 $page = <<<DELIMETER
   <div id="headerModule">
     {$userInfo}
+    {$navlist}
   </div><!--headerModule-->
   <div id="postsModule">
     <div id="postContainer">
-      {$navlist}
       {$posts}
     </div><!--'#postContainer'-->
   </div><!--'#postsModule'-->
