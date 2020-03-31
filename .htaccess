@@ -1,0 +1,8 @@
+  RewriteEngine on
+
+  #if the requested url isn't a file or a dir
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  #process index.php, no matter what was in the url
+  RewriteRule ^ index.php [L]
