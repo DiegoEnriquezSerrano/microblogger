@@ -156,8 +156,8 @@ function getUserLink($scope, $criteria) {
 
 function getPostPagePath($post, $criteria) {
   $postId = getPostId($post, $criteria);
-  global $parameterArray;
-  if ($parameterArray[0] == 'drafts') $path = 'draft/';
+  global $paths;
+  if ($paths[0] == 'drafts') $path = 'draft/';
   if (!isset($path)) $path = 'post/';
   return HOME_DIRECTORY.$path.$postId;
 }
@@ -302,6 +302,7 @@ function display_posts($type) {
 
   $query = "SELECT * FROM ".$table.$whereClause;
   $results = query($query);
+  $posts = '';
 
   if (!$results || mysqli_num_rows($results) < 1) {
     echo "There are no {$table} to display";
@@ -482,10 +483,10 @@ DELIMETER;
         </div><!--tweet-->
 DELIMETER;
       }
-
-      echo $echoPost;
+      $posts .= $echoPost;
     }
   }
+  return $posts;
 }
 
 function displayUsers($who) {

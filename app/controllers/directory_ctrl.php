@@ -5,13 +5,13 @@ global $directoryStyles;
 
 $styles = [$homeStyles, $directoryStyles];
 
-if(isset($parameterArray)) {
-  if(isset($parameterArray[1])) {
-    if($parameterArray[1] == 'following') {
+if(isset($paths)) {
+  if(isset($paths[1])) {
+    if($paths[1] == 'following') {
       $who = 'following';
-    } else if($parameterArray[1] == 'followers') {
+    } else if($paths[1] == 'followers') {
       $who = 'followers';
-    } else if($parameterArray[1] == 'mutuals'){
+    } else if($paths[1] == 'mutuals'){
       $who = 'mutuals';
     } else {
       url($homeDirectory);
