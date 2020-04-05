@@ -265,17 +265,25 @@ nav.navbar button,
 
 .container {
   width: 100%;
-  padding: 0px;
+  padding: 0;
 }
 
 #homeboy {
   display: grid;
-  padding: 0 0 0 0;
+  padding: 0;
   grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 89% 11%;
+  grid-template-areas: 
+      "header sections"
+      "middle sections";
+  align-content: start;
   width: 100%;
   min-height: 100vh;
 }
+
+  #sectionsModule {
+    grid-area: sections;
+  }
 
 /*/End Main Grid//////////////////////////////////
 //////////////////////////////////////////////////
@@ -449,9 +457,10 @@ nav.navbar button,
   align-items: center;
   margin: 0;
   background-color: var(--red);
+  background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
   box-shadow: 2px 2px 6px -4px rgb(0,0,0);
-  border: 1px solid coral;
-  border-left: 2px solid var(--red);
+  border: 0;
+  border-top: 1px solid coral;
   height: 3rem;
   position: fixed;
   top: 0px;
@@ -650,11 +659,12 @@ a.userlink {
   background-color: var(--red);
   padding-top: 48px;
   box-shadow: -1px 48px 4px -2px rgb(0,0,0);
-  transition: transform 0.5s
+  transition: margin-left 0.5s
 }
 
 #sectionsContainer.expanded {
-  transform: translateX(-64vw);
+  /* transform: translateX(-64vw); */
+  margin-left: -64vw;
   box-shadow: -1px 0 4px -1px rgb(0,0,0);
 }
 
@@ -681,7 +691,7 @@ a.userlink {
 #nav_panel_expander {
   overflow: hidden;
   padding: 14px 5px;
-  position: fixed;
+  position: fixed! important;
   top: 0;
   background-color: var(--red);
   border-bottom: 1px solid coral;

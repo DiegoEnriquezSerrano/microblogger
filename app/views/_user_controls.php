@@ -38,4 +38,4 @@
       </div><!--userModule-->
 DELIMETER;
 
-  echo $userModule;
+  // echo $userModule;

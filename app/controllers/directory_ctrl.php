@@ -22,7 +22,7 @@ include_once "app/views/_nav_list.php";
 include_once "app/views/_nav_panel.php";
 
 $styles = [$homeStyles, $directoryStyles];
-$scripts = [$mainScript,$directoryScript];
+$scripts = [$mainScript, $directoryScript];
 $sections = displaySections();
 $navlist = display_navlist('directory');
 $users = displayUsers($who);

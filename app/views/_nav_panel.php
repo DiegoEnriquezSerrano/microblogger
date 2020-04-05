@@ -5,7 +5,7 @@ require_once "app/controllers/nav_panel_ctrl.php";
 function displaySections() {
   global $homeDirectory;
   $sections = <<<DELIMETER
-<a id="nav_panel_expander" class="sectionLink">
+<a id="nav_panel_expander">
   <span class="sectionIcon" data-icon="menu"></span>
 </a>
 <a class="sectionLink" href="{$homeDirectory}">

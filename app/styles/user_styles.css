@@ -5,7 +5,6 @@
   width: 100%;
   min-height: 100vh;
   grid-template-columns: 89% 11%;
-  grid-template-rows: 50px 1fr;
   grid-template-areas: 
       "header sections"
       "middle sections";
@@ -20,8 +19,6 @@
   min-width: 100%;
   overflow: hidden;
   border: 0 solid transparent;
-  border-right: 2px solid coral;
-  border-bottom: 2px solid coral;
   padding: 0;
   min-height: calc(100vw/6);
 }
@@ -51,13 +48,11 @@
   display: block;
   background-color: var(--red);
   background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
-  border-radius: 10px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  border-radius: 0;
   box-shadow: -1px 2px 6px -2px rgb(5,5,5);
   min-width: 100%;
   overflow: visible;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   border-top: var(--red);
   border-right: var(--red);
 }
@@ -67,21 +62,21 @@
   height: 3rem;
   background-color: var(--red);
   background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
-  border-top: 0px solid coral;
-  border-left: 2px solid coral;
+  border: 0;
+  height: 100px;
 }
 
 #user_controls_header img {
   border: 0px solid rgb(0,0,0);
+  height: 100%;
+  width: 100%;
 }
 
 #user_controls_container {
   background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
-  border: 2px solid coral;
+  border: 0;
   border-top: 0 solid transparent;
-  border-radius: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-radius: 0;
 }
 
 #user_controls_top {
@@ -138,7 +133,7 @@
 #user_bio {
   display: block;
   overflow: hidden;
-  max-height: 1.6rem;
+  max-height: 1.3rem;
   transition: max-height 0.5s ease-in-out;
   text-align: left;
 }
@@ -170,16 +165,18 @@
 
 #user_bio_text {
   padding: 10px;
-  margin: 5px 15px 10px 15px;
+  margin: 0;
   color: var(--beige);
   text-shadow: -1px 1px 1px rgb(10,10,10);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   background-color: rgba(0,0,0,0.3);
-  border-radius: 15px;
+  border-radius: 0;
+  box-shadow: inset -1px 1px 3px -1px rgb(0,0,0);
 }
 
 #navList {
   border-top: 0;
+  position: relative;
 }
 
 #postsModule {
@@ -201,7 +198,6 @@
   -webkit-column-gap: 0;
   padding: 10px 0 0 0;
   z-index: 0;
-  margin-top: 50px;
   align-items: start;
   align-self: start;
   }
@@ -214,3 +210,15 @@
   width: 55px;
   height: 55px;
 } */
+
+.fixed-nav #navList {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 2px 6px -1px rgb(0,0,0);
+  border-bottom: 1px solid coral;
+}
+
+#sectionsContainer {
+  box-shadow: -1px 0 4px -1px rgb(0,0,0);
+}

@@ -67,6 +67,12 @@
     display_header_and_styles($styles);
     include("app/views/edit/index.php");
 
+  } else if ($paths[0] == 'inbox') {
+    checkForSession();
+    require_once("app/controllers/messages_ctrl.php");
+    display_header_and_styles($styles);
+    include("app/views/messages/index.php");
+
   } else if ($paths[0] == 'logout') {
     session_unset();
     url(HOME_DIRECTORY);

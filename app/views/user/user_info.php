@@ -10,7 +10,7 @@
     
     $userModule = <<<DELIMETER
         <div id="userModule">
-          <div id="user_controls_header"><img src="../rsc/clear.png"></div><!--user_controls_header-->
+          <div id="user_controls_header"><img src="rsc/clear.png"></div><!--user_controls_header-->
           <div id="user_controls_container">
             <div id="user_controls_top">
               <div id="user_image_container">
@@ -18,7 +18,7 @@
               </div><!--user_image_container-->
               <span id="user_name"><a href="{$userPath}">{$userDisplayName}</a><br> 
               @{$userName}<br>
-              <a href="">Edit Profile</a> | <a href="">Account Settings</a></span>
+              <a href="">Edit Profile</a></span>
             </div><!--user_controls_top-->
             <div id="user_bio" class="active">
               <span id="user_bio_label">Bio <span id="arrow">&#9660;</span></span>

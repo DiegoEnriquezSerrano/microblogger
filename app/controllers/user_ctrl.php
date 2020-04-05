@@ -1,7 +1,7 @@
 <?php
 
 $styles = [$homeStyles, $userStyles];
-$scripts = [$mainScript];
+$scripts = [$mainScript, $userScript];
 
 $userResult = bind_and_get_result(
   "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, profileimg.status AS user_img_status, 
