@@ -1,25 +1,20 @@
-<?php include("app/views/_nav_list.php") ?>
 
     <div id="homeModule">
-
 <?php include("app/views/_user_controls.php"); ?>
 
     </div><!--'#homeModule'-->
     <div id="postsModule">
-
-<?php include("app/views/_post_form.php"); ?>
-<?php display_navlist('home'); ?>
+<?php echo $postForm; ?>
+<?php echo $navlist; ?>
 
       <div id="postContainer">
-<?php display_posts($who); ?>
+<?php echo $posts; ?>
         
       </div><!--'#postContainer'-->
     </div><!--'#postsModule'-->
     <div id="sectionsModule">
       <div id="sectionsContainer">
-
-<?php include_once "app/views/_nav_panel.php";
-displaySections(); ?>
+<?php echo $sections; ?>
 
       </div><!--sectionContainer-->
     </div><!--sectionsModule-->

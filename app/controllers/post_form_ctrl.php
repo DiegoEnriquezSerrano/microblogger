@@ -1,10 +1,10 @@
 <?php
 
 function returnDraftText() {
-  global $parameterArray;
+  global $paths;
   global $draftRow;
   if(!isset($draftRow)) return;
-  if($parameterArray[0] == 'draft') return $draftRow['post_text'];
+  if($paths[0] == 'draft') return $draftRow['post_text'];
   else return;
 }
 $draftText = returnDraftText();

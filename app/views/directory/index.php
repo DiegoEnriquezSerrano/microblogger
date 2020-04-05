@@ -2,20 +2,16 @@
     <div id="homeModule">
     </div><!--'#homeModule'-->
     <div id="postsModule">
+<?php echo $navlist; ?>
 
-<?php display_navlist('directory'); ?>
-
-      <h2>Public profiles</h2>
       <div id="userContainer">
-
-<?php displayUsers($who); ?>
+<?php echo $users; ?>
 
       </div><!--userContainer-->
     </div><!--'#postsModule'-->
     <div id="sectionsModule">
       <div id="sectionsContainer">
-
-<?php displaySections(); ?>
+<?php echo $sections ?>
 
       </div><!--sectionContainer-->
     </div><!--sectionsModule-->

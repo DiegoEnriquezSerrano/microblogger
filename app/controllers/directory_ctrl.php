@@ -1,17 +1,12 @@
 <?php 
 
-global $homeStyles;
-global $directoryStyles;
-
-$styles = [$homeStyles, $directoryStyles];
-
-if(isset($parameterArray)) {
-  if(isset($parameterArray[1])) {
-    if($parameterArray[1] == 'following') {
+if(isset($paths)) {
+  if(isset($paths[1])) {
+    if($paths[1] == 'following') {
       $who = 'following';
-    } else if($parameterArray[1] == 'followers') {
+    } else if($paths[1] == 'followers') {
       $who = 'followers';
-    } else if($parameterArray[1] == 'mutuals'){
+    } else if($paths[1] == 'mutuals'){
       $who = 'mutuals';
     } else {
       url($homeDirectory);
@@ -23,7 +18,11 @@ if(isset($parameterArray)) {
   url($homeDirectory);
 }
 
-$scripts = [$mainScript,$directoryScript];
-
 include_once "app/views/_nav_list.php";
 include_once "app/views/_nav_panel.php";
+
+$styles = [$homeStyles, $directoryStyles];
+$scripts = [$mainScript, $directoryScript];
+$sections = displaySections();
+$navlist = display_navlist('directory');
+$users = displayUsers($who);

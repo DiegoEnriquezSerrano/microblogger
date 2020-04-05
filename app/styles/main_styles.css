@@ -142,8 +142,7 @@ nav.navbar {
   background: var(--orange);
   background-image: linear-gradient(to top right, var(--orange), var(--yellow));
   box-shadow: 0 0 4px -1px rgb(0,0,0)/* ,
-  0 0 150px 150px var(--orange)*/; 
-  z-index: 2;
+  0 0 150px 150px var(--orange)*/;
 }
 
 @media (min-width: 750px) {
@@ -266,17 +265,25 @@ nav.navbar button,
 
 .container {
   width: 100%;
-  padding: 0px;
+  padding: 0;
 }
 
 #homeboy {
   display: grid;
-  padding: 0px 0 0 0;
+  padding: 0;
   grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 89% 11%;
+  grid-template-areas: 
+      "header sections"
+      "middle sections";
+  align-content: start;
   width: 100%;
   min-height: 100vh;
 }
+
+  #sectionsModule {
+    grid-area: sections;
+  }
 
 /*/End Main Grid//////////////////////////////////
 //////////////////////////////////////////////////
@@ -292,11 +299,10 @@ nav.navbar button,
 }
 
 #postsModule {
-  display: grid;    
+  display: grid;
   grid-auto-flow: row;
   justify-items: center;
-  padding: 0px;
-  border: 0px dashed purple;
+  padding: 0;
   align-items: start;
   align-content: start;
 }
@@ -442,32 +448,36 @@ nav.navbar button,
 /*/End Post Box///////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
-/////////////////////////////////////Start Posts*/
+///////////////////////////////////Start Navlist*/
 
 #navList {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 100%;
-  /* padding: 5px; */
   margin: 0;
   background-color: var(--red);
+  background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
   box-shadow: 2px 2px 6px -4px rgb(0,0,0);
-  border: 2px solid coral;
-  border-left: 2px solid var(--red);
-  height: 3rem
+  border: 0;
+  border-top: 1px solid coral;
+  height: 3rem;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 89vw;
+  height: 50px;
 }
 
 #navList a {
   color: var(--yellow);
   display: block;
-  padding: 10px 15px;
+  padding: 7px 7px;
   border-radius: 1em;
   text-align: center;
   border: 1px solid transparent;
   text-shadow: -1px 1px 1px rgb(0,0,0);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 }
 
 #navList a.active {
@@ -479,6 +489,11 @@ nav.navbar button,
 #navList a:hover {
   color: var(--beige);
 }
+
+/*///////////////////////////////////////////////end navlist/
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////start posts/*/
 
 @media(min-width:750px){
   #postsModule {
@@ -492,16 +507,7 @@ nav.navbar button,
 #postContainer {
   display: grid;
   background-color: transparent;
-  border-radius: 5px;
-  border: 0px solid var(--tan);
-  width: 100%;
-  padding: 0px;
-  /* box-shadow: inset 0 0 10px 0px rgb(0,0,0),
-      inset -1px 1px 20px 0px rgba(123,195,190,0.8),
-      0 0 20px 0 rgba(123,195,190,0.8); */
-  margin: 0px;
-  align-items: start;
-  align-self: start;
+  grid-gap: 10px;
 }
 
 #postContainer h2 {
@@ -518,27 +524,32 @@ nav.navbar button,
 .tweet {
   border: 2px solid var(--lightblue);
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 10px;
+  padding: 5px;
+  margin: 0;
   background-color: transparent;
   box-shadow: -1px 2px 8px -1px rgb(5,5,5);
   color: var(--beige);
   background-color: var(--navy);
   background-image: linear-gradient(to top right, rgba(13,45,45,1.0), rgba(30,82,84,1.0));
-  min-width: 350px;
+  min-width: 80vw;
   max-width: 100%;
 }
 
 .tweet .tweet {
-  min-width: 310px;
+  min-width: 70px;
   border: 1px solid var(--lightblue);
   box-shadow: 0 1px 8px -2px rgb(5,5,5);
+  margin: 5px 0;
+}
+
+.relay-text {
+  font-size: 0.85rem;
 }
 
 .post_header {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 75px 1fr;
+  grid-template-columns: 55px 1fr;
   align-content: start;
   justify-content: start;
   line-height: 1.50em;
@@ -558,24 +569,27 @@ nav.navbar button,
 }
 
 a.user_avatar img {
-  max-width: 75px;
+  max-width: 100%;
   height: auto;
-  border-radius: 75px;
+  border-radius: 100%;
   border: 2px solid var(--lightblue);
 }
 
 a.userlink {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  display: block;
 }
 
 .time {
   color: rgb(185,185,185);
+  font-size: 0.8rem;
 }
 
 .tweet .tweetContent {
   padding: 20px 10px;
   text-shadow: -1px 1px 1px rgb(0,0,0);
+  font-size: 0.9rem;
 }
 
 a.delete_post_button,
@@ -598,7 +612,7 @@ a.userlink {
 
 .post_deleted {
   display: block! important;
-  width: 80%s;
+  width: 80%;
   background-color: var(--navy);
   padding: 15px;
   border-radius: 15px;
@@ -614,136 +628,135 @@ a.userlink {
 }
 
 .postArrow {
-  font-size: 2.0em;
+  font-size: 1.5em;
   vertical-align: bottom;
   display: inline-block;
   height: 0.7em;
   overflow: hidden;
 }
 
+.post_details_box {
+  font-size: 0.9rem;
+  line-height: 1.0rem;
+}
+
 /*End Posts///////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
-/////////////////////////////////Start Directory*/
+///////////////////////////////////End Sections/*/
 
-#userContainer {
-  background: var(--navy);
-  box-shadow: inset 0 0 10px 0px rgb(0,0,0),
-              inset -1px 1px 10px 0px rgba(123,195,190,0.8),
-              0 0 20px 0 rgba(123,195,190,0.8);
-  display: block;
-  width: 100%;
-  max-width: 100vw;
-  column-count: 3;
-  column-gap: 10px;
-  -webkit-column-count: 3;
-  -webkit-column-gap: 0;
-  padding: 10px 7px 10px 7px;
-}
-
-@media (max-width: 1084px) {
-  #userContainer {
-    column-count: 2;
-    -webkit-column-count: 2;
-    border: 2px solid red! important;
-  }
-}
-
-@media (max-width: 715px) {
-  #userContainer {
-    column-count: 1;
-    -webkit-column-count: 1;
-    border: 2px solid green! important;
-  }
-}
-
-.user_node {
-  width: 350px;
-  min-height: 150px;
-  max-height: 350px;
-  border-radius: 25px;
-  border: 2px solid var(--lightblue);
+#sectionsContainer {
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
   padding: 0;
+  height: 100vh;
+  width: 75vw;
+  overflow-y: auto;
+  position: fixed;
+  margin-right: 0;
+  border-left: 1px solid coral;
+  background-color: var(--red);
+  padding-top: 48px;
+  box-shadow: -1px 48px 4px -2px rgb(0,0,0);
+  transition: margin-left 0.5s
+}
+
+#sectionsContainer.expanded {
+  /* transform: translateX(-64vw); */
+  margin-left: -64vw;
+  box-shadow: -1px 0 4px -1px rgb(0,0,0);
+}
+
+.sectionLink {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+  grid-gap: 5px;
+  background-color: transparent;
+  padding: 20px 5px;
+  color: white;
+  text-shadow: -1px 1px 1px rgb(10,10,10);
+  font-weight: normal;
+  letter-spacing: 0.0rem;
+  font-size: 1.2em;
+  font-family: 'Roboto Mono', 'Monaco', monospace;
+}
+
+.sectionLink:hover {
+  background-color: rgba(30,30,30,0.3);
+}
+
+#nav_panel_expander {
   overflow: hidden;
-  box-shadow: 0 0px 10px -1px rgb(5,5,5);
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  margin: 5px 0px 15px 0px;
-  word-wrap: break-all;
-  hyphens: auto;
-  color: var(--beige);
+  padding: 14px 5px;
+  position: fixed! important;
+  top: 0;
+  background-color: var(--red);
+  border-bottom: 1px solid coral;
+  height: 50px;
 }
 
-.user_node_user {
-  position: relative;
-  margin-left: 0px;
-  display: block;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+.sectionIcon {
+  background-size: 25px 25px;
+  display: inline-block;
+  width: 25px;
+  min-height: 25px;
+  margin-right: 10px;
 }
 
-.the_holder {
-  display: block;
-  width: 100%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
-  border: 0px solid silver;
-  padding: 0 10px 5px 10px;
+span[data-icon="menu"] {
+  background-image: url('../assets/icons/Menu_icon.png');
 }
 
-.userName {
-  color: var(--lightblue);
-  font-family: 'Roboto Mono', 'Lucida Console', 'Monaco', monospace;
-  text-shadow: 1px -1px 0 rgb(123,195,190),
-              -1px 1px 3px rgb(0,0,0);
-  font-weight: bold;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  position: relative;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  display: inline;
-  vertical-align: top;
+span[data-icon="home"] {
+  background-image: url('../assets/icons/Home_icon.png');
 }
 
-.spacer {
-  width: 100px;
-  max-height: 2.4rem;
-  height: 1.9rem;
-  float: left;
+span[data-icon="directory"] {
+  background-image: url('../assets/icons/Directory_icon.png');
 }
 
-.user_node_header {
-  background: rgba(175,0,0,0.3);
-  min-height: 75px;
+span[data-icon="notifications"] {
+  background-image: url('../assets/icons/Notification_icon.png');
 }
 
-.user_node img {
-  max-width: 75px;
-  max-height: 75px;
-  width: 100%;
-  height: auto;
-  position: absolute;
-  margin-top: -37px;
-  margin-left: 37px;
-  border-radius: 50px;
-  border: 2px solid var(--lightblue);
+span[data-icon="message"] {
+  background-image: url('../assets/icons/Message_icon.png');
 }
 
-.user_node_bio {
-  display: block;
-  padding: 15px;
-  font-size: 1.0rem;
+span[data-icon="settings"] {
+  background-image: url('../assets/icons/Settings_icon.png');
 }
 
-.user_node_info {
-  background-image: linear-gradient(to top right, rgba(13,45,45,1.0), rgba(30,82,84,1.0));
-  border-top: 2px solid var(--lightblue);
+span[data-icon="logout"] {
+  background-image: url('../assets/icons/Logout_icon.png');
 }
 
-/*/End Directory//////////////////////////////////
+span[data-icon="music"] {
+  background-image: url('../assets/icons/Music_icon.png');
+}
+
+span[data-icon="arts"] {
+  background-image: url('../assets/icons/Image_icon.png');
+}
+
+span[data-icon="writing"] {
+  background-image: url('../assets/icons/Writing_icon.png');
+}
+
+#sectionsModule {
+  grid-area: sections;
+  background: var(--yellow);
+  z-index: +2;
+}
+
+#navList {
+  z-index: +1;
+}
+
+/*End Sections////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 ///////////////////////////////////Start Footer/*/
@@ -901,34 +914,6 @@ button#loginSignupButton {
 
 #username {
   display: none;
-}
-
-#sectionsContainer {
-  background-color: transparent;
-  background-image: none;
-  border-radius: 0;
-  border: 0;
-  padding: 0;
-  height: 100vh;
-  overflow-y: auto;
-  position: fixed;
-  margin-right: 0;
-}
-
-.sectionLink {
-  display: block;
-  background-color: transparent;
-  padding: 20px 15px;
-  color: var(--beige);
-  text-shadow: -1px 1px 1px rgb(10,10,10);
-  font-weight: bold;
-  letter-spacing: 0.0rem;
-  font-size: 1.2em;
-  font-family: 'Roboto Mono', 'Monaco', monospace;
-}
-
-.sectionLink:hover {
-  background-color: rgba(30,30,30,0.3);
 }
 
 

@@ -1,10 +1,8 @@
 const _d = document;
 const _q = (query) => {return _d.querySelector(query);}
 const _qs = (query) => {return Array.from(_d.querySelectorAll(query));}
+const paths = window.location.href.split(homeDirectory)[1].split('/');
 
-const homeDirectory = 'http://localhost/microblogger/';
-const firstSplit = window.location.href.split(homeDirectory);
-const secondSplit = firstSplit[1].split('/');
 const getDirectoryLinks = _qs('.nav-link');
 
 const modal = _q('#loginModal');
@@ -36,7 +34,7 @@ const timezone = function(){return Intl.DateTimeFormat().resolvedOptions().timeZ
 
 window.onload = () => {
   let ajax = new XMLHttpRequest();
-  ajax.open("POST", homeDirectory + "functions.php?action=updateTimezone");
+  ajax.open("POST", homeDirectory + "app/api/timezone.php");
   ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   ajax.onload = () => { if (ajax.readyState != 4 || ajax.status != 200) return };
   ajax.send('timezone='+ timezone());
@@ -62,7 +60,7 @@ if (draftToggle != null) {
       draftToggle.value = 1;
     }
   }
-  if (secondSplit == 'drafts') {
+  if (paths == 'drafts') {
     draftToggle.checked = true;
     draftToggle.disabled = true;
     draftToggle.value = 0;
@@ -78,7 +76,7 @@ function generateEventHandlers(){
 
   _qs('.delete_post_button').forEach(elem => elem.onclick = () => {
     let url = homeDirectory + "app/api/delete.php?action=deletePost&id=" + elem.dataset.postid;
-    if (secondSplit == 'drafts') {
+    if (paths == 'drafts') {
       url = url + '&draft';
     }
     let params = {method: 'POST'};
@@ -91,10 +89,10 @@ function generateEventHandlers(){
 
   if (_q('#post_box_button') != null ) {
     _q('#post_box_button').onclick = () => {
-      if( (secondSplit[1] != undefined) && secondSplit[0] == 'draft' && _q('#draftActive').value == 0 ) {
-        var url = homeDirectory + "app/api/post.php?action=editDraft&id=" + secondSplit[1];
-      } else if ( (secondSplit[1] != undefined) && secondSplit[0] == 'draft' && _q('#draftActive').value == 1 ) {
-        var url = homeDirectory + "app/api/post.php?action=createPost&fromDraft=" + secondSplit[1];
+      if( (paths[1] != undefined) && paths[0] == 'draft' && _q('#draftActive').value == 0 ) {
+        var url = homeDirectory + "app/api/post.php?action=editDraft&id=" + paths[1];
+      } else if ( (paths[1] != undefined) && paths[0] == 'draft' && _q('#draftActive').value == 1 ) {
+        var url = homeDirectory + "app/api/post.php?action=createPost&fromDraft=" + paths[1];
       } else if ( _q('#draftActive').value == 1 ) {
         var url = homeDirectory + "app/api/post.php?action=createPost";
       } else if ( _q('#draftActive').value == 0 ) {
@@ -112,12 +110,12 @@ function generateEventHandlers(){
       .then(response => {return response.text()})
       .then(data =>  {
         let postContainer = _q('#postContainer');
-        if (secondSplit == 'liked') {
+        if (paths == 'liked') {
           return;
-        } else if (secondSplit == 'drafts' && _q('#draftActive').value == 0) {
+        } else if (paths == 'drafts' && _q('#draftActive').value == 0) {
           postContainer.innerHTML = data + postContainer.innerHTML;
           postLinkToDraftLink(postContainer.firstElementChild.firstElementChild.lastElementChild.childNodes[7]);
-        } else if ((secondSplit == 'timeline' || secondSplit == 'published') && _q('#draftActive').value == 1) {
+        } else if ((paths == 'timeline' || paths == 'published') && _q('#draftActive').value == 1) {
           postContainer.innerHTML = data + postContainer.innerHTML;
         } else return;
         generateEventHandlers();
@@ -171,6 +169,11 @@ function generateEventHandlers(){
 }
 
 generateEventHandlers();
+
+_q('#nav_panel_expander').onclick = () => {
+  _q('#sectionsContainer').classList.toggle('expanded');
+  console.log(_q('#sectionsContainer'));
+};
 
 breakWord = (element, cutoffPoint) => {
   breakPoint = cutoffPoint - 1;

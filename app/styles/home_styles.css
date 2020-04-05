@@ -1,3 +1,16 @@
+
+
+@media(min-width:600px) {
+  #homeboy {
+    grid-auto-flow: column;
+    grid-template-columns: 30% 50% 20%;
+    grid-template-areas:
+      "header header  sections"
+      "home   middle  sections"
+      "home   middle  sections"
+  }
+}
+
 #homeModule {
     display: grid;
     justify-items: center;
@@ -5,28 +18,6 @@
     align-content: start;
     padding-top: 0;
     grid-area: home;
-  }
-  
-  #homeboy {
-    display: grid;
-    padding: 0px 0 0 0;
-    grid-auto-flow: row;
-    width: 100%;
-    min-height: 100vh;
-    grid-template-areas: 
-        "home"
-        "middle";
-  }
-  
-  @media(min-width:600px) {
-    #homeboy {
-      grid-auto-flow: column;
-      grid-template-columns: 30% 50% 20%;
-      grid-template-areas:
-        "header header  sections"
-        "home   middle  sections"
-        "home   middle  sections"
-    }
   }
   
   #headerModule {
@@ -163,17 +154,8 @@
     background-color: rgba(0,0,0,0.3);
     border-radius: 15px;
   }
-  
+
   #postsModule {
-    padding: 0;
-    border: 0;
-  }
-  
-  #postContainer {
-    margin: 0;
-    border: 0;
-  }
-  
-  #navList {
-   border-radius: 15px; 
+    margin-top: 50px;
+    padding: 0 10px;
   }
