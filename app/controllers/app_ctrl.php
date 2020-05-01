@@ -532,7 +532,6 @@ function displayUsers($who) {
       //   echo $key.': '.$value.'<br>';
       // };
 
-      // global $homeDirectory;
       $userId = getUserId($user, '');
       $userName = getUserName($user, '');
       $userDisplayName = getUserDisplayName($user, '');

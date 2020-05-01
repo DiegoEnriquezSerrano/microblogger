@@ -97,7 +97,7 @@ function generateEventHandlers(){
         var url = homeDirectory + "app/api/post.php?action=createPost";
       } else if ( _q('#draftActive').value == 0 ) {
         var url = homeDirectory + "app/api/post.php?action=createDraft";
-      } else { 
+      } else {
         console.log('invalid command');
         return;
       };
@@ -194,3 +194,7 @@ if ( _q('#user_bio_label') != null ) {
     _q('#user_bio').classList.toggle('active');
   }
 };
+
+_qs('.modal_close').forEach(button => button.onclick = () => {
+  button.parentNode.parentNode.classList.toggle('open');
+});

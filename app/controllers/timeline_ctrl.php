@@ -12,9 +12,9 @@ if ($paths[0] == 'timeline') {
   $who = 'yourposts';
 }
 
-include_once "app/views/_nav_list.php";
-include_once "app/views/_nav_panel.php";
-include_once "app/views/_post_form.php";
+include_once "app/views/_nav_list.html.php";
+include_once "app/views/_nav_panel.html.php";
+include_once "app/views/_post_form.html.php";
 
 $styles = [$homeStyles, $yesAuthStyles];
 $scripts = [$mainScript, $timelineScript];

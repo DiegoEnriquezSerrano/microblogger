@@ -47,9 +47,9 @@ if($draftRow['post_user_id'] != $_SESSION['id']) {
 
 if ($draftRow['is_repost'] == 1 && $draftRow['post_text'] == '') url(HOME_DIRECTORY.'draft/?'.$draftRow['original_post_id']);
 
-require_once "app/views/_nav_panel.php";
-require_once "app/views/_nav_list.php";
-include_once "app/views/_post_form.php";
+require_once "app/views/_nav_panel.html.php";
+require_once "app/views/_nav_list.html.php";
+include_once "app/views/_post_form.html.php";
 
 $draftId = 'draftid=';
 $actualDraftid = $draftRow['post_id'];

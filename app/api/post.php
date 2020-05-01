@@ -20,9 +20,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'createPost') {
 
 if (isset($_GET['action']) && $_GET['action'] == 'createDraft') {
   if (!$_POST['post_box_textfield']) {
-    echo "Cannot create empty post.";
+    echo "Cannot create empty draft.";
   } else if (strlen($_POST['post_box_textfield']) > 69420) {
-    echo "Your post is too long.";
+    echo "Your draft is too long.";
   } else {
     $date = date('Y-m-d H:i:s');
     bind_and_execute_stmt("INSERT INTO drafts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));

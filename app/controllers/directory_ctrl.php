@@ -18,8 +18,8 @@ if(isset($paths)) {
   url($homeDirectory);
 }
 
-include_once "app/views/_nav_list.php";
-include_once "app/views/_nav_panel.php";
+include_once "app/views/_nav_list.html.php";
+include_once "app/views/_nav_panel.html.php";
 
 $styles = [$homeStyles, $directoryStyles];
 $scripts = [$mainScript, $directoryScript];

@@ -37,8 +37,8 @@ $postRow = fetch_assoc($postResult);
 
 if ($postRow['is_repost'] == 1 && $postRow['post_text'] == '') url(HOME_DIRECTORY.'post/?'.$postRow['original_post_id']);
 
-include_once "app/views/_nav_panel.php";
-include_once "app/views/_nav_list.php";
+include_once "app/views/_nav_panel.html.php";
+include_once "app/views/_nav_list.html.php";
 
 $postId = 'postid=';
 $actualPostid = $postRow['post_id'];

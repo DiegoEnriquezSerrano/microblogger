@@ -15,5 +15,6 @@ $directoryScript = $scriptBegin.'directory_scripts.js'.$scriptEnd;
 $timelineScript = $scriptBegin.'timeline_scripts.js'.$scriptEnd;
 $noSessionScript = $scriptBegin.'no_session.js'.$scriptEnd;
 $userScript = $scriptBegin.'user_scripts.js'.$scriptEnd;
+$messagesScript = $scriptBegin.'messages_scripts.js'.$scriptEnd;
 
 $errorStringCheck = errorStringCheck();

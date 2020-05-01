@@ -19,9 +19,9 @@ $user = fetch_assoc($userResult);
 $userid = 'userid=';
 $actualUserid = $user['user_id'];
 
-require_once "app/views/_nav_list.php";
-require_once "app/views/user/user_info.php";
-require_once "app/views/_nav_panel.php";
+require_once "app/views/_nav_list.html.php";
+require_once "app/views/user/user_info.html.php";
+require_once "app/views/_nav_panel.html.php";
 
 $userInfo = displayUserInfo($user);
 $posts = display_posts($userid.$actualUserid);

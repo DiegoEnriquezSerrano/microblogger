@@ -86,13 +86,13 @@ html {
 
 body {
   background-color: transparent;
-  font: normal normal normal 1.0rem/1.2rem 'Tahoma';
+  font: normal normal normal 1.0rem/1.2rem 'Tahoma', 'Arial', 'sans-serif';
   display: block;
   min-height: 100vh;
 }
 
 button {
-  font: normal normal bold 1.0rem/1.2rem 'Tahoma';
+  font: normal normal bold 1.0rem/1.2rem 'Tahoma', 'Arial', 'sans-serif';
   background-color: rgb(255,255,255);
   background-image: linear-gradient(to top right, rgb(214,214,214), rgb(255,255,255));
   border: 1px solid rgb(244,244,244);
@@ -461,7 +461,6 @@ nav.navbar button,
   box-shadow: 2px 2px 6px -4px rgb(0,0,0);
   border: 0;
   border-top: 1px solid coral;
-  height: 3rem;
   position: fixed;
   top: 0px;
   left: 0px;

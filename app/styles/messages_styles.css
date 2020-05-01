@@ -1,0 +1,133 @@
+
+#messagesContainer {
+  width: 100%;
+  max-width: 89vw;
+}
+
+#recipients_visual_input {
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: var(--beige);
+  box-shadow: inset -1px 1px 3px -1px rgb(0,0,0);
+  min-height: 42px;
+  height: auto;
+  max-height: 135px;
+  overflow: hidden;
+}
+
+#recipients_visual_input span {
+  font-size: 0.8rem;
+  padding: 5px 15px;
+  background-color: var(--lightblue);
+  border-radius: 10px;
+  line-height: 2.0rem;
+}
+
+#new_message_body {
+  width: calc(100% - 10px);
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: var(--beige);
+  box-shadow: inset -1px 1px 3px -1px rgb(0,0,0);
+  min-height: 25vh;
+}
+
+.last_sender {
+  font-weight: bold;   
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: opacity 0.1s;
+  opacity: 0;
+  background-color: rgba(0,0,0,0.0);
+}
+
+.modal.open {
+  z-index: +2;
+  background-color: var(--red);
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: linear-gradient(to top right, var(--red), var(--yellow));
+  opacity: 1;
+}
+
+.modal_close_container {
+  background-color: var(--red);
+  background-image: linear-gradient(to right, rgb(202, 58, 39), var(--red));
+  box-shadow: 2px 2px 6px -4px rgb(0,0,0);
+  z-index: +4;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 50px;
+  display: grid;
+  align-content: center;
+  padding-left: 5px;
+}
+
+.modal_close {
+  color: white;
+  font-size: 0;
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: url('../assets/icons/Back_icon.png');
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.message_recipients {
+  position: relative;
+  margin-left: 75vw;
+  opacity: 0;
+  transition: all 0.3s;
+  padding-top: 60px;
+}
+
+.modal.open .message_recipients {
+  margin-left: 0;
+  opacity: 1;
+}
+
+.message_row {
+  border: 2px solid var(--lightblue);
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin: 10px 10px;
+  background-color: transparent;
+  box-shadow: -1px 2px 8px -1px rgb(5,5,5);
+  color: var(--beige);
+  background-color: var(--navy);
+  background-image: linear-gradient(to top right, rgba(13,45,45,1.0), rgba(30,82,84,1.0));
+  min-width: 80vw;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.message_row.clicked {
+  background-color: var(--lightblue);
+  background-image: linear-gradient(to top right, var(--blue), var(--lightblue));
+}
+
+.thread_participants {
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+.last_message {
+  font-weight: normal;
+}
