@@ -1,12 +1,10 @@
-<div id="homeModule">
-</div><!--'#homeModule'-->
 <div id="postsModule">
   <div id="messagesContainer">
     <div id="messagesHeader">
-      <div id="messagesLabel">Messages</div>
       <div id="newThreadButton">
         <a href="<?php echo HOME_DIRECTORY; ?>inbox/create">+</a>
       </div>
+      <div id="messagesLabel">Messages</div>
     </div><!--messagesHeader-->
 <?php displayMessages(); ?>
 

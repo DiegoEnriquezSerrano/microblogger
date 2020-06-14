@@ -104,15 +104,13 @@
 }
 
 .message_row {
-  border: 2px solid var(--lightblue);
   border-radius: 5px;
-  padding: 10px 5px;
-  margin: 10px 10px;
+  padding: 15px;
+  margin: 15px;
   background-color: transparent;
   box-shadow: -1px 2px 8px -1px rgb(5,5,5);
   color: var(--beige);
-  background-color: var(--navy);
-  background-image: linear-gradient(to top right, rgba(13,45,45,1.0), rgba(30,82,84,1.0));
+  background-color: var(--segment);
   min-width: 80vw;
   max-width: 100%;
   cursor: pointer;
@@ -130,4 +128,94 @@
 
 .last_message {
   font-weight: normal;
+}
+
+#messagesHeader {
+  display: grid;
+  grid-auto-flow: column;
+  padding: 10px;
+  background-color: var(--segment);
+}
+
+#messagesHeader > div {
+  color: var(--detail);
+  margin: 5px;
+  text-align: center;
+}
+
+#threadContainer {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 5px;
+}
+
+.threadRow {
+  width: 100%;
+  text-align: left;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 50px 1fr;
+  padding: 10px;
+}
+
+.threadRow.mine {
+  text-align: right;
+}
+
+.message {
+  display: inline-block;
+  text-align: left;
+  background-color: var(--segment);
+  color: var(--copy);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.mine .message {
+  text-align: right;
+  background-color: var(--cta);
+}
+
+.messageDetail {
+  font-size: 0.8rem;
+  height: 1.2rem;
+  color: var(--detail);
+}
+
+#replyContainer {
+  position: fixed;
+  bottom: 0vh;
+  width: 89vw;
+  background-color: var(--segment);
+  padding: 5px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 80% 20%;
+  z-index: +2;
+}
+
+#thread-reply {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 2px solid var(--hilite);
+  padding: 5px;
+  color: var(--copy);
+  background-color: transparent;
+  overflow: visible;
+  word-wrap: break-word;
+  resize: none;
+  min-height: 25px;
+  max-height: 148px !important;
+  transition: all 0.1s ease-out;
+}
+
+#thread-reply:focus {
+  border: 2px solid var(--cta);
+}
+
+#replyButton {
+  border: 0 solid transparent;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin: 0;
 }

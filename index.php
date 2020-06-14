@@ -107,7 +107,7 @@
       print('That user does not exist');
     } else {
       $userPath = $paths[0];
-      include("app/controllers/user_ctrl.html.php");
+      include("app/controllers/user_ctrl.php");
       display_header_and_styles($styles);
       include("app/views/user/index.html.php");
     }

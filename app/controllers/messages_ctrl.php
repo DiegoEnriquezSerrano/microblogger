@@ -55,19 +55,17 @@ function displayMessages(){
       $threads['participants'] = $participants;
       
       $messageThread = <<<DELIMETER
-    <a href="{$homeDirectory}inbox/thread/{$threads['message_thread_hash']}">
-      <div class="message_row">
-        <div class="thread_participants">
-          {$threads['participants']}
-        </div><!--thread_participants-->
-        <div class="last_sender">
-          {$threads['sender']}
-        </div><!--last_sender-->
-        <div class="last_message">
-          {$threads['message']}
-        </div><!--last_message-->
-      </div><!--message_row-->
-    </a>
+    <div class="message_row" data-thread="{$threads['message_thread_hash']}">
+      <div class="thread_participants">
+        {$threads['participants']}
+      </div><!--thread_participants-->
+      <div class="last_sender">
+        {$threads['sender']}
+      </div><!--last_sender-->
+      <div class="last_message">
+        {$threads['message']}
+      </div><!--last_message-->
+    </div><!--message_row-->
 
 DELIMETER;
       echo $messageThread;
@@ -113,12 +111,13 @@ DELIMETER;
   }
 }
 
-function displayThread(){
+function displayThread() {
   global $paths;
   $messages = '';
   if (isset($paths[1]) && $paths[1] == 'thread') {
     $threadResult = bind_and_get_result(
-      'SELECT 
+      'SELECT
+        m.user_id,
         COALESCE(p.user_display_name, u.username) AS user,
         m.message,
         m.sent_at,
@@ -126,23 +125,34 @@ function displayThread(){
       FROM messages m
       INNER JOIN users u ON m.user_id = u.id
       INNER JOIN profiles p ON m.user_id = p.user_id
+      INNER JOIN profileimg pimg ON pimg.userid = m.user_id
       WHERE m.message_thread_hash = ?
       ORDER BY m.sent_at ASC', 's', esc($paths[2])
     );
 
     if (mysqli_num_rows($threadResult) < 1) {
-      echo "Thread doesn't exist";
+      return "Thread doesn't exist";
     } else {
-
       while ($threadMessage = fetch_assoc($threadResult)) {
+        $messageTime = timeSinceDateTime($threadMessage['sent_at']);
+        if($threadMessage['user_id'] == $_SESSION['id']) {
+          $mine = 'mine';
+          
+        } else {
+          $mine = '';
+        }
         $message = <<<DELIMETER
-        <div class="message">
-          <div>{$threadMessage['user']}:</div>
-          <div>{$threadMessage['message']}</div>
-          <div>Sent: {$threadMessage['sent_at']}</div>
-        </div><!--message-->
+        <div class="threadRow {$mine}">
+          <div class="guestAvatar"></div>
+          <div class="messageSection">
+            <div class="message">
+              <div>{$threadMessage['message']}</div>
+            </div><!--message-->
+            <div class="messageDetail">{$messageTime} ago</div>
+          </div><!--messageSection-->
+        </div><!--threadRow-->
 
-  DELIMETER;
+DELIMETER;
         $messages .= $message;
       }
     }

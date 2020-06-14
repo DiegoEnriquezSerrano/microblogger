@@ -20,7 +20,7 @@ function displaySections() {
 <a class="sectionLink" href="{$homeDirectory}inbox">
   <span class="sectionIcon" data-icon="message"></span><span class="sectionLinkText">Messages</span>
 </a>
-<a class="sectionLink" href="">
+<a class="sectionLink" href="{$homeDirectory}edit">
   <span class="sectionIcon" data-icon="settings"></span><span class="sectionLinkText">Account</span>
 </a>
 <a class="sectionLink" href="{$homeDirectory}logout">

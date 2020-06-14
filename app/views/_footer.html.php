@@ -3,11 +3,6 @@
 $scriptsArray = concatArrayValuesAsString($scripts);
 $renderFooter = <<<DELIMETER
   </div><!--'#homeboy'-->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; Diego Enriquez-Serrano 2020</p>
-    </div>
-  </footer>
 
   <div class="mod" id="loginModal" aria-labelledby="loginModal" aria-hidden="true">
     <div class="mod_box">

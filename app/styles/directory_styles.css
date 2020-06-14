@@ -72,45 +72,26 @@
   min-height: 150px;
   max-height: 350px;
   border-radius: 5px;
-  border: 2px solid var(--navy);
   padding: 0;
   overflow: hidden;
-  box-shadow: 0 0px 10px -1px rgb(5,5,5);
+  box-shadow: 0 0 8px -2px rgb(5,5,5);
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
   margin: 5px 0px 15px 0px;
   word-wrap: break-all;
   hyphens: auto;
-  color: var(--beige);
-}
-
-.user_node_user {
-  position: relative;
-  margin-left: 0px;
-  display: block;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.the_holder {
-  display: block;
-  width: 100%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
-  border: 0px solid silver;
-  padding: 0 10px 5px 10px;
+  color: var(--detail);
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 50px;;
 }
 
 .userName {
-  color: var(--lightblue);
-  font-family: 'Roboto Mono', 'Lucida Console', 'Monaco', monospace;
-  text-shadow: 1px -1px 0 rgb(123,195,190),
-              -1px 1px 3px rgb(0,0,0);
+  color: var(--copy);
+  font-family: 'Libre Franklin Bold', 'Arial', 'sans-serif';
   font-weight: bold;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
+  font-size: 1.0rem;
+  line-height: 1.0rem;
   position: relative;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -118,14 +99,10 @@
   vertical-align: top;
 }
 
-.spacer {
-  display: none;
-}
-
 .user_node_header {
-  background: var(--lightblue);
-  opacity: 0.8;
-  min-height: 76px;
+  background: var(--fg);
+  text-align: center;
+  padding: 5px;
 }
 
 .user_node img {
@@ -133,22 +110,21 @@
   max-height: 70px;
   width: 100%;
   height: auto;
-  position: absolute;
-  margin-top: -75px;
-  margin-left: 2px;
-  border-radius: 25px;
-  border: 2px solid var(--lightblue);
+  border-radius: 50px;
 }
 
 .user_node_bio {
   display: block;
   padding: 15px;
-  font-size: 1.0rem;
+  font-size: 0.9rem;
 }
 
 .user_node_info {
-  background-image: linear-gradient(to top right, rgba(13,45,45,1.0), rgba(30,82,84,1.0));
-  border-top: 2px solid var(--lightblue);
+  border-right: 1px solid var(--hilite);
+  background-color: var(--segment);
+  text-align: center;
+  padding: 15px;
+  font-size: 0.8rem;
 }
 
 /*/End Directory//////////////////////////////////

@@ -8,8 +8,6 @@ const getDirectoryLinks = _qs('.nav-link');
 const modal = _q('#loginModal');
 _qs('.loginModalButtons').forEach(button => button.onclick = () => {modal.style.display = "grid";});
 _q('#loginModalClose').onclick = () => {modal.style.display = "none";}
-_q('#search').onfocus = () => {_q('#searchForm').classList.toggle('hover')};
-_q('#search').onblur = () => {_q('#searchForm').classList.toggle('hover')};
 window.onclick = (event) => {if (event.target == modal) {modal.style.display = "none";}}
 
 (() => {_q('#loginActive').value = "1";})();
@@ -83,7 +81,7 @@ function generateEventHandlers(){
     fetch(url,params)
     .then(response => {return response.text()})
     .then(data => {
-      if (data == 1) {elem.parentElement.remove();}
+      if (data == 1) {elem.parentElement.parentElement.remove();}
     });
   });
 
@@ -152,6 +150,28 @@ function generateEventHandlers(){
   });
   
   _qs('.like_post_button').forEach(button => button.onclick = () => {
+    let liked = `
+    <svg width="21px" height="16px" viewBox="0 0 21 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>love</title>
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Dribbble-Dark-Preview" transform="translate(-139.000000, -361.000000)" fill="#59617d">
+              <g id="icons" transform="translate(56.000000, 160.000000)">
+                  <path d="M103.991908,206.599878 C103.779809,210.693878 100.744263,212.750878 96.9821188,215.798878 C94.9997217,217.404878 92.0324261,217.404878 90.042679,215.807878 C86.3057345,212.807878 83.1651892,210.709878 83.0045394,206.473878 C82.8029397,201.150878 89.36438,198.971878 93.0918745,203.314878 C93.2955742,203.552878 93.7029736,203.547878 93.9056233,203.309878 C97.6205178,198.951878 104.274358,201.159878 103.991908,206.599878" id="love"></path>
+              </g>
+          </g>
+      </g>
+    </svg>`;
+    let unliked = `
+    <svg width="21px" height="16px" viewBox="0 0 21 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>love</title>
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Dribbble-Dark-Preview" transform="translate(-99.000000, -362.000000)" fill="#59617d">
+              <g id="icons" transform="translate(56.000000, 160.000000)">
+                  <path d="M55.5929644,215.348992 C55.0175653,215.814817 54.2783665,216.071721 53.5108177,216.071721 C52.7443189,216.071721 52.0030201,215.815817 51.4045211,215.334997 C47.6308271,212.307129 45.2284309,210.70073 45.1034811,207.405962 C44.9722313,203.919267 48.9832249,202.644743 51.442321,205.509672 C51.9400202,206.088455 52.687619,206.420331 53.4940177,206.420331 C54.3077664,206.420331 55.0606152,206.084457 55.5593644,205.498676 C57.9649106,202.67973 62.083004,203.880281 61.8950543,207.507924 C61.7270546,210.734717 59.2322586,212.401094 55.5929644,215.348992 M53.9066671,204.31012 C53.8037672,204.431075 53.6483675,204.492052 53.4940177,204.492052 C53.342818,204.492052 53.1926682,204.433074 53.0918684,204.316118 C49.3717243,199.982739 42.8029348,202.140932 43.0045345,207.472937 C43.1651842,211.71635 46.3235792,213.819564 50.0426732,216.803448 C51.0370217,217.601149 52.2739197,218 53.5108177,218 C54.7508657,218 55.9898637,217.59915 56.9821122,216.795451 C60.6602563,213.815565 63.7787513,211.726346 63.991901,207.59889 C64.2754005,202.147929 57.6173611,199.958748 53.9066671,204.31012" id="love-[#1489]"></path>
+              </g>
+          </g>
+      </g>
+    </svg>`;
     let url = homeDirectory + "app/api/like.php";
     let params = {
       method: 'POST',
@@ -161,8 +181,8 @@ function generateEventHandlers(){
     fetch(url, params)
     .then(response => {return response.text()})
     .then(data =>  {
-      if (data == 1) button.innerHTML = '&#x2b; Like';
-      else if (data == 2) button.innerHTML = '&#x2212; Unlike';
+      if (data == 1) button.innerHTML = unliked;
+      else if (data == 2) button.innerHTML = liked;
     })
   });
 

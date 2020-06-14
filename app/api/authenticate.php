@@ -4,7 +4,6 @@ require_once "../../functions.php";
 
 if(isset($_SESSION['id'])) {$key = $_SESSION['id'];}
 
-
   $error = "";
   $credentials = array(
     'email' => esc($_POST['email']),

@@ -58,23 +58,57 @@ if(window.location != homeDirectory + 'inbox/create') {
 
 //START MESSAGE THREAD BLOCK
 if (paths[1] === 'thread') {
-  _q('#replyButton').onclick = () => {
-    if (_q('#thread-reply').value != '') {
-      console.log(_q('#thread-reply').value)
-      console.log(paths[2]);
-      let url = homeDirectory + "app/api/message_reply.php";
-      let params = {
-        method: 'POST',
-        body: 'message_body=' + _q('#thread-reply').value + '&message_thread_hash=' + paths[2],
-        headers: { "Content-Type": "application/x-www-form-urlencoded" }
-      }
-      fetch(url,params)
-      .then(response => {return response.text()})
-      .then(data => {
-        if (data == 1) {console.log('success!')}
-        else {console.log('fail')}
-      });
-    }
+  let autoExpand = (field) => {
+    field.style.height = 'inherit';
+    let computed = window.getComputedStyle(field);
+    let borderHeight = 
+    parseInt(computed.getPropertyValue('border-top-width')) +
+    parseInt(computed.getPropertyValue('border-bottom-width')) +
+    parseInt(computed.getPropertyValue('border-right-width')) +
+    parseInt(computed.getPropertyValue('border-left-width'));
+    let height;
+    if (field.scrollHeight <= 29) height = 25
+    else height = field.scrollHeight - 7;
+    fullHeight = borderHeight + height
+    field.style.height = fullHeight + 'px';
   }
+  
+  generateEventHandlers = function() {
+    _q('#replyButton').onclick = () => {
+      if (_q('#thread-reply').value != '') {
+        let url = homeDirectory + "app/api/message_reply.php";
+        let params = {
+          method: 'POST',
+          body: 'message_body=' + _q('#thread-reply').value + '&message_thread_hash=' + paths[2],
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        }
+        fetch(url,params)
+        .then(response => {return response.text()})
+        .then(data => {
+          _q('#thread-reply').style.height = 33 + 'px';
+          let messageThread = _q('#threadContainer');
+          messageThread.innerHTML = messageThread.innerHTML + data;
+          generateEventHandlers();
+        });
+      }
+    }
+  
+    _q('#thread-reply').addEventListener('input', function (event) {
+      if (event.target.tagName.toLowerCase() !== 'textarea') return;
+      autoExpand(event.target);
+    }, false);
+  }
+
+  generateEventHandlers();
 }
 //END MESSAGE THREAD BLOCK
+
+
+//START MESSAGE INBOX BLOCK
+if (paths[0] === 'inbox' && !paths[1]) {
+  threads = Array.from(_qs('.message_row'));
+  threads.forEach(thread => thread.onclick = () => {
+    window.location.href = homeDirectory + 'inbox/thread/' + thread.dataset.thread;
+  })
+}
+//END MESSAGE INBOX BLOCK
