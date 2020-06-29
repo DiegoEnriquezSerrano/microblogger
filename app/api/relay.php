@@ -13,7 +13,7 @@ require_once "../../functions.php";
       echo "Cannot relay your own post.";
     } else {
       $date = date('Y-m-d H:i:s');
-      $json['draft'] == false ? $info = 'posts' : $info = 'drafts';
+      isset($json['draft']) == false ? $info = 'posts' : $info = 'drafts';
       bind_and_execute_stmt(
         "INSERT INTO $info (`post`, `userid`, `datetime`, `is_repost`, `repost_from_post_id`) 
          VALUES ( ?, ?, ?, ?, ?)", "sssss", 

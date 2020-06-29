@@ -1,9 +1,6 @@
 
-    <div id="homeModule">
-    </div><!--'#homeModule'-->
-    <div id="mainModule">
 <?php echo $navlist; ?>
-
+    <div id="mainModule">
       <div id="userContainer">
 <?php echo $users; ?>
 

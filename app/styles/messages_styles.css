@@ -1,7 +1,61 @@
 
+#messagesHeader {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 15% 1fr;
+  padding: 5px;
+  padding-right: 15%;
+  background-color: var(--segment);
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#messagesHeader > div {
+  color: var(--detail);
+  margin: 5px;
+  text-align: center;
+}
+
+/*___________________Messages Header_End____________________*
+ *__________________________________________________________*
+ *__________________________________________________________*
+ *____________________Components_Start______________________*/
+
 #messagesContainer {
   width: 100%;
-  max-width: 89vw;
+}
+
+.message_row {
+  border-radius: 5px;
+  padding: 15px;
+  background-color: transparent;
+  box-shadow: 0px 0px 8px -2px rgb(5,5,5);
+  color: var(--copy);
+  background-color: var(--segment);
+  max-width: 100%;
+  min-width: 80vw;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.message_row:hover {
+  background-color: var(--hilite);
+}
+
+.message_row.clicked {
+  background-color: var(--cta);
+}
+
+.thread_participants {
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+.last_message {
+  font-weight: normal;
 }
 
 #create_message_form {
@@ -138,62 +192,6 @@
   opacity: 1;
 }
 
-.message_row {
-  border-radius: 5px;
-  padding: 15px;
-  margin: 15px;
-  background-color: transparent;
-  box-shadow: 0px 0px 8px -2px rgb(5,5,5);
-  color: var(--copy);
-  background-color: var(--segment);
-  min-width: 80vw;
-  max-width: 100%;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.message_row:hover {
-  background-color: var(--hilite);
-}
-
-.message_row.clicked {
-  background-color: var(--cta);
-}
-
-.thread_participants {
-  font-size: 0.75rem;
-  font-weight: normal;
-}
-
-.last_message {
-  font-weight: normal;
-}
-
-#messagesHeader {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 15% 80%;
-  padding: 5px;
-  padding-right: 15%;
-  background-color: var(--segment);
-  align-items: center;
-}
-
-.icon {
-  display: block;
-  padding: 5px;
-}
-
-.icon:hover g {
-  fill: #ffffff;
-}
-
-#messagesHeader > div {
-  color: var(--detail);
-  margin: 5px;
-  text-align: center;
-}
-
 #threadContainer {
   display: grid;
   grid-auto-flow: row;
@@ -232,6 +230,8 @@
   height: 1.2rem;
   color: var(--detail);
 }
+
+
 
 #replyContainer {
   position: fixed;

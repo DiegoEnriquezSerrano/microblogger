@@ -1,38 +1,3 @@
-#img_container {
-  display: block;
-  height: 100%;
-  min-height: 50px;
-  background-color: rgba(0,0,0,0.3);
-  border-bottom: 1px solid coral;
-  box-shadow: inset 0 0 8px -3px rgba(0,0,0,0.8);
-  margin: 0;
-}
-
-#user_bio.active #arrow {
-  vertical-align: main;
-  transform: rotate(180deg);
-}
-
-#user_bio_text {
-  padding: 10px;
-  margin: 5px 15px 10px 15px;
-  color: var(--beige);
-  text-shadow: -1px 1px 1px rgb(10,10,10);
-  font-size: 1.1rem;
-  background-color: rgba(0,0,0,0.3);
-  border-radius: 15px;
-}
-
-#mainModule {
-  padding: 0;
-  border: 0;
-}
-
-#postContainer {
-  margin: 0;
-  border: 0;
-}
-
 /*/////////////////////////////////////////////////
 /////////////////////////////////Start Directory*/
 
@@ -70,7 +35,7 @@
 .userNode {
   min-width: 100%;
   min-height: 12rem;
-  max-height: 350px;
+  max-height: 12rem;
   border-radius: 5px;
   padding: 0;
   overflow: hidden;
@@ -84,7 +49,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr 50px;
-  background-color: var(--fg);
+  background-color: var(--segment);
 }
 
 .userName {
@@ -108,6 +73,8 @@
   justify-content: space-evenly;
   align-items: center;
   max-height: 12rem;
+  background-color: var(--fg);
+  border-left: 1px solid var(--hilite);
 }
 
 .userNodeActions a svg {
@@ -141,32 +108,18 @@
 }
 
 .userNodeInfo {
-  border-right: 1px solid var(--hilite);
   background-color: var(--segment);
   text-align: center;
-  padding: 15px;
+  padding: 20px 5px;
   font-size: 0.8rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  max-height: 12rem;
 }
 
 /*/End Directory//////////////////////////////////
 ////////////////////////////////////////////////*/
-
-#homeModule {
-  display: grid;
-  grid-area: home;
-}
-
-#homeboy {
-  display: grid;
-  padding: 0px 0 0 0;
-  grid-auto-flow: column;
-  width: 100%;
-  min-height: 100vh;
-  grid-template-columns: 89% 11%;
-  grid-template-areas: 
-      "main sections"
-      "main sections";
-}
 
 @media(min-width:600px) {
   #homeboy {
@@ -176,8 +129,4 @@
       "main sections"
       "main sections"
   }
-}
-
-#mainModule {
-  grid-area: main;
 }

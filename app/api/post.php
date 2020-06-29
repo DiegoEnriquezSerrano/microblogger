@@ -26,7 +26,7 @@ if (isset($_POST)) {
       bind_and_execute_stmt(
         "DELETE FROM drafts
          WHERE id = ?
-         AND userid = ?", "ss", 
+         AND userid = ?", "ss",
         [ esc($json['draftId']), esc($_SESSION['id']) ]
       );
     };
