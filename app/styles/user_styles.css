@@ -7,7 +7,7 @@
   grid-template-columns: 89% 11%;
   grid-template-areas: 
       "header sections"
-      "middle sections";
+      "main sections";
 }
 
 #headerModule {
@@ -27,8 +27,8 @@
   grid-area: home;
 }
 
-#postsModule {
-  grid-area: middle;
+#mainModule {
+  grid-area: main;
 }
 
 #sectionsModule {
@@ -159,7 +159,7 @@
 }
 
 #user_bio.active #arrow {
-  vertical-align: middle;
+  vertical-align: main;
   transform: rotate(180deg);
 }
 
@@ -179,7 +179,7 @@
   position: relative;
 }
 
-#postsModule {
+#mainModule {
   padding: 0;
   border: 0;
 }
@@ -202,7 +202,7 @@
   align-self: start;
   }
 
-  #postContainer > .tweet {
+  #postContainer > .post {
   margin: 5px 0px 15px 0px;
   }
 

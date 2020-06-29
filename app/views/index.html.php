@@ -5,7 +5,7 @@
       include("app/views/_post_form.html.php"); ?>
 
     </div><!--'#homeModule'-->
-    <div id="postsModule">
+    <div id="mainModule">
 <?php display_navlist('home'); ?>
 
       <div id="postContainer">
@@ -13,11 +13,11 @@
 <?php display_posts('isFollowing'); ?>
 
       </div><!--'#postContainer'-->
-    </div><!--'#postsModule'-->
+    </div><!--'#mainModule'-->
     <div id="sectionsModule">
       <div id="sectionsContainer">
       <?php
-  include_once "app/views/_nav_panel.html.php";
+  include_once "app/views/_sections.html.php";
   displaySections(); ?>
 
       </div><!--sectionContainer-->

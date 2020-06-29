@@ -5,11 +5,11 @@ $page = <<<DELIMETER
     {$userInfo}
     {$navlist}
   </div><!--headerModule-->
-  <div id="postsModule">
+  <div id="mainModule">
     <div id="postContainer">
       {$posts}
     </div><!--'#postContainer'-->
-  </div><!--'#postsModule'-->
+  </div><!--'#mainModule'-->
   <div id="sectionsModule">
     <div id="sectionsContainer">
       {$sections}

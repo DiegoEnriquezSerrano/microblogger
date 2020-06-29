@@ -72,23 +72,16 @@ table {
 }
 
 :root {
-  --orange: rgb(243,143,101);
-  --red: rgb(243,104,92);
-  --yellow: rgb(247,203,133);
-  --beige: rgb(234,215,194);
-  --tan: rgb(236,189,138);
-  --brown: rgb(84,45,43);
-  --navy: rgb(0,44,45);
-  --blue: rgb(21,89,96);
-  --lightblue: rgb(63,115,112);
-  --bg: rgb(31,38,68);
-  --segment: rgb(15,18,45);
-  --fg: rgb(21,24,54);
-  --detail: rgb(146,155,182);
-  --copy: rgb(211,211,216);
-  --fill: rgb(86,97,125);
-  --hilite: rgb(46,58,89);
-  --cta: rgb(6, 118, 237);
+  --segment: rgb(21,26,48);
+  --fg:      rgb(25,32,56);
+  --cta-sec: rgb(25,32,56);
+  --bg:      rgb(34,43,69);
+  --hilite:  rgb(46,58,89);
+  --fill:    rgb(86,97,125);
+  --detail:  rgb(146,155,182);
+  --copy:    rgb(211,211,216);
+  --cta:     rgb(6, 118, 237);
+  --orange:  rgb(241, 93, 34);
 }
 
 html {
@@ -108,15 +101,7 @@ button {
   font: normal normal bold 1.0rem/1.2rem 'Libre Franklin Medium', 'Arial', 'sans-serif';
   background-color: var(--cta);
   color: var(--copy);
-  margin-bottom: 2px;
-  margin-top: 0px;
-}
-
-button:active {
-  background-color: rgb(214,214,214);
-  box-shadow: 0px 1px 5px -3px rgb(30,30,30);
-  margin-top: 2px;
-  margin-bottom: 0;
+  border: 0
 }
 
 button:focus {outline: 0;}
@@ -128,8 +113,43 @@ a {
   font-weight: bold;
 }
 
-a:hover {
+button:hover, a:hover {
   cursor: pointer;
+}
+
+.button {
+  min-width: 50px;
+  padding: 5px 20px;
+  border-radius: 15px;
+  border: 2px solid var(--cta);
+  transition: all ease-out 0.3s;
+  font-weight: bold;
+  font-family: 'Libre Franklin Bold';
+}
+
+.button.secondary {
+  border-color: var(--hilite);
+  background-color: var(--cta-sec);
+}
+
+.button:hover {
+  border: 2px solid var(--orange);
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  padding: 0;
+}
+
+.close {
+  background-color: transparent;
+  padding: 0px;
+}
+
+.close svg.icon {
+  height: 16px;
+  width: 16px;
 }
 
 /*/Default Styles End/////////////////////////////
@@ -138,179 +158,38 @@ a:hover {
 /////////////////////////////Main wrapper begin/*/
 
 
-.container {
-  width: 100%;
-  padding: 0;
-}
-
 #homeboy {
   display: grid;
   padding: 0;
   grid-auto-flow: column;
-  grid-template-columns: 89% 11%;
-  grid-template-areas: 
-      "header sections"
-      "middle sections";
+  grid-template-columns: 1fr 2.5rem;
+  grid-template-areas:
+      "main sections";
   align-content: start;
   width: 100%;
   min-height: 100vh;
 }
 
-  #sectionsModule {
-    grid-area: sections;
-  }
+#sectionsModule {
+  grid-area: sections;
+}
 
 /*/End Main Grid//////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////Start Modules/*/
 
-#homeModule {
-  text-align: center;
-}
-
-#homeModule h4 {
-  font-size: 1.5rem;
-}
-
-#postsModule {
+#mainModule {
   display: grid;
   grid-auto-flow: row;
   justify-items: center;
   padding: 0;
   align-items: start;
   align-content: start;
+  grid-area: main;
 }
 
 /*/End Modules////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////Start Post Box*/
-
-.post_box {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  border-radius: 5px;
-  padding: 0px;
-  background-color: var(--segment);
-  border-radius: 10px;
-  box-shadow: -1px 2px 6px -2px rgb(5,5,5);
-  min-width: 100%;
-  width: 100%;
-  overflow: hidden;
-  margin: 10px 10px 15px 10px;
-  grid-template-columns: 4.7rem 8fr 3fr;
-  grid-template-rows: 50px 1fr;
-  grid-template-areas: "top-left      top-middle    top-right"
-                       "bottom-all    bottom-all    bottom-all";
-}
-
-#draft_slider {
-  grid-area: top-left;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-auto-flow: row;
-  align-content: center;
-  justify-items: center;
-  padding: 5px 0.2rem;
-  color: var(--detail);
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 3.0rem;
-  height: 0.9rem;
-  margin-top: 2px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--fill);
-  -webkit-transition: .4s;
-  transition: .4s;
-  box-shadow: inset -1px 1px 3px -1px rgb(25,25,25);
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 0.95rem;
-  width: 0.95rem;
-  left: 0;
-  background-color: var(--cta);
-  top: 0px;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-#draft_slider input:checked + .slider {
-  background-color: #ffffff;
-  box-shadow: inset -1px 1px 4px -1px rgb(25,25,25);
-}
-
-#draft_slider input:focus + .slider {
-  box-shadow: 0 0 1px #ffffff;
-}
-
-#draft_slider input:checked + .slider:before {
-  -webkit-transform: translateX(34px);
-  -ms-transform: translateX(34px);
-  transform: translateX(34px);
-}
-
-.slider.round {
-  border-radius: 24px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-#post_pass_or_fail {
-  grid-area: top-middle;
-}
-
-#post_box_button {
-  grid-area: top-right;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 0 0 0 transparent;
-  border: 0;
-  cursor: pointer;
-}
-
-#post_box_textfield {
-  display: block;
-  height: 2.8rem;
-  width: inherit;
-  border-radius: 5px;
-  background-color: transparent;
-  padding: 10px;
-  transition: all 0.5s ease-in-out;
-  box-sizing: border-box;
-  grid-area: bottom-all;
-  color: var(--copy);
-}
-
-#post_box_textfield:focus {
-  height: 200px;
-}
-
-/*/End Post Box///////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 ///////////////////////////////////Start Navlist*/
@@ -327,8 +206,9 @@ a:hover {
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 89vw;
+  width: calc(100% - 2.5rem);
   height: 50px;
+  z-index: 4;
 }
 
 #navList a {
@@ -358,7 +238,7 @@ a:hover {
 ///////////////////////////////////////////////start posts/*/
 
 @media(min-width:750px){
-  #postsModule {
+  #mainModule {
     margin-top: 0px;
   }
   #homeModule {
@@ -366,139 +246,6 @@ a:hover {
   }
 }
 
-#postContainer {
-  display: grid;
-  grid-gap: 15px;
-}
-
-.tweet {
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0px 0px 10px -2px rgb(5,5,5);
-  color: var(--copy);
-  background-color: var(--segment);;
-  min-width: 80vw;
-  max-width: 100%;
-}
-
-.tweet .tweet {
-  min-width: 70px;
-  border: 1px solid var(--detail);
-  box-shadow: 0 1px 8px -2px rgb(5,5,5);
-  margin: 5px 0;
-}
-
-.relay-text {
-  font-size: 0.85rem;
-}
-
-.post_header {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 55px 1fr;
-  align-content: start;
-  justify-content: start;
-  line-height: 1.50em;
-  vertical-align: text-bottom;
-}
-
-.post_header p {
-  padding-left: 10px;
-  font-size: 0.9rem;
-  line-height: 1.3rem;
-}
-
-.tweet a {
-  color: var(--copy);
-  text-shadow: -1px 1px 0 rgb(0,0,0);
-  font-weight: normal;
-  font-family: 'Libre Franklin Bold', 'Monaco', monospace
-}
-
-a.user_avatar img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 100%;
-}
-
-a.userlink {
-  font-weight: bold;
-  font-size: 1.0rem;
-  display: block;
-}
-
-.time {
-  font-size: 0.8rem;
-}
-
-.tweet .tweetContent {
-  padding: 20px 10px;
-  text-shadow: -1px 1px 1px rgb(0,0,0);
-  font-size: 0.9rem;
-}
-
-a.delete_post_button,
-a.toggleFollow {
-  letter-spacing: 0.10rem;
-  font-size: 0.8rem;
-  color: var(--detail);
-}
-
-.toggleFollow img {
-  height: 25px !important;
-  width: 25px !important;
-}
-
-.post_details_box {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-all;
-  color: var(--detail);
-  text-shadow: 1px -1px 2px rgb(0,0,0);
-}
-
-#loginAlert,
-#postSuccess,
-#postFail {
-  display: none;
-}
-
-.post_deleted {
-  display: block! important;
-  width: 80%;
-  background-color: var(--navy);
-  padding: 15px;
-  border-radius: 15px;
-  border: 1px solid var(--lightblue);
-}
-
-#tweetSuccess{
-    
-}
-
-#tweetFail{
-    
-}
-
-.postArrow {
-  font-size: 1.6em !important;
-  vertical-align: bottom;
-  display: inline-block;
-  height: 0.9em !important;
-  overflow: hidden;
-  color: var(--detail)! important;
-}
-
-.post_details_box {
-  font-size: 0.9rem;
-  line-height: 1.0rem;
-}
-
-.post_interaction_buttons {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-evenly;
-}
 
 /*End Posts///////////////////////////////////////
 //////////////////////////////////////////////////
@@ -514,7 +261,8 @@ a.toggleFollow {
   background-color: var(--segment);
   padding-top: 48px;
   box-shadow: -1px 48px 4px -2px rgb(0,0,0);
-  transition: margin-left 0.5s
+  transition: margin-left 0.5s;
+  z-index: 5;
 }
 
 #sectionsContainer.expanded {
@@ -530,24 +278,37 @@ a.toggleFollow {
   align-items: center;
   grid-gap: 5px;
   background-color: transparent;
-  padding: 20px 5px;
+  padding: 1.2rem 0.5rem;
   color: var(--detail);
   text-shadow: -1px 1px 1px rgb(10,10,10);
   font-weight: bold;
   font-size: 1.1em;
+  grid-template-columns: 11vw 1fr;
+  align-content: center;
+  font-weight: bold;
 }
 
 .sectionLink:hover {
-  background-color: rgba(30,30,30,0.3);
+  background-color: var(--hilite);
+  color: var(--cta);
 }
 
-#nav_panel_expander {
+.sectionLink:hover g {
+  fill: var(--cta);
+}
+
+#sections_expander {
   overflow: hidden;
-  padding: 14px 5px;
   position: fixed! important;
+  padding: 0.75rem 0.5rem;
   top: 0;
-  background-color: var(--segment);
-  height: 50px;
+  border: 0;
+}
+
+#sections_expander .filler {
+  display: block;
+  min-width: 64vw;
+  height: 100%
 }
 
 .sectionIcon {
@@ -558,32 +319,9 @@ a.toggleFollow {
   margin-right: 10px;
 }
 
-span[data-icon="menu"] {
-  background-image: url('../assets/icons/list_menu.svg');
-}
-
-span[data-icon="home"] {
-  background-image: url('../assets/icons/home.svg');
-}
-
-span[data-icon="directory"] {
-  background-image: url('../assets/icons/search_left.svg');
-}
-
-span[data-icon="notifications"] {
-  background-image: url('../assets/icons/notification_bell.svg');
-}
-
-span[data-icon="message"] {
-  background-image: url('../assets/icons/mail_fill.svg');
-}
-
-span[data-icon="settings"] {
-  background-image: url('../assets/icons/settings.svg');
-}
-
-span[data-icon="logout"] {
-  background-image: url('../assets/icons/shut_down.svg');
+svg.icon {
+  width: 1.6rem;
+  height: 1.6rem;
 }
 
 span[data-icon="music"] {
@@ -600,12 +338,7 @@ span[data-icon="writing"] {
 
 #sectionsModule {
   grid-area: sections;
-  background: var(--yellow);
-  z-index: +2;
-}
-
-#navList {
-  z-index: +1;
+  z-index: 4;
 }
 
 /*End Sections////////////////////////////////////

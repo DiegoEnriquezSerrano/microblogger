@@ -40,17 +40,17 @@ DELIMETER;
 if(isset($_SESSION['id']) && $_SESSION['id'] > 0) { url(HOME_DIRECTORY); } else { display_landing_page(); }; ?>
 
     </div><!--'#homeModule'-->
-    <div id="postsModule">
+    <div id="mainModule">
       <div id="postContainer">
         <h2>Recent post</h2>
 <?php display_posts('random'); ?>
 
       </div><!--'#postContainer'-->
-    </div><!--'#postsModule'-->
+    </div><!--'#mainModule'-->
     <div id="sectionsModule">
       <div id="sectionsContainer">
       <?php
-  include_once "app/views/_nav_panel.html.php";
+  include_once "app/views/_sections.html.php";
   displaySections(); ?>
 
       </div><!--sectionContainer-->

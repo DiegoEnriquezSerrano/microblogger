@@ -20,6 +20,7 @@
     include("app/views/post/index.html.php");
     
   } else if ($paths[0] == 'draft') {
+    checkForSession();
     if ($paths[1] == '') {
       url(HOME_DIRECTORY);
     }
@@ -37,19 +38,19 @@
     checkForSession();
     include("app/controllers/timeline_ctrl.php");
     display_header_and_styles($styles);
-    include("app/views/timeline/published.html.php");
+    include("app/views/timeline/index.html.php");
 
   } else if ($paths[0] == 'liked') {
     checkForSession();
     include("app/controllers/timeline_ctrl.php");
     display_header_and_styles($styles);
-    include("app/views/timeline/liked_posts.html.php");
+    include("app/views/timeline/index.html.php");
 
   } else if ($paths[0] == 'drafts') {
     checkForSession();
     include("app/controllers/timeline_ctrl.php");
     display_header_and_styles($styles);
-    include("app/views/timeline/drafts.html.php");
+    include("app/views/timeline/index.html.php");
 
   } else if ($paths[0] == 'search') {
     include("app/controllers/search_ctrl.php");
@@ -61,11 +62,20 @@
     display_header_and_styles($styles);
     include("app/views/directory/index.html.php");
 
+  } else if ($paths[0] == 'notifications') {
+    include("app/controllers/notifications_ctrl.php");
+    display_header_and_styles($styles);
+    include("app/views/notifications/index.html.php");
+
   } else if ($paths[0] == 'edit') {
     checkForSession();
     require_once("app/controllers/edit_profile_ctrl.php");
     display_header_and_styles($styles);
-    include("app/views/edit/index.html.php");
+    if (isset($paths[1]) && $paths[1] == 'account') {
+      include("app/views/edit/account.html.php");
+    } else {
+      include("app/views/edit/index.html.php");
+    };
 
   } else if ($paths[0] == 'inbox') {
     checkForSession();

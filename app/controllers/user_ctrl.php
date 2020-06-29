@@ -1,11 +1,12 @@
 <?php
 
-$styles = [$homeStyles, $userStyles];
+$styles = [$mainStyles, $userStyles];
 $scripts = [$mainScript, $userScript];
 
 $userResult = bind_and_get_result(
-  "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, profileimg.status AS user_img_status, 
-          profileimg.file_ext AS user_img_ext, profiles.user_bio, profiles.profile_header_img AS user_header_img
+  "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name,
+   COALESCE(profiles.profile_img, 'default') AS profile_img, profiles.user_bio,
+   profiles.profile_header_img AS user_header_img
    FROM users 
    INNER JOIN profileimg ON profileimg.userid = users.id 
    LEFT JOIN profiles ON profiles.user_id = users.id
@@ -21,7 +22,7 @@ $actualUserid = $user['user_id'];
 
 require_once "app/views/_nav_list.html.php";
 require_once "app/views/user/user_info.html.php";
-require_once "app/views/_nav_panel.html.php";
+require_once "app/views/_sections.html.php";
 
 $userInfo = displayUserInfo($user);
 $posts = display_posts($userid.$actualUserid);

@@ -2,52 +2,33 @@
 
 require_once "../../functions.php";
 
-if (isset($_GET['action']) && $_GET['action'] == 'createPost') {
-  if (!$_POST['post_box_textfield']) {
-    echo "Cannot create empty post.";
-  } else if (strlen($_POST['post_box_textfield']) > 69420) {
-    echo "Your post is too long.";
+if (isset($_POST)) {
+  $json = json_decode(file_get_contents('php://input'), true);
+  $json['draft'] == false ? $info = ['posts', 'postid='] : $info = ['drafts', 'draftid='];
+  $date = date('Y-m-d H:i:s');
+  if (!isset($json['text'])) exit("Cannot create empty {$info[0]}");
+  if (strlen($json['text']) > 69420) exit("Post is too long.");
+  if (isset($json['draftId']) && $json['draft'] == true) {
+    bind_and_execute_stmt(
+      "UPDATE drafts SET post = ?, datetime = ?
+       WHERE id = ?", "sss",
+      [ esc($json['text']), esc($date), esc($json['draftId']) ]
+    );
   } else {
-    $date = date('Y-m-d H:i:s');
-    bind_and_execute_stmt("INSERT INTO posts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));
-    $lastPostId = mysqli_insert_id($link);
-    echo display_posts('postid='.$lastPostId);
-    if (isset($_GET['fromDraft'])) {
-      bind_and_execute_stmt("DELETE FROM drafts WHERE id = ? AND userid = ?", "ss", [esc($_GET['fromDraft']),esc($_SESSION['id'])]);
-    }
-  }
-}
-
-if (isset($_GET['action']) && $_GET['action'] == 'createDraft') {
-  if (!$_POST['post_box_textfield']) {
-    echo "Cannot create empty draft.";
-  } else if (strlen($_POST['post_box_textfield']) > 69420) {
-    echo "Your draft is too long.";
-  } else {
-    $date = date('Y-m-d H:i:s');
-    bind_and_execute_stmt("INSERT INTO drafts (`post`, `userid`, `datetime`, `is_repost`) VALUES ( ?, ?, ?, ?) ", "ssss", $new=array(esc($_POST['post_box_textfield']),esc($_SESSION['id']), esc($date), 0));
-    $lastDraftId = mysqli_insert_id($link);
-    echo display_posts('draftid='.$lastDraftId);
-    // $lastDraftResult = bind_and_get_result("SELECT * FROM drafts WHERE id = ?", "s", $lastDraftId);
-    // $lastDrafttRow = fetch_assoc($lastDraftResult);
-    // echo json_encode([
-    //   'post_id' => $lastPostRow['id'], 
-    //   'user_id' => $lastPostRow['userid'],
-    //   'post_body' => $lastPostRow['post'],
-    //   'datetime' => $lastPostRow['datetime'],
-    //   'is_relay' => $lastPostRow['is_repost'],
-    //   'post_relayed' => $lastPostRow['repost_from_post_id']
-    //   ]);
-  }
-}
-
-if (isset($_GET['action']) && $_GET['action'] == 'editDraft') {
-  if (!$_POST['post_box_textfield']) {
-    echo "Cannot create empty draft.";
-  } else if (strlen($_POST['post_box_textfield']) > 69420) {
-    echo "Your draft is too long.";
-  } else {
-    $date = date('Y-m-d H:i:s');
-    bind_and_execute_stmt("UPDATE drafts SET post = ?, datetime = ? WHERE id = ?", "sss", $new=array(esc($_POST['post_box_textfield']), esc($date), esc($_GET['id'])));
-  }
-}
+    bind_and_execute_stmt(
+      "INSERT INTO {$info[0]} (`post`, `userid`, `datetime`, `is_repost`)
+       VALUES ( ?, ?, ?, ?) ", "ssss",
+      [ esc($json['text']), esc($_SESSION['id']), esc($date), 0 ]
+    );
+    $lastId = mysqli_insert_id($link);
+    echo display_posts($info[1].$lastId);
+    if (isset($json['draftId'])) {
+      bind_and_execute_stmt(
+        "DELETE FROM drafts
+         WHERE id = ?
+         AND userid = ?", "ss", 
+        [ esc($json['draftId']), esc($_SESSION['id']) ]
+      );
+    };
+  };
+};

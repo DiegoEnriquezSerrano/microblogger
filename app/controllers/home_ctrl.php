@@ -1,13 +1,13 @@
 <?php
 
-global $homeStyles;
-global $yesAuthStyles;
+global $mainStyles;
+global $timelineStyles;
 global $noAuthStyles;
 
 if (!isset($_SESSION['id'])) {
-  $styles = [$homeStyles, $noAuthStyles];
+  $styles = [$mainStyles, $noAuthStyles];
 } else {
-  $styles = [$homeStyles, $yesAuthStyles];
+  $styles = [$mainStyles, $timelineStyles];
 }
 
 display_header_and_styles($styles);

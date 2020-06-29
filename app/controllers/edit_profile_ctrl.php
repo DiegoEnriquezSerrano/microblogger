@@ -1,20 +1,19 @@
 <?php
 
-global $homeStyles;
-global $userStyles;
-global $editStyles;
-
-$styles = [$homeStyles, $userStyles, $editStyles];
+$styles = [$mainStyles, $editStyles];
 
 if(strpos($_SERVER['REQUEST_URI'], "index.php" ) !== false || !isset($_SESSION['id'])) {
   url("../");
 }
 
 $userResult = bind_and_get_result(
-  "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, profileimg.status AS user_img_status, 
-          profileimg.file_ext AS user_img_ext, profiles.user_bio, profiles.profile_header_img AS user_header_img
-   FROM users 
-   INNER JOIN profileimg ON profileimg.userid = users.id 
+  "SELECT users.id AS user_id,
+          users.username AS user_name,
+          profiles.user_display_name,
+          COALESCE(profiles.profile_img, 'default') AS user_img,
+          profiles.user_bio,
+          profiles.profile_header_img AS user_header_img
+   FROM users
    LEFT JOIN profiles ON profiles.user_id = users.id
    WHERE users.id = ?", "s", esc($_SESSION['id']));
 
@@ -30,4 +29,9 @@ $userImage = getUserImage($user, 'parent');
 $userDisplayName = getUserDisplayName($user, 'parent');
 
 
-$scripts = $mainScript;
+include_once "app/views/_nav_list.html.php";
+include_once "app/views/_sections.html.php";
+$navlist = display_navlist('settings');
+$sections = displaySections();
+
+$scripts = [$mainScript, $editScript];

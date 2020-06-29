@@ -19,9 +19,9 @@ if(isset($paths)) {
 }
 
 include_once "app/views/_nav_list.html.php";
-include_once "app/views/_nav_panel.html.php";
+include_once "app/views/_sections.html.php";
 
-$styles = [$homeStyles, $directoryStyles];
+$styles = [$mainStyles, $directoryStyles];
 $scripts = [$mainScript, $directoryScript];
 $sections = displaySections();
 $navlist = display_navlist('directory');

@@ -1,8 +1,8 @@
 <?php
 
-global $homeStyles;
+global $mainStyles;
 
-$styles = [$homeStyles];
+$styles = [$mainStyles];
 
 
 $scripts = $mainScript;

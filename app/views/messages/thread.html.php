@@ -1,4 +1,4 @@
-<div id="postsModule">
+<div id="mainModule">
   <div id="messagesContainer">
     <div id="threadContainer">
 <?php echo $thread ?>
@@ -9,7 +9,7 @@
       </div><!--replyContainer-->
     </div><!--threadContainer-->
   </div><!--messagesContainer-->
-</div><!--'#postsModule'-->
+</div><!--'#mainModule'-->
 <div id="sectionsModule">
   <div id="sectionsContainer">
 <?php echo $sections ?>

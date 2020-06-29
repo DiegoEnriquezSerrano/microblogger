@@ -53,25 +53,31 @@ if(window.location != homeDirectory + 'inbox/create') {
       });
     };
   };
+
+  _q('#new_message_body').addEventListener('input', function (event) {
+    if (event.target.tagName.toLowerCase() !== 'textarea') return;
+    autoExpand(event.target);
+  }, false);
 }
 //END CREATE MESSAGE BLOCK
 
+let autoExpand = (field) => {
+  field.style.height = 'inherit';
+  let computed = window.getComputedStyle(field);
+  let borderHeight = 
+  parseInt(computed.getPropertyValue('border-top-width')) +
+  parseInt(computed.getPropertyValue('border-bottom-width')) +
+  parseInt(computed.getPropertyValue('border-right-width')) +
+  parseInt(computed.getPropertyValue('border-left-width'));
+  let height;
+  if (field.scrollHeight <= 29) height = 25
+  else height = field.scrollHeight - 2;
+  fullHeight = borderHeight + height
+  field.style.height = fullHeight + 'px';
+};
+
 //START MESSAGE THREAD BLOCK
 if (paths[1] === 'thread') {
-  let autoExpand = (field) => {
-    field.style.height = 'inherit';
-    let computed = window.getComputedStyle(field);
-    let borderHeight = 
-    parseInt(computed.getPropertyValue('border-top-width')) +
-    parseInt(computed.getPropertyValue('border-bottom-width')) +
-    parseInt(computed.getPropertyValue('border-right-width')) +
-    parseInt(computed.getPropertyValue('border-left-width'));
-    let height;
-    if (field.scrollHeight <= 29) height = 25
-    else height = field.scrollHeight - 7;
-    fullHeight = borderHeight + height
-    field.style.height = fullHeight + 'px';
-  }
   
   generateEventHandlers = function() {
     _q('#replyButton').onclick = () => {

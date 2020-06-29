@@ -10,11 +10,11 @@ $javascriptDirectory = JAVASCRIPT_DIRECTORY;
 
 function time_since($since) {
   $chunks = array(
-    array(60 * 60 * 24 * 365 , 'year'),
-    array(60 * 60 * 24 * 30 , 'month'),
-    array(60 * 60 * 24 * 7, 'week'),
+    array(60 * 60 * 24 * 365 , 'yr'),
+    array(60 * 60 * 24 * 30 , 'mo'),
+    array(60 * 60 * 24 * 7, 'wk'),
     array(60 * 60 * 24 , 'day'),
-    array(60 * 60 , 'hour'),
+    array(60 * 60 , 'hr'),
     array(60 , 'min'),
     array(1 , 'sec')
   );
@@ -99,19 +99,42 @@ function concatArrayValuesAsString($array) {
 function getScopeInformation($object, $criteria) {
   if(array_key_exists('post_id', $object)) {
     $post = $object;
-    $arrayKeys = array('user_name', 'post_id', 'user_id', 'img_status', 'img_ext', 'display_name', 'created_at', 'post_text');
-    $postArray = array(
-      $post['post_user_name'], $post['post_id'], $post['post_user_id'], 
-      $post['post_user_img_status'], $post['post_user_img_ext'], $post['post_user_displayname'], 
-      $post['post_created_at'], $post['post_text']);
-    if (array_key_exists('original_post_user_id', $post)) $originalPostArray = array(
-      $post['original_post_user_name'], $post['original_post_id'], $post['original_post_user_id'], 
-      $post['original_post_user_img_status'], $post['original_post_user_img_ext'], $post['original_post_user_displayname'], 
-      $post['original_post_created_at'], $post['original_post_text']);
-    if (array_key_exists('original_relayed_post_user_id', $post)) $originalRelayedPostArray = array(
-      $post['original_relayed_post_user_name'], $post['original_post_repost_from_post_id'], $post['original_relayed_post_user_id'], 
-      $post['original_relayed_post_user_img_status'], $post['original_relayed_post_user_img_ext'], $post['original_relayed_post_user_displayname'], 
-      $post['original_relayed_post_created_at'], $post['original_relayed_post_text']);
+    $arrayKeys = [
+      'user_name',
+      'post_id',
+      'user_id',
+      'profile_img',
+      'display_name',
+      'created_at',
+      'post_text'
+    ];
+    $postArray = [
+      $post['post_user_name'],
+      $post['post_id'],
+      $post['post_user_id'], 
+      $post['post_user_img'],
+      $post['post_user_displayname'], 
+      $post['post_created_at'],
+      $post['post_text']
+    ];
+    if (array_key_exists('original_post_user_id', $post)) $originalPostArray = [
+      $post['original_post_user_name'],
+      $post['original_post_id'],
+      $post['original_post_user_id'], 
+      $post['original_post_user_img'],
+      $post['original_post_user_displayname'], 
+      $post['original_post_created_at'],
+      $post['original_post_text']
+    ];
+    if (array_key_exists('original_relayed_post_user_id', $post)) $originalRelayedPostArray = [
+      $post['original_relayed_post_user_name'],
+      $post['original_post_repost_from_post_id'],
+      $post['original_relayed_post_user_id'], 
+      $post['original_relayed_post_user_img'],
+      $post['original_relayed_post_user_displayname'], 
+      $post['original_relayed_post_created_at'],
+      $post['original_relayed_post_text']
+    ];
     if($criteria == 'child') {
       if(array_key_exists('original_relayed_post_user_id', $post)) {
         $userPostArray = $originalRelayedPostArray;
@@ -127,8 +150,21 @@ function getScopeInformation($object, $criteria) {
     else return 'This is not a valid command';
   } else if (array_key_exists('user_id', $object)) {
     $user = $object;
-    $arrayKeys = array('user_id', 'user_name', 'display_name', 'img_status', 'img_ext', 'user_bio', 'header_img');
-    $userArray = array($user['user_id'], $user['user_name'], $user['user_display_name'], $user['user_img_status'], $user['user_img_ext'], $user['user_bio'], $user['user_header_img']);
+    $arrayKeys = [
+      'user_id',
+      'user_name',
+      'display_name',
+      'profile_img',
+      'user_bio',
+      'header_img'];
+    $userArray = [
+      $user['user_id'],
+      $user['user_name'],
+      $user['user_display_name'], 
+      $user['user_img'],
+      $user['user_bio'],
+      $user['user_header_img']
+    ];
     return array_combine($arrayKeys, $userArray);
   } else return 'This is not a valid command';
 }
@@ -166,19 +202,19 @@ function getUserImage($scope, $criteria) {
   $userInfo = getScopeInformation($scope, $criteria);
   global $homeDirectory;
   $noImage = $homeDirectory.'rsc/profiledefault.jpg';
-  if ($userInfo['img_status'] == 1) return $noImage;
-  else return $homeDirectory.'uploads/profile'.$userInfo['user_id'].$userInfo['img_ext'];
+  if ($userInfo['profile_img'] == 'default') return $noImage;
+  else return $homeDirectory.'uploads/'.$userInfo['profile_img'].'.jpg';
 }
 
 function getUserDisplayName($scope, $criteria) {
   $userInfo = getScopeInformation($scope, $criteria);
-  if ($userInfo['display_name'] !== null) return $userInfo['display_name'];
+  if ($userInfo['display_name'] !== null) return preg_replace("/&lt;/", "&amp;lt;", $userInfo['display_name']);
   else return $userInfo['user_name'];
 }
 
 function getUserBio($scope, $criteria) {
   $userInfo = getScopeInformation($scope, $criteria);
-  if (array_key_exists('user_bio', $userInfo)) return $userInfo['user_bio'];
+  if (array_key_exists('user_bio', $userInfo)) return preg_replace("/&lt;/", "&amp;lt;", $userInfo['user_bio']);
   else return '';
 }
 
@@ -197,29 +233,34 @@ function getUserIsFollowing($scope, $criteria) {
   if (isset($_SESSION['id'])) {
     $userid = getUserId($scope, $criteria);
     $userPathBegin = '<a class="toggleFollow" data-userId="';
-    $isFollowingQueryResult = bind_and_get_result("SELECT * FROM following_relations WHERE follower = ? AND is_following = ?", "ss", $new=array($_SESSION['id'], $userid));
+    $isFollowingQueryResult = bind_and_get_result(
+      "SELECT *
+       FROM following_relations
+       WHERE follower = ?
+       AND is_following = ?", "ss", [$_SESSION['id'], $userid]
+    );
     if ($_SESSION['id'] == $userid) {
       return '';
     } else if (mysqli_num_rows ($isFollowingQueryResult) > 0) {
       return $userPathBegin.$userid.'">
-        <svg width="30px" height="30px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <title>Unfollow</title>
-          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Dribbble-Dark-Preview" transform="translate(-219.000000, -600.000000)" fill="#59617d">
-              <g id="icons" transform="translate(56.000000, 160.000000)">
-                <path d="M177.7,450 C177.7,450.552 177.2296,451 176.65,451 L170.35,451 C169.7704,451 169.3,450.552 169.3,450 C169.3,449.448 169.7704,449 170.35,449 L176.65,449 C177.2296,449 177.7,449.448 177.7,450 M173.5,458 C168.86845,458 165.1,454.411 165.1,450 C165.1,445.589 168.86845,442 173.5,442 C178.13155,442 181.9,445.589 181.9,450 C181.9,454.411 178.13155,458 173.5,458 M173.5,440 C167.70085,440 163,444.477 163,450 C163,455.523 167.70085,460 173.5,460 C179.29915,460 184,455.523 184,450 C184,444.477 179.29915,440 173.5,440" id="minus_circle-[#1426]"></path>
+        <svg class="icon" width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <title>User Unfollow</title>
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-220.000000, -2159.000000)" fill="#59617d">
+              <g transform="translate(56.000000, 160.000000)">
+                <path d="M178,2005 C178,2002.794 176.206,2001 174,2001 C171.794,2001 170,2002.794 170,2005 C170,2007.206 171.794,2009 174,2009 C176.206,2009 178,2007.206 178,2005 L178,2005 Z M184,2019 L179,2019 L179,2017 L181.784,2017 C180.958,2013.214 177.785,2011 174,2011 C170.215,2011 167.042,2013.214 166.216,2017 L169,2017 L169,2019 L164,2019 C164,2014.445 166.583,2011.048 170.242,2009.673 C168.876,2008.574 168,2006.89 168,2005 C168,2001.686 170.686,1999 174,1999 C177.314,1999 180,2001.686 180,2005 C180,2006.89 179.124,2008.574 177.758,2009.673 C181.417,2011.048 184,2014.445 184,2019 L184,2019 Z M171,2019 L177,2019 L177,2017 L171,2017 L171,2019 Z" id="profile_minus-[#1340]"></path>
               </g>
             </g>
           </g>
         </svg>
       </a>';
     } else return $userPathBegin.$userid.'">
-      <svg width="30px" height="30px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>plus_circle</title>
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g id="Dribbble-Dark-Preview" transform="translate(-259.000000, -600.000000)" fill="#59617d">
-            <g id="icons" transform="translate(56.000000, 160.000000)">
-              <path d="M214.55,449 L217.7,449 L217.7,451 L214.55,451 L214.55,454 L212.45,454 L212.45,451 L209.3,451 L209.3,449 L212.45,449 L212.45,446 L214.55,446 L214.55,449 Z M213.5,458 C208.86845,458 205.1,454.411 205.1,450 C205.1,445.589 208.86845,442 213.5,442 C218.13155,442 221.9,445.589 221.9,450 C221.9,454.411 218.13155,458 213.5,458 L213.5,458 Z M213.5,440 C207.70085,440 203,444.477 203,450 C203,455.523 207.70085,460 213.5,460 C219.29915,460 224,455.523 224,450 C224,444.477 219.29915,440 213.5,440 L213.5,440 Z" id="plus_circle-[#1425]"></path>
+      <svg class="icon" width="20px" height="22px" viewBox="0 0 20 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>User Follow</title>
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g transform="translate(-100.000000, -2159.000000)" fill="#59617d">
+            <g transform="translate(56.000000, 160.000000)">
+              <path d="M58.0831232,2004.99998 C58.0831232,2002.79398 56.2518424,2000.99998 54,2000.99998 C51.7481576,2000.99998 49.9168768,2002.79398 49.9168768,2004.99998 C49.9168768,2007.20598 51.7481576,2008.99998 54,2008.99998 C56.2518424,2008.99998 58.0831232,2007.20598 58.0831232,2004.99998 M61.9457577,2018.99998 L60.1246847,2018.99998 C59.5612137,2018.99998 59.1039039,2018.55198 59.1039039,2017.99998 C59.1039039,2017.44798 59.5612137,2016.99998 60.1246847,2016.99998 L60.5625997,2016.99998 C61.26898,2016.99998 61.790599,2016.30298 61.5231544,2015.66198 C60.2869889,2012.69798 57.3838883,2010.99998 54,2010.99998 C50.6161117,2010.99998 47.7130111,2012.69798 46.4768456,2015.66198 C46.209401,2016.30298 46.73102,2016.99998 47.4374003,2016.99998 L47.8753153,2016.99998 C48.4387863,2016.99998 48.8960961,2017.44798 48.8960961,2017.99998 C48.8960961,2018.55198 48.4387863,2018.99998 47.8753153,2018.99998 L46.0542423,2018.99998 C44.7782664,2018.99998 43.7738181,2017.85698 44.044325,2016.63598 C44.7874534,2013.27698 47.1076881,2010.79798 50.1639058,2009.67298 C48.7695192,2008.57398 47.8753153,2006.88998 47.8753153,2004.99998 C47.8753153,2001.44898 51.0234032,1998.61898 54.7339414,1999.04198 C57.422678,1999.34798 59.6500217,2001.44698 60.0532301,2004.06998 C60.4002955,2006.33098 59.4560733,2008.39598 57.8360942,2009.67298 C60.8923119,2010.79798 63.2125466,2013.27698 63.955675,2016.63598 C64.2261819,2017.85698 63.2217336,2018.99998 61.9457577,2018.99998 M57.0623424,2017.99998 C57.0623424,2018.55198 56.6050326,2018.99998 56.0415616,2018.99998 L55.2290201,2018.99998 C55.2290201,2019.99998 55.3351813,2020.99998 54.2082393,2020.99998 C53.6437475,2020.99998 53.1874585,2020.55198 53.1874585,2019.99998 L53.1874585,2018.99998 L51.9584384,2018.99998 C51.3949674,2018.99998 50.9376576,2018.55198 50.9376576,2017.99998 C50.9376576,2017.44798 51.3949674,2016.99998 51.9584384,2016.99998 L53.1874585,2016.99998 L53.1874585,2015.99998 C53.1874585,2015.44798 53.6437475,2014.99998 54.2082393,2014.99998 C54.7717103,2014.99998 55.2290201,2015.44798 55.2290201,2015.99998 L55.2290201,2016.99998 L56.0415616,2016.99998 C56.6050326,2016.99998 57.0623424,2017.44798 57.0623424,2017.99998" id="profile_plus_round-[#1343]"></path>
             </g>
           </g>
         </g>
@@ -309,7 +350,7 @@ function getPostInteractButtons($post, $criteria) {
     if ($_SESSION['id'] == $postUserId || array_key_exists('original_post_user_id', $post) && $_SESSION['id'] == $post['post_user_id']) {
       return $reply.$relay.$delete;
     } else {
-      $isPostLikedQueryResult = bind_and_get_result("SELECT * FROM liked_relations WHERE user = ? AND post_liked = ?", "ss", $new=array($_SESSION['id'], $postId));
+      $isPostLikedQueryResult = bind_and_get_result("SELECT * FROM liked_relations WHERE user = ? AND post_liked = ?", "ss", [$_SESSION['id'], $postId]);
       if (mysqli_num_rows($isPostLikedQueryResult) > 0) {
         $likedStatus = $heartFilled;
       } else {
@@ -389,40 +430,49 @@ function display_posts($type) {
   $posts = '';
 
   if (!$results || mysqli_num_rows($results) < 1) {
-    echo "There are no {$table} to display";
+    return "There are no {$table} to display";
   } else {
 
     while ($row = fetch_assoc($results)) {
 
       $postResult = bind_and_get_result(
-        "SELECT {$table}.id AS post_id, {$table}.userid AS post_user_id, users.username AS post_user_name,
-                profiles.user_display_name AS post_user_displayname, profileimg.status AS post_user_img_status,
-                profileimg.id AS post_user_img_id, profileimg.file_ext AS post_user_img_ext,
-                profiles.profile_header_img AS post_user_header_img, profiles.user_bio AS post_user_bio, 
-                {$table}.post AS post_text, {$table}.datetime AS post_created_at, {$table}.is_repost AS is_repost, 
-                {$table}.repost_from_post_id AS original_post_id
+        "SELECT
+          {$table}.id AS post_id,
+          {$table}.userid AS post_user_id,
+          users.username AS post_user_name,
+          profiles.user_display_name AS post_user_displayname,
+          COALESCE(profiles.profile_img, 'default') AS post_user_img,
+          profiles.profile_header_img AS post_user_header_img,
+          profiles.user_bio AS post_user_bio,
+          {$table}.post AS post_text,
+          {$table}.datetime AS post_created_at,
+          {$table}.is_repost AS is_repost,
+          {$table}.repost_from_post_id AS original_post_id
          FROM {$table}
-         INNER JOIN profileimg ON profileimg.userid = {$table}.userid
          LEFT JOIN users ON users.id = {$table}.userid
          LEFT JOIN profiles ON profiles.user_id = {$table}.userid
          WHERE {$table}.id = ?","s", esc($row['id']));
 
       if (mysqli_num_rows($postResult) < 1) {
-        echo 'That post does not exist';
+        return 'No posts to show';
       }
 
       $post = fetch_assoc($postResult);
 
       if ($post['is_repost'] == '1') {
         $originalPostResult = bind_and_get_result(
-          "SELECT posts.userid AS original_post_user_id, users.username AS original_post_user_name,
-                  profiles.user_display_name AS original_post_user_displayname, profileimg.status AS original_post_user_img_status,
-                  profileimg.id AS original_post_user_img_id, profileimg.file_ext AS original_post_user_img_ext,
-                  profiles.profile_header_img AS original_post_user_header_img, profiles.user_bio AS original_post_user_bio, 
-                  posts.post AS original_post_text, posts.datetime AS original_post_created_at, posts.is_repost AS original_post_is_repost,
-                  posts.repost_from_post_id AS original_post_repost_from_post_id
+          "SELECT
+            posts.userid AS original_post_user_id,
+            users.username AS original_post_user_name,
+            profiles.user_display_name AS original_post_user_displayname,
+            COALESCE(profiles.profile_img, 'default') AS original_post_user_img,
+            profiles.profile_header_img AS original_post_user_header_img,
+            profiles.user_bio AS original_post_user_bio,
+            posts.post AS original_post_text,
+            posts.datetime AS original_post_created_at,
+            posts.is_repost AS original_post_is_repost,
+            posts.repost_from_post_id AS original_post_repost_from_post_id
            FROM posts
-           INNER JOIN profileimg ON profileimg.userid = posts.userid
            LEFT JOIN users ON users.id = posts.userid
            LEFT JOIN profiles ON profiles.user_id = posts.userid
            WHERE posts.id = ?","s", esc($post['original_post_id']));
@@ -437,13 +487,16 @@ function display_posts($type) {
 
         if (array_key_exists('original_post_is_repost', $post) && $post['original_post_is_repost'] == '1') {
           $originalRelayedPostResult = bind_and_get_result(
-            "SELECT posts.userid AS original_relayed_post_user_id, users.username AS original_relayed_post_user_name,
-                    profiles.user_display_name AS original_relayed_post_user_displayname, profileimg.status AS original_relayed_post_user_img_status,
-                    profileimg.id AS original_relayed_post_user_img_id, profileimg.file_ext AS original_relayed_post_user_img_ext,
-                    profiles.profile_header_img AS original_relayed_post_user_header_img, profiles.user_bio AS original_relayed_post_user_bio, 
-                    posts.post AS original_relayed_post_text, posts.datetime AS original_relayed_post_created_at
+            "SELECT 
+              posts.userid AS original_relayed_post_user_id,
+              users.username AS original_relayed_post_user_name,
+              profiles.user_display_name AS original_relayed_post_user_displayname,
+              COALESCE(profiles.profile_img, 'default') AS original_relayed_post_user_img,
+              profiles.profile_header_img AS original_relayed_post_user_header_img,
+              profiles.user_bio AS original_relayed_post_user_bio,
+              posts.post AS original_relayed_post_text,
+              posts.datetime AS original_relayed_post_created_at
              FROM posts
-             INNER JOIN profileimg ON profileimg.userid = posts.userid
              LEFT JOIN users ON users.id = posts.userid
              LEFT JOIN profiles ON profiles.user_id = posts.userid
              WHERE posts.id = ?","s", esc($post['original_post_repost_from_post_id']));
@@ -478,7 +531,7 @@ function display_posts($type) {
         if (isset($post['original_post_deleted']) && $post['post_text'] !== '' || array_key_exists('original_relayed_post_deleted', $post)) {
           $postdetailHeader = <<<DELIMETER
             <a class="user_avatar" href="{$postUserLinkPath}">
-              <img src="{$postUserImagePath}">
+              <div class="user_img" style="background-image: url('$postUserImagePath')"></div>
             </a>
 DELIMETER;
 
@@ -495,7 +548,7 @@ DELIMETER;
 
         $echoPost = <<<DELIMETER
 
-        <div class="tweet">
+        <div class="post">
           {$relayedMessage}
           <div class="post_header">
 {$postdetailHeader}
@@ -503,17 +556,18 @@ DELIMETER;
 {$postDetailsBox}
             </p><!--post_details_box-->
           </div><!--post_header-->
-          <div class="tweetContent">
-            {$postTextContent}
+          <div class="postContent">
+            <p class="postBody">{$postTextContent}</p>
             <span class="post_deleted"> This post no longer exists. </span>
-          </div><!--tweetContent-->
+          </div><!--postContent-->
           {$postInteractButtons}
-        </div><!--tweet-->
+        </div><!--post-->
 DELIMETER;
 
       } else {
 
-        if (($post['is_repost'] == '1' && $post['post_text'] !== '') || ($post['post_text'] == '' && $post['is_repost'] == 1 && !array_key_exists('original_post_deleted', $post) && $post['original_post_is_repost'] == 1)) {
+        if (($post['is_repost'] == '1' && $post['post_text'] !== '') || 
+          ($post['post_text'] == '' && $post['is_repost'] == 1 && !array_key_exists('original_post_deleted', $post) && $post['original_post_is_repost'] == 1)) {
           $relayedMessage = getPostRelayInfo($post);
           $childPostUserName = getUserName($post, 'child');
           $childPostUserLinkPath = getUserLink($post, 'child');
@@ -525,10 +579,10 @@ DELIMETER;
           $childPostTextContent = getPostTextContent($post, 'child');
           $postInnerContent = <<<DELIMETER
 
-            <div class="tweet">
+            <div class="post">
               <div class="post_header">
                 <a class="user_avatar" href="{$childPostUserLinkPath}">
-                  <img src="{$childPostUserImagePath}">
+                  <div class="user_img" style="background-image: url('$childPostUserImagePath')"></div>
                 </a>
                 <p class="post_details_box">
                   <a class="userlink" href="{$childPostUserLinkPath}">{$childPostUserDisplayName}</a> @{$childPostUserName}<br>
@@ -536,10 +590,10 @@ DELIMETER;
                   {$childPostIsFollowingLink}
                 </p><!--post_details_box-->
               </div><!--post_header-->
-              <p class="tweetContent">
+              <p class="postContent">
                 {$childPostTextContent}
               </p>
-            </div><!--tweet-->
+            </div><!--post-->
 DELIMETER;
         } else {
           $postInnerContent = '';
@@ -547,25 +601,25 @@ DELIMETER;
 
         $echoPost = <<<DELIMETER
 
-        <div class="tweet">
+        <div class="post">
           {$relayedMessage}
           <div class="post_header">
             <a class="user_avatar" href="{$postUserLinkPath}">
-              <img src="{$postUserImagePath}">
+              <div class="user_img" style="background-image: url('$postUserImagePath')"></div>
             </a>
             <p class="post_details_box">
               <a class="userlink" href="{$postUserLinkPath}">{$postUserDisplayName}</a> @{$postUserName}<br>
               <span class="time"> {$postCreatedAtDatetime} ago </span> <a class="postArrow" href="$postPagePath">&#x27A4;</a>
             </p><!--post_details_box-->
           </div><!--post_header-->
-          <div class="tweetContent">
-            {$postTextContent}
+          <div class="postContent">
+            <p class="postBody">{$postTextContent}</p>
             {$postInnerContent}
-          </div><!--tweetContent-->
+          </div><!--postContent-->
           <div class="post_interaction_buttons">
             {$postInteractButtons}
           </div><!--post_interaction_buttons-->
-        </div><!--tweet-->
+        </div><!--post-->
 DELIMETER;
       }
       $posts .= $echoPost;
@@ -596,16 +650,22 @@ function displayUsers($who) {
   $users = '';
 
   if (!$results || mysqli_num_rows($results) < 1) {
-    echo "There are no users to display";
+    return "There are no users to display";
   } else {
     while ($row = fetch_assoc($results)) {
       $userResult = bind_and_get_result(
-        "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, profileimg.status AS user_img_status, 
-                profileimg.file_ext AS user_img_ext, profiles.user_bio, profiles.profile_header_img AS user_header_img
+        "SELECT
+          users.id AS user_id,
+          users.username AS user_name,
+          profiles.user_display_name, 
+          COALESCE(profiles.profile_img, 'default') AS user_img,
+          profiles.user_bio,
+          profiles.profile_header_img AS user_header_img
          FROM users 
          INNER JOIN profileimg ON profileimg.userid = users.id 
          LEFT JOIN profiles ON profiles.user_id = users.id
-         WHERE users.id = ?","s", esc($row['id']));
+         WHERE users.id = ?", "s", esc($row['id'])
+      );
 
       if (mysqli_num_rows($userResult) < 1) {
         echo 'That user does not exist';
@@ -628,43 +688,44 @@ function displayUsers($who) {
 
       $echoUser = <<<DELIMETER
 
-      <div class="user_node">
-
-        <div class="user_node_info">
-          <a href="{$userPath}"><img src="{$userImage}"></a><br>
+      <div class="userNode">
+        <div class="userNodeInfo">
+          <a class="user_avatar" href="{$userPath}">
+            <div class="user_img" style="background-image: url('$userImage')"></div>
+          </a><br>
           <a class="userName" href="$userPath">{$userDisplayName}</a><br>
           <span>@{$userName}</span><br>
-          <p class="user_node_bio">{$userBio}</p>
-        </div><!--user_node_info-->
+          <p class="userNodeBio">{$userBio}</p>
+        </div><!--userNodeInfo-->
 
-        <div class="user_node_header">
-        {$userFollowButton}
-        <a href="">
-          <svg width="30px" height="30px" viewBox="0 0 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <title>Direct Message</title>
-            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-              <g id="Dribbble-Dark-Preview" transform="translate(-300.000000, -922.000000)" fill="#59617d">
-                <g id="icons" transform="translate(56.000000, 160.000000)">
-                  <path d="M262,764.291 L254,771.318 L246,764.281 L246,764 L262,764 L262,764.291 Z M246,775 L246,766.945 L254,773.98 L262,766.953 L262,775 L246,775 Z M244,777 L264,777 L264,762 L244,762 L244,777 Z" id="email-[#1573]"></path>
+        <div class="userNodeActions">
+          {$userFollowButton}
+          <a href="">
+            <svg class="icon" width="30px" height="30px" viewBox="0 0 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>Direct Message</title>
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-300.000000, -922.000000)" fill="#59617d">
+                  <g transform="translate(56.000000, 160.000000)">
+                    <path d="M262,764.291 L254,771.318 L246,764.281 L246,764 L262,764 L262,764.291 Z M246,775 L246,766.945 L254,773.98 L262,766.953 L262,775 L246,775 Z M244,777 L264,777 L264,762 L244,762 L244,777 Z" id="email-[#1573]"></path>
+                  </g>
                 </g>
               </g>
-            </g>
-          </svg>
-        </a>
-        <a href="">
-          <svg width="30px" height="30px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <title>close</title>
-            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-              <g id="Dribbble-Dark-Preview" transform="translate(-419.000000, -240.000000)" fill="#59617d">
-                <g id="icons" transform="translate(56.000000, 160.000000)">
-                  <polygon id="close-[#1511]" points="375.0183 90 384 98.554 382.48065 100 373.5 91.446 364.5183 100 363 98.554 371.98065 90 363 81.446 364.5183 80 373.5 88.554 382.48065 80 384 81.446"></polygon>
+            </svg>
+          </a>
+          <a href="">
+            <svg class="icon" width="30px" height="30px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>block</title>
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-219.000000, -600.000000)" fill="#59617d">
+                  <g transform="translate(56.000000, 160.000000)">
+                    <path d="M177.7,450 C177.7,450.552 177.2296,451 176.65,451 L170.35,451 C169.7704,451 169.3,450.552 169.3,450 C169.3,449.448 169.7704,449 170.35,449 L176.65,449 C177.2296,449 177.7,449.448 177.7,450 M173.5,458 C168.86845,458 165.1,454.411 165.1,450 C165.1,445.589 168.86845,442 173.5,442 C178.13155,442 181.9,445.589 181.9,450 C181.9,454.411 178.13155,458 173.5,458 M173.5,440 C167.70085,440 163,444.477 163,450 C163,455.523 167.70085,460 173.5,460 C179.29915,460 184,455.523 184,450 C184,444.477 179.29915,440 173.5,440" id="minus_circle-[#1426]"></path>
+                  </g>
                 </g>
               </g>
-            </g>
-          </svg>
-        </a>
-        </div>
-      </div>
+            </svg>
+          </a>
+        </div><!--userNodeActions-->
+      </div><!--userNode-->
 DELIMETER;
 
       $users .= $echoUser;

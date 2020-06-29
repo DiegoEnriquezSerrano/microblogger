@@ -22,7 +22,14 @@ DELIMETER;
         <li class="nav-item"><a class="nav-link" data-directory="mutuals" href="{$homeDirectory}directory/mutuals">Mutuals</a></li>
       </ul><!--"#navList"-->
   DELIMETER;
-    } else {
+    } else if ($type == 'settings') {
+      $nav_list= <<<DELIMETER
+        <ul id="navList">
+          <li class="nav-item"><a class="nav-link" data-directory="all" href="{$homeDirectory}edit">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" data-directory="following" href="{$homeDirectory}edit/account">Account</a></li>
+        </ul><!--"#navList"-->
+    DELIMETER;
+      } else {
     $nav_list = <<<DELIMETER
       <ul id="navList">
         <li class="nav-item"><a class="nav-link" href="{$homeDirectory}timeline">Feed</a></li>

@@ -1,83 +1,107 @@
-/* #homeboy {
-  display: grid;
-  grid-template-areas: 
-      "header header  sections"
-      "home   middle  sections"
-      "home   middle  sections";
-}
-
-#headerModule {
-  grid-area: header;
-}
-
-#homeModule {
-  grid-area: home;
-} */
-
-#editModule {
-  grid-area: middle;
-}
-
-/* #sectionsModule {
-  grid-area: sections;
-} */
-
 #editModule {
   display: grid;
+  padding: 65px 15px 10px 15px;
 }
 
 #edit_container {
-  display: block;
   min-width: 250px;
   max-width: 700px;
   width: 100%;
-  background-color: var(--red);
-  background-image: linear-gradient(to top right, rgb(202, 58, 39), var(--red));
+  background-color: var(--segment);
   border-radius: 10px;
-  border: 2px solid coral;
-  box-shadow: -1px 2px 6px -2px rgb(5,5,5);
+  box-shadow: 0 0 8px 0 rgb(5,5,5);
+  text-align: center;
+  align-items: center;
 }
 
 #edit_form {
+  text-align: left;
   display: grid;
-  grid-template-columns: 35% 65%;
-  grid-template-areas: 
-    "key1 value1"
-    "key2 value2"
-    "key3 value3";
+  align-content: stretch
 }
 
-.label.one {
-  grid-area: key1;
-}
-
-.label.two {
-  grid-area: key2;
-}
-
-.label.three {
-  grid-area: key3;
-}
-
-.input.one {
-  grid-area: value1;
-}
-
-.input.two {
-  grid-area: value2;
-}
-.input.three {
-  grid-area: value3;
+#edit_form hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--hilite);
+  margin: 15px 0;
 }
 
 .label {
-  padding: 20px;
+  padding: 15px 0 0 0;
+  color: var(--detail);
+  margin: 0 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .input {
-  display: block;
-  padding: 5px;
-  margin: 5px;
-  border: 1px solid coral;
-  background: #b0b0b0;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid var(--hilite);
+  border-radius: 5px;
+  color: var(--copy);
+  font-size: 0.9rem;
+  margin: 5px 20px;
+  max-width: calc(100% - 40px);
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.input:focus {
+  border: 1px solid var(--orange);
+}
+
+.user_img {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center; 
+  margin: 20px 5px 0px;
+}
+
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px; 
+}
+
+[type="file"] + label {
+  background-color: var(--cta);
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  padding: 8px;
+  transition: background-color 0.3s;
+  position: absolute;
+  margin-left: 25px;
+}
+ 
+[type="file"]:focus + label,
+[type="file"] + label:hover {
+  background-color: var(--orange);
+}
+ 
+[type="file"]:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+button {
+  justify-self: center;
+  margin: 5px 0 20px 0;
+}
+
+button:hover {
+  border: 2px solid var(--orange);
+  cursor: pointer;
 }

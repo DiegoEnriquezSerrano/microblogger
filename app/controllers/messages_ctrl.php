@@ -73,28 +73,28 @@ DELIMETER;
   }
 }
 
-function display_message_list(){
+function showConnections(){
   $messageListResults = bind_and_get_result(
-  'SELECT
-    (SELECT COALESCE(profiles.user_display_name, users2.username)
-    FROM users users2
-    INNER JOIN profiles ON users2.id = profiles.user_id
-    WHERE users2.id = users.id) as message_candidate_username, 
-    users.id AS message_candidate_id
-  FROM users
-  WHERE users.id IN (
+  "SELECT
+    COALESCE(p.user_display_name, u.username) AS message_candidate_username, 
+    u.id AS message_candidate_id,
+    COALESCE(p.profile_img, 'default') AS user_img
+  FROM users u
+  INNER JOIN profiles p ON u.id = p.user_id
+  WHERE u.id IN (
     SELECT follower
     FROM following_relations
     WHERE is_following = ?
     UNION
     SELECT is_following
     FROM following_relations
-    WHERE follower = ?)', 'ss', $new=array($_SESSION['id'], $_SESSION['id'])
+    WHERE follower = ?)", 'ss', [$_SESSION['id'], $_SESSION['id']]
   );
   if (mysqli_num_rows($messageListResults) < 1) {
     echo 'No messages :/';
   } else {
     while($messageList = fetch_assoc($messageListResults)) {
+      
       $messageList = <<<DELIMETER
     <div class="message_row" data-userid="{$messageList['message_candidate_id']}">
       <div class="last_sender">
@@ -160,9 +160,9 @@ DELIMETER;
   return $messages;
 }
 
-require_once "app/views/_nav_panel.html.php";
+require_once "app/views/_sections.html.php";
 
-$styles = [$homeStyles, $messagesStyles];
+$styles = [$mainStyles, $messagesStyles];
 $scripts = [$mainScript, $messagesScript];
 $sections = displaySections();
 $thread = displayThread();

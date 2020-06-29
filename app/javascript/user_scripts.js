@@ -10,10 +10,10 @@ function fixNav() {
     topOfNav[0] = originalTopOfNav;
   }
   if (window.scrollY >= topOfNav[0]) {
-    _q('#postsModule').style.paddingTop = nav.offsetHeight + 'px';
+    _q('#mainModule').style.paddingTop = nav.offsetHeight + 'px';
     document.body.classList.add('fixed-nav');
   } else {
-    _q('#postsModule').style.paddingTop = 0;
+    _q('#mainModule').style.paddingTop = 0;
     document.body.classList.remove('fixed-nav');
   }
 }

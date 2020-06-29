@@ -3,7 +3,7 @@
     <button class="modal_close"></button>
   </div><!--modal_close_container-->
   <div class="message_recipients">
-<?php display_message_list(); ?>
+<?php showConnections(); ?>
 
   </div><!--message_recipients-->
 </div><!--modal-->

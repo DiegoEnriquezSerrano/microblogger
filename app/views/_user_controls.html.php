@@ -2,10 +2,9 @@
 
   $id = esc($_SESSION['id']);
   $userResult = bind_and_get_result(
-    "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, profileimg.status AS user_img_status, 
-            profileimg.file_ext AS user_img_ext, profiles.user_bio, profiles.profile_header_img AS user_header_img
+    "SELECT users.id AS user_id, users.username AS user_name, profiles.user_display_name, 
+     COALESCE(profiles.profile_img, 'default') AS user_img, profiles.user_bio, profiles.profile_header_img AS user_header_img
      FROM users 
-     INNER JOIN profileimg ON profileimg.userid = users.id 
      LEFT JOIN profiles ON profiles.user_id = users.id
      WHERE users.id = ?","s", esc($id));
   

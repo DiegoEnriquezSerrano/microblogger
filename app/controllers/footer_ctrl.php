@@ -16,5 +16,6 @@ $timelineScript = $scriptBegin.'timeline_scripts.js'.$scriptEnd;
 $noSessionScript = $scriptBegin.'no_session.js'.$scriptEnd;
 $userScript = $scriptBegin.'user_scripts.js'.$scriptEnd;
 $messagesScript = $scriptBegin.'messages_scripts.js'.$scriptEnd;
+$editScript = $scriptBegin.'edit_scripts.js'.$scriptEnd;
 
 $errorStringCheck = errorStringCheck();

@@ -2,7 +2,7 @@
 
     <div id="homeModule">
     </div><!--'#homeModule'-->
-    <div id="postsModule">
+    <div id="mainModule">
       <?php include("app/views/_post_form.php"); ?>
       <?php display_navlist('search'); ?>
 
@@ -11,4 +11,4 @@
         <?php display_posts('search'); ?>
 
       </div><!--'#postContainer'-->
-    </div><!--'#postsModule'-->
+    </div><!--'#mainModule'-->

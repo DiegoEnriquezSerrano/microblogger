@@ -3,12 +3,12 @@
 <?php echo $navlist; ?>
 
     </div><!--'#homeModule'-->
-    <div id="postsModule">
+    <div id="mainModule">
       <div id="postContainer">
 <?php echo $postShow; ?>
 
       </div><!--'#postContainer'-->
-    </div><!--'#postsModule'-->
+    </div><!--'#mainModule'-->
     <div id="sectionsModule">
       <div id="sectionsContainer">
 <?php echo $sections; ?>
