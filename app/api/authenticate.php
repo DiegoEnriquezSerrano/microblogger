@@ -45,7 +45,6 @@ if(isset($_SESSION['id'])) {$key = $_SESSION['id'];}
           if (mysqli_num_rows($img_insert) > 0) {
             while ($row = fetch_assoc($img_insert)) {
               $userid = $_SESSION['id'];
-              bind_and_execute_stmt("INSERT INTO `profileimg` ( `userid`, `status`, `file_ext`) VALUES (?, 1, '.jpg')", "s", $userid);
               bind_and_execute_stmt("INSERT INTO `profiles` (`user_id`) VALUES (?)", "s", $userid);
               echo 1;
             }

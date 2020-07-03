@@ -1,3 +1,7 @@
+#mainModule {
+  padding: 0;
+}
+
 
 #messagesHeader {
   display: grid;
@@ -26,6 +30,9 @@
 
 #messagesContainer {
   width: 100%;
+  display: grid;
+  grid-gap: 15px;
+  margin-top: 65px;
 }
 
 .message_row {
@@ -192,10 +199,22 @@
   opacity: 1;
 }
 
+/*_______________________Messages_End_______________________*
+ *__________________________________________________________*
+ *__________________________________________________________*
+ *_______________________Thread_Start_______________________*/
+
+
 #threadContainer {
   display: grid;
-  grid-auto-flow: row;
-  grid-gap: 5px;
+  grid-template-rows: 1fr;
+  width: 100%;
+  margin-bottom: 47px;
+}
+
+#threads {
+  grid-area: messages;
+  width: calc(100vw - 3.5rem);
 }
 
 .threadRow {
@@ -231,18 +250,17 @@
   color: var(--detail);
 }
 
-
-
 #replyContainer {
-  position: fixed;
   bottom: 0vh;
-  width: 89vw;
   background-color: var(--segment);
-  padding: 5px;
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 80% 20%;
   z-index: +2;
+  grid-area: input;
+  position:fixed;
+  padding: 5px;
+  width: calc(100vw - 2.5rem);
 }
 
 #thread-reply {
@@ -255,7 +273,7 @@
   overflow: visible;
   word-wrap: break-word;
   resize: none;
-  min-height: 25px;
+  min-height: 47px;
   max-height: 148px !important;
   transition: all 0.1s ease-out;
 }

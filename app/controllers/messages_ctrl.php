@@ -125,9 +125,8 @@ function displayThread() {
       FROM messages m
       INNER JOIN users u ON m.user_id = u.id
       INNER JOIN profiles p ON m.user_id = p.user_id
-      INNER JOIN profileimg pimg ON pimg.userid = m.user_id
       WHERE m.message_thread_hash = ?
-      ORDER BY m.sent_at ASC', 's', esc($paths[2])
+      ORDER BY m.sent_at DESC LIMIT 10', 's', esc($paths[2])
     );
 
     if (mysqli_num_rows($threadResult) < 1) {
@@ -135,12 +134,7 @@ function displayThread() {
     } else {
       while ($threadMessage = fetch_assoc($threadResult)) {
         $messageTime = timeSinceDateTime($threadMessage['sent_at']);
-        if($threadMessage['user_id'] == $_SESSION['id']) {
-          $mine = 'mine';
-          
-        } else {
-          $mine = '';
-        }
+        $threadMessage['user_id'] == $_SESSION['id'] ? $mine = 'mine' : $mine = '';
         $message = <<<DELIMETER
         <div class="threadRow {$mine}">
           <div class="guestAvatar"></div>
@@ -153,7 +147,7 @@ function displayThread() {
         </div><!--threadRow-->
 
 DELIMETER;
-        $messages .= $message;
+        $messages = $message.$messages;
       }
     }
   }

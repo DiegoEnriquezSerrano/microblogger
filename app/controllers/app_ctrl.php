@@ -661,8 +661,7 @@ function displayUsers($who) {
           COALESCE(profiles.profile_img, 'default') AS user_img,
           profiles.user_bio,
           profiles.profile_header_img AS user_header_img
-         FROM users 
-         INNER JOIN profileimg ON profileimg.userid = users.id 
+         FROM users
          LEFT JOIN profiles ON profiles.user_id = users.id
          WHERE users.id = ?", "s", esc($row['id'])
       );

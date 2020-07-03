@@ -14,6 +14,20 @@ window.onclick = (event) => {if (event.target == modal) {modal.style.display = "
 
 const modalClose = (modal) => { modal.classList.remove('open') };
 
+const emailRegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+const alphaNumbericRegExp = new RegExp(/^[a-z0-9_-]+$/i);
+const textRegExp = new RegExp(/^[a-zA-Z0-9 !@#$%?'/\n\^&*)(+=;._-]*$/);
+
+function validate_email(regExp, input) {
+  return regExp.test(input);
+};
+
+function validate_string(regExp, input, max, min) {
+  if (input.length >= max || (min && input.length <= --min)) return false;
+  if (!min && input) return regExp.test(input);
+  return regExp.test(input);
+};
+
 (() => {_q('#loginActive').value = "1";})();
 _q('#toggleLogin').onclick = () => {
   if(_q('#loginActive').value == "1") {
@@ -28,10 +42,10 @@ _q('#toggleLogin').onclick = () => {
     _q('#loginSignupButton').innerHTML = "Login";
     _q('#username').style.display = "none";
     _q('#toggleLogin').innerHTML = "Sign up";
-  }
-}
+  };
+};
 
-const timezone = function(){return Intl.DateTimeFormat().resolvedOptions().timeZone;}
+const timezone = () => { return Intl.DateTimeFormat().resolvedOptions().timeZone };
 
 window.onload = () => {
   let ajax = new XMLHttpRequest();
@@ -283,13 +297,11 @@ function generateEventHandlers(){
     })
   });
 
-}
+};
 
 generateEventHandlers();
 
-_q('#sections_expander').onclick = () => {
-  _q('#sectionsContainer').classList.toggle('expanded');
-};
+_q('#sections_expander').onclick = () => { _q('#sectionsContainer').classList.toggle('expanded') };
 
 breakWord = (element, cutoffPoint) => {
   breakPoint = cutoffPoint - 1;

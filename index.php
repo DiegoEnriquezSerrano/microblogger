@@ -28,25 +28,12 @@
     display_header_and_styles($styles);
     include("app/views/draft/index.html.php");
     
-  } else if ($paths[0] == 'timeline') {
-    checkForSession();
-    include("app/controllers/timeline_ctrl.php");
-    display_header_and_styles($styles);
-    include("app/views/timeline/index.html.php");
-
-  } else if ($paths[0] == 'published') {
-    checkForSession();
-    include("app/controllers/timeline_ctrl.php");
-    display_header_and_styles($styles);
-    include("app/views/timeline/index.html.php");
-
-  } else if ($paths[0] == 'liked') {
-    checkForSession();
-    include("app/controllers/timeline_ctrl.php");
-    display_header_and_styles($styles);
-    include("app/views/timeline/index.html.php");
-
-  } else if ($paths[0] == 'drafts') {
+  } else if (
+      $paths[0] == 'timeline' ||
+      $paths[0] == 'published' ||
+      $paths[0] == 'liked' ||
+      $paths[0] == 'drafts'
+    ) {
     checkForSession();
     include("app/controllers/timeline_ctrl.php");
     display_header_and_styles($styles);

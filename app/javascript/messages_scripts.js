@@ -70,43 +70,66 @@ let autoExpand = (field) => {
   parseInt(computed.getPropertyValue('border-right-width')) +
   parseInt(computed.getPropertyValue('border-left-width'));
   let height;
-  if (field.scrollHeight <= 29) height = 25
-  else height = field.scrollHeight - 2;
-  fullHeight = borderHeight + height
+  field.scrollHeight <= 29 ? height = 25 : height = field.scrollHeight - 4;
+  fullHeight = borderHeight + height;
   field.style.height = fullHeight + 'px';
 };
 
 //START MESSAGE THREAD BLOCK
 if (paths[1] === 'thread') {
+
+  let input = _q('#thread-reply');
+
+  (() => {_d.scrollingElement.scrollTop = _d.scrollingElement.scrollTopMax;})();
   
   generateEventHandlers = function() {
-    _q('#replyButton').onclick = () => {
-      if (_q('#thread-reply').value != '') {
+
+    let sendMessage = function () {
+      if (input.value != '') {
         let url = homeDirectory + "app/api/message_reply.php";
         let params = {
           method: 'POST',
-          body: 'message_body=' + _q('#thread-reply').value + '&message_thread_hash=' + paths[2],
+          body: 'message_body=' + input.value + '&message_thread_hash=' + paths[2],
           headers: { "Content-Type": "application/x-www-form-urlencoded" }
-        }
+        };
         fetch(url,params)
-        .then(response => {return response.text()})
-        .then(data => {
-          _q('#thread-reply').style.height = 33 + 'px';
-          let messageThread = _q('#threadContainer');
-          messageThread.innerHTML = messageThread.innerHTML + data;
-          generateEventHandlers();
-        });
-      }
-    }
+          .then(response => {return response.text()})
+          .then(data => {
+            input.value = '';
+            input.style.height = 33 + 'px';
+            let messageThread = _q('#threads');
+            let currentTop = _d.scrollingElement.scrollTop;
+            let currentTopMax = _d.scrollingElement.scrollTopMax;
+            messageThread.innerHTML = messageThread.innerHTML + data;
+            _q('#threadContainer').style.marginBottom = 33 + "px";
+            if (currentTop == currentTopMax) {
+              _d.scrollingElement.scrollTop = _d.scrollingElement.scrollTopMax;
+            };
+          });
+      };
+    };
+
+    _q('#replyButton').onclick = () => {
+      sendMessage();
+      generateEventHandlers();
+    };
   
     _q('#thread-reply').addEventListener('input', function (event) {
-      if (event.target.tagName.toLowerCase() !== 'textarea') return;
+      let currentTop = _d.scrollingElement.scrollTop;
+      let currentTopMax = _d.scrollingElement.scrollTopMax;
+      let inputHeight = event.target.offsetHeight;
       autoExpand(event.target);
+      if (inputHeight != event.target.height) {
+        _q('#threadContainer').style.marginBottom = event.target.offsetHeight + "px";
+      };
+      if (currentTop == currentTopMax) {
+        _d.scrollingElement.scrollTop = _d.scrollingElement.scrollTopMax;
+      };
     }, false);
-  }
+  };
 
   generateEventHandlers();
-}
+};
 //END MESSAGE THREAD BLOCK
 
 

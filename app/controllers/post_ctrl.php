@@ -30,7 +30,6 @@ $postResult = bind_and_get_result(
     posts.is_repost AS is_repost,
     posts.repost_from_post_id AS original_post_id
   FROM posts
-  INNER JOIN profileimg ON profileimg.userid = posts.userid
   LEFT JOIN users ON users.id = posts.userid
   LEFT JOIN profiles ON profiles.user_id = posts.userid
   WHERE posts.id = ?","i", esc(sanitizedPostId($postIdFromURL[1])));

@@ -21,9 +21,9 @@ $editModule = <<<DELIMETER
             </g>
           </svg>
         </label>
-      </div>
+      </div><!--row-->
     </form>
-  </div>
+  </div><!--user_img-->
 
   <form id="edit_form" method="post">
     <label for="username" class="label one">Username</label>

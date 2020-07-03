@@ -1,14 +1,14 @@
 <div id="mainModule">
-  <div id="messagesContainer">
-    <div id="threadContainer">
+  <div id="threadContainer">
+    <div id="threads">
 <?php echo $thread ?>
 
-      <div id="replyContainer">
-        <textarea rows=1 id="thread-reply" placeholder="Type a response"></textarea>
-        <button id="replyButton">Send</button>
-      </div><!--replyContainer-->
-    </div><!--threadContainer-->
-  </div><!--messagesContainer-->
+    </div><!--threads-->
+  </div><!--threadContainer-->
+  <div id="replyContainer">
+    <textarea rows=1 id="thread-reply" placeholder="Type a response"></textarea>
+    <button id="replyButton">Send</button>
+  </div><!--replyContainer-->
 </div><!--'#mainModule'-->
 <div id="sectionsModule">
   <div id="sectionsContainer">
