@@ -5,9 +5,10 @@
   display: grid;
   grid-auto-flow: row;
   align-content: center;
-  justify-items: center;
+  justify-items: end;
   padding: 5px 0.2rem;
   color: var(--detail);
+  justify-self: end;
 }
 
 .switch {
@@ -70,4 +71,78 @@
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/*______________________Components_End______________________*
+ *__________________________________________________________*
+ *__________________________________________________________*
+ *_______________________Drafts_Start_______________________*/
+
+#draftContainer {
+  width: 100%;
+  padding-top: 65px;
+}
+
+.postForm {
+  background-color: var(--segment);
+  border-radius: 15px;
+  padding: 20px;
+  color: var(--copy);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 
+    "heading heading slider"
+    "body body body"
+    "cta cta cta";
+}
+
+.postForm h3 {
+  grid-area: heading;
+  justify-self: flex-start;
+  margin-left: 5px;
+}
+
+#postFeedback {
+  display: none;
+}
+
+#postBody {
+  padding: 15px;
+  border: 1px solid var(--hilite);
+  background: transparent;
+  color: var(--copy);
+  width: 100%;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  grid-area: body;
+  margin-top: 10px;
+  min-height: 16rem;
+}
+
+#postActions {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 15px;
+  justify-content: center;
+  margin-top: 15px;
+  grid-area: cta;
+}
+
+#postActions button {
+  padding: 5px 20px;
+  border-radius: 15px;
+  border: 1px solid var(--cta);
+  transition: all 0.2s;
+}
+
+button#postPreview {
+  border: 1px solid var(--hilite);
+  background-color: var(--fg);
+  color: var(--detail);
+}
+
+#postActions button:hover {
+  border-color: var(--orange);
 }
