@@ -3,11 +3,15 @@
 require_once "app/controllers/post_form_ctrl.php";
 
 function postForm() {
+  global $paths;
   global $draftText;
+  
+  $paths[0] === 'draft' ? $heading = 'Draft' : $heading = 'New post';
+
   if(isset($_SESSION['id']) && $_SESSION['id'] > 0) {
     $postForm = <<<DELIMETER
       <div class="postForm">
-        <h3>New Post</h3>
+        <h3>{$heading}</h3>
         <div class="draftSlider">
           <span id="">Draft?</span>
           <label class="switch">

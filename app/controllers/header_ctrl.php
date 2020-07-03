@@ -12,6 +12,7 @@ $editStyles = $linkStart.'edit_styles.css">';
 $directoryStyles = $linkStart.'directory_styles.css">';
 $noAuthStyles = $linkStart.'no_session_styles.css">';
 $messagesStyles = $linkStart.'messages_styles.css">';
+$draftStyles = $linkStart.'draft_styles.css">';
 
 
 function returnListOfStyleSheets($stylesArray) {
