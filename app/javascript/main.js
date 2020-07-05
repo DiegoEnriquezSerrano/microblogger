@@ -304,7 +304,7 @@ generateEventHandlers();
 _q('#sections_expander').onclick = () => { _q('#sectionsContainer').classList.toggle('expanded') };
 
 breakWord = (element, cutoffPoint) => {
-  breakPoint = cutoffPoint - 1;
+  breakPoint = --cutoffPoint;
   _qs(element).forEach((elem) => {
     if (elem.innerText.length > breakPoint) {
       let string = elem.innerText;

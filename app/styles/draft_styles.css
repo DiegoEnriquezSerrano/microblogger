@@ -95,7 +95,12 @@
   grid-template-areas: 
     "heading heading slider"
     "body body body"
+    "quoted quoted quoted"
     "cta cta cta";
+}
+
+.smallPost {
+  grid-area: quoted;
 }
 
 .postForm h3 {
@@ -145,4 +150,49 @@ button#postPreview {
 
 #postActions button:hover {
   border-color: var(--orange);
+}
+
+.smallPost {
+  width: 100%;
+  border: 1px solid var(--hilite);
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--detail);
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+.smallPostHeader {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2.5rem 1fr;
+  grid-gap: 5px;
+  color: var(--detail)
+}
+
+.smallPostUserDetail {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.smallPostContent {
+  padding-top: 5px;
+}
+
+.smallPost a.userlink {
+  font-size: 0.95rem;
+  color: var(--copy);
+}
+
+.smallPost .smallAvatar {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.smallPost .user_img {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  background-size: contain;
 }
