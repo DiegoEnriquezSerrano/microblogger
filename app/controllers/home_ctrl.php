@@ -12,4 +12,4 @@ if (!isset($_SESSION['id'])) {
 
 display_header_and_styles($styles);
 
-$scripts = [$mainScript,$noSessionScript];
+$scripts = [$mainScript, $noSessionScript];

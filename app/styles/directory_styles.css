@@ -74,12 +74,16 @@
   align-items: center;
   max-height: 12rem;
   background-color: var(--fg);
-  border-left: 1px solid var(--hilite);
+  border-left: 2px solid var(--bg);
 }
 
 .userNodeActions a svg {
   width: 30px;
   height: 30px;
+}
+
+.userNodeActions a svg g {
+  fill: var(--fill);
 }
 
 .userNode img {

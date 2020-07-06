@@ -2,9 +2,7 @@
 
   require_once "functions.php";
 
-  if (strpos($_SERVER['REQUEST_URI'], "index.php" ) !== false) {
-    url(HOME_DIRECTORY);
-  }
+  if (strpos($_SERVER['REQUEST_URI'], "index.php" ) !== false) url(HOME_DIRECTORY);
 
   global $homeDirectory;
   require_once "config/router.php";
@@ -12,18 +10,14 @@
   require_once "app/controllers/footer_ctrl.php";
 
   if ($paths[0] == 'post') {
-    if ($paths[1] == '') {
-      url(HOME_DIRECTORY);
-    }
+    if ($paths[1] == '') url(HOME_DIRECTORY);
     include("app/controllers/post_ctrl.php");
     display_header_and_styles($styles);
     include("app/views/post/index.html.php");
     
   } else if ($paths[0] == 'draft') {
     checkForSession();
-    if ($paths[1] == '') {
-      url(HOME_DIRECTORY);
-    }
+    if ($paths[1] == '') url(HOME_DIRECTORY);
     include("app/controllers/draft_ctrl.php");
     display_header_and_styles($styles);
     include("app/views/draft/index.html.php");
@@ -58,11 +52,9 @@
     checkForSession();
     require_once("app/controllers/edit_profile_ctrl.php");
     display_header_and_styles($styles);
-    if (isset($paths[1]) && $paths[1] == 'account') {
-      include("app/views/edit/account.html.php");
-    } else {
+    isset($paths[1]) && $paths[1] == 'account' ?
+      include("app/views/edit/account.html.php") :
       include("app/views/edit/index.html.php");
-    };
 
   } else if ($paths[0] == 'inbox') {
     checkForSession();
@@ -73,9 +65,7 @@
       include("app/views/messages/_select_recipients_modal.html.php");
 
     } else if (isset($paths[1]) && $paths[1] == 'thread') {
-      if (!isset($paths[2]) || $paths[2] == '') {
-        url(HOME_DIRECTORY);
-      }
+      if (!isset($paths[2]) || $paths[2] == '') url(HOME_DIRECTORY);
       include("app/views/messages/thread.html.php");
     }
      else if (!isset($paths[1])) {

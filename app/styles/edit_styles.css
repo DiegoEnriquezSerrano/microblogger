@@ -22,8 +22,8 @@
 
 #edit_form hr {
   border: 0;
-  height: 1px;
-  background-color: var(--hilite);
+  height: 2px;
+  background-color: var(--bg);
   margin: 15px 0;
 }
 
@@ -38,7 +38,7 @@
 .input {
   padding: 10px;
   background-color: transparent;
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
   border-radius: 5px;
   color: var(--copy);
   font-size: 0.9rem;

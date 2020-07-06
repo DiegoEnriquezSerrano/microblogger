@@ -116,7 +116,7 @@
 
 .post .post {
   min-width: 70px;
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
   box-shadow: 0 0 0 0 transparent;
   margin: 10px 0 0 0;
   padding: 10px
@@ -192,6 +192,10 @@ a.userlink {
   padding: 20px 10px;
   text-shadow: -1px 1px 1px rgb(0,0,0);
   font-size: 0.9rem;
+}
+
+.post_interaction_buttons a svg g {
+  fill: var(--fill);
 }
 
 a.delete_post_button,
@@ -360,7 +364,7 @@ a.toggleFollow {
   box-sizing: border-box;
   grid-area: body;
   color: var(--copy);
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
 }
 
 #postBody::placeholder {
@@ -390,7 +394,7 @@ a.toggleFollow {
   cursor: pointer;
   background-color: var(--cta-sec);
   color: var(--detail);
-  border: 1px solid var(--hilite);
+  border: 1px solid var(--bg);
 }
 
 .modalOverlay {
@@ -514,7 +518,7 @@ a.toggleFollow {
 
 .smallPost {
   width: 100%;
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
   border-radius: 10px;
   padding: 10px;
   color: var(--detail);
@@ -545,7 +549,7 @@ a.toggleFollow {
 }
 
 .relayAddComment textarea {
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
   padding: 10px;
   background-color: var(--segment);
   color: var(--copy);

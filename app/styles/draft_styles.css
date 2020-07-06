@@ -115,7 +115,7 @@
 
 #postBody {
   padding: 15px;
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
   background: transparent;
   color: var(--copy);
   width: 100%;
@@ -138,12 +138,12 @@
 #postActions button {
   padding: 5px 20px;
   border-radius: 15px;
-  border: 1px solid var(--cta);
+  border: 2px solid var(--cta2);
   transition: all 0.2s;
 }
 
 button#postPreview {
-  border: 1px solid var(--hilite);
+  border: 2px solid var(--bg);
   background-color: var(--fg);
   color: var(--detail);
 }

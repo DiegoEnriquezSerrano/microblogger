@@ -72,7 +72,7 @@ table {
 }
 
 :root {
-  --segment: rgb(21,26,48);
+  /* --segment: rgb(21,26,48);
   --fg:      rgb(25,32,56);
   --cta-sec: rgb(25,32,56);
   --bg:      rgb(34,43,69);
@@ -81,6 +81,17 @@ table {
   --detail:  rgb(146,155,182);
   --copy:    rgb(211,211,216);
   --cta:     rgb(6, 118, 237);
+  --orange:  rgb(241, 93, 34); */
+  --segment: rgb(47,47,47);     /*done*/
+  --fg:      rgb(58,58,58);     /*done*/
+  --cta-sec: rgb(66,66,66);     /*done*/
+  --bg:      rgb(39,39,39);     /*done*/
+  --hilite:  rgb(46,58,89);
+  --fill:    rgb(112,112,112);  /*done*/
+  --detail:  rgb(208,208,208);  /*done*/
+  --copy:    rgb(255,255,255);  /*done*/
+  --cta:     rgb(240,84,76);    /*done*/
+  --cta2:    rgb(255,98,108);   /*done*/
   --orange:  rgb(241, 93, 34);
 }
 
@@ -128,8 +139,9 @@ button:hover, a:hover {
 }
 
 .button.secondary {
-  border-color: var(--hilite);
+  border-color: var(--bg);
   background-color: var(--cta-sec);
+  color: var(--detail);
 }
 
 .button:hover {
@@ -225,7 +237,7 @@ button:hover, a:hover {
 }
 
 #navList a.active {
-  background-color: var(--hilite);
+  background-color: var(--fill);
   color: #fff;
   box-shadow: inset -1px 1px 5px -1px rgba(0,0,0,0.4);
 }
@@ -240,7 +252,6 @@ button:hover, a:hover {
 ///////////////////////////////////End Sections/*/
 
 #sectionsContainer {
-  background-color: transparent;
   height: 100vh;
   width: 75vw;
   overflow-y: auto;
@@ -275,8 +286,12 @@ button:hover, a:hover {
   font-weight: bold;
 }
 
+.sectionLink .icon g {
+  fill: var(--fill);
+}
+
 .sectionLink:hover {
-  background-color: var(--hilite);
+  background-color: var(--fg);
   color: var(--cta);
 }
 

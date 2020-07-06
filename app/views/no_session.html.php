@@ -20,7 +20,7 @@ function display_landing_page(){
         <div id="auth_box_foot">
           <button id="auth_box_submit_button">Login</button>
           <p>New user? <a id="toggle_auth_box_login" value="">Create an account.</a></p>
-          <p><a id="auth_box_close">Forgot password?</a></p>
+          <p>Forgot password? <a id="auth_box_close">Reset.</a></p>
         </div><!--'auth_box_foot'-->
       </div><!--'auth_box'-->
 DELIMETER;
@@ -51,7 +51,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0) { url(HOME_DIRECTORY); } else 
       <div id="sectionsContainer">
       <?php
   include_once "app/views/_sections.html.php";
-  displaySections(); ?>
+  echo displaySections(); ?>
 
       </div><!--sectionContainer-->
     </div><!--sections-->
