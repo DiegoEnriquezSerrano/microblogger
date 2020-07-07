@@ -82,10 +82,10 @@ table {
   --copy:    rgb(211,211,216);
   --cta:     rgb(6, 118, 237);
   --orange:  rgb(241, 93, 34); */
+  --bg:      rgb(39,39,39);     /*done*/
   --segment: rgb(47,47,47);     /*done*/
   --fg:      rgb(58,58,58);     /*done*/
   --cta-sec: rgb(66,66,66);     /*done*/
-  --bg:      rgb(39,39,39);     /*done*/
   --hilite:  rgb(46,58,89);
   --fill:    rgb(112,112,112);  /*done*/
   --detail:  rgb(208,208,208);  /*done*/

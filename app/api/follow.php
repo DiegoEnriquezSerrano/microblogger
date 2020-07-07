@@ -17,4 +17,4 @@ if (mysqli_num_rows($result) > 0) {
     [ esc($_SESSION['id']), esc($_POST['userid']), $date ]
   );
   echo 2;
-}
+};
